@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שיעור 5: כתובות IP ו-Subnetting | האקדמיה לרשתות</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: #030712;
+            color: #f3f4f6;
+        }
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #06b6d4;
+            border-radius: 3px;
+        }
+        @keyframes flow-line {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .network-line {
+            stroke-dasharray: 8;
+            animation: flow-line 2s linear infinite;
+        }
+
+        /* Crazy Cyberpunk Avatar & Glitch Animations */
+        @keyframes pulse-fast {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.08); }
+        }
+        @keyframes eye-glow {
+            0%, 100% { filter: drop-shadow(0 0 4px #ef4444) drop-shadow(0 0 8px #f43f5e); }
+            50% { filter: drop-shadow(0 0 8px #ff0000) drop-shadow(0 0 15px #ff0055); }
+        }
+        @keyframes glitch-shake {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-2px, 1px) rotate(-1deg); }
+            40% { transform: translate(2px, -1px) rotate(1deg); }
+            60% { transform: translate(-1px, -1px) rotate(0deg); }
+            80% { transform: translate(2px, 1px) rotate(1deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        .animate-pulse-fast {
+            animation: pulse-fast 1.2s infinite ease-in-out;
+        }
+        .eye-glow {
+            animation: eye-glow 0.8s infinite alternate;
+        }
+        .glitch-avatar:hover {
+            animation: glitch-shake 0.2s infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <!-- TOP BAR -->
+    <header class="border-b border-cyan-900/40 bg-slate-950/90 backdrop-blur sticky top-0 z-50 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-cyan-600/20 p-2 rounded-lg border border-cyan-500/30 text-cyan-450">
+                    <i data-lucide="globe" class="w-6 h-6 text-cyan-400"></i>
+                </div>
+                <div>
+                    <h1 class="font-black text-lg tracking-wide text-white">NET_ACADEMY // <span class="text-cyan-400">CLASS_05</span></h1>
+                    <p class="text-xs text-slate-400">כתובות IP ותת-רשתות: השכבה השלישית מתעוררת לחיים</p>
+                </div>
+            </div>
+            
+            <!-- Gamification & Progress Status -->
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-full border border-slate-800">
+                    <span class="text-xs text-slate-400">רמה:</span>
+                    <span class="text-xs font-bold text-cyan-400" id="user-level">שוליית נתבים</span>
+                    <div class="w-16 bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div id="level-bar" class="bg-cyan-500 h-full w-2/5 transition-all duration-500"></div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-2 bg-cyan-950/40 border border-cyan-500/30 px-3 py-1.5 rounded-lg text-cyan-450">
+                    <i data-lucide="zap" class="w-4 h-4 text-yellow-400 animate-pulse"></i>
+                    <span class="text-xs font-bold">XP:</span>
+                    <span class="text-sm font-black code-font text-cyan-300" id="xp-counter">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- SIDEBAR -->
+        <aside class="lg:col-span-3 flex flex-col gap-4">
+            <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-5">
+                <h3 class="text-sm font-bold text-slate-300 mb-4 tracking-wider uppercase border-b border-slate-800 pb-2">מפת המשימה</h3>
+                <nav class="flex flex-col gap-2">
+                    <!-- Step 1 -->
+                    <button id="btn-step-1" onclick="switchStep(1)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-cyan-950/30 border border-cyan-500/40 text-cyan-300 transition-all font-bold">
+                        <div class="flex items-center gap-3">
+                            <span class="code-font text-xs opacity-60">01.</span>
+                            <span>אנלוגיית המיקוד העולמי</span>
+                        </div>
+                        <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i>
+                    </button>
+                    <!-- Step 2 -->
+                    <button id="btn-step-2" onclick="switchStep(2)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition-all">
+                        <div class="flex items-center gap-3">
+                            <span class="code-font text-xs opacity-60">02.</span>
+                            <span>מבנה ה-IP והמסכה</span>
+                        </div>
+                        <i data-lucide="binary" class="w-4 h-4 opacity-50"></i>
+                    </button>
+                    <!-- Step 3 -->
+                    <button id="btn-step-3" onclick="switchStep(3)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition-all">
+                        <div class="flex items-center justify-between p-3 rounded-lg text-slate-400">
+                            <div class="flex items-center gap-3">
+                                <span class="code-font text-xs opacity-60">03.</span>
+                                <span>סימולטור קונפיגורציית רשת</span>
+                            </div>
+                            <i data-lucide="settings-2" class="w-4 h-4 opacity-50"></i>
+                        </div>
+                    </button>
+                    <!-- Step 4 -->
+                    <button id="btn-step-4" onclick="switchStep(4)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition-all">
+                        <div class="flex items-center gap-3">
+                            <span class="code-font text-xs opacity-60">04.</span>
+                            <span>בוט הניתוח ומבקר הרשת</span>
+                        </div>
+                        <i data-lucide="shield-check" class="w-4 h-4 opacity-50"></i>
+                    </button>
+                    <!-- Step 5 -->
+                    <button id="btn-step-5" onclick="switchStep(5)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition-all">
+                        <div class="flex items-center gap-3">
+                            <span class="code-font text-xs opacity-60">05.</span>
+                            <span>סיכום והורדת דוח</span>
+                        </div>
+                        <i data-lucide="award" class="w-4 h-4 opacity-50"></i>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- SYSTEM LOG -->
+            <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-5 flex-grow flex flex-col justify-between">
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 tracking-wider mb-3">יומן הגדרות IP</h4>
+                    <div id="system-log" class="text-xs code-font text-cyan-500/80 space-y-2 h-48 overflow-y-auto bg-slate-900/50 p-3 rounded border border-slate-800">
+                        <p>[15:44:01] פרוטוקול IPv4 מאותחל במערכת.</p>
+                        <p>[15:44:02] ממתין להקצאת כתובות סטטית...</p>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-800/50">
+                    <button onclick="resetProgress()" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 transition-colors">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                        <span>אפס התקדמות שיעור</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CONTENT DISPLAY AREA -->
+        <section class="lg:col-span-9 flex flex-col gap-6">
+
+            <!-- STEP 1: INTRO (POSTMAN ANALOGY) -->
+            <div id="step-1" class="step-container space-y-6">
+                <div class="bg-gradient-to-r from-cyan-950/40 to-slate-950 border border-cyan-900/40 rounded-2xl p-6 md:p-8 relative overflow-hidden">
+                    <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <span class="bg-cyan-900/60 border border-cyan-400/30 text-cyan-300 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">אתגר השכבה השלישית</span>
+                    
+                    <h2 class="text-2xl md:text-3xl font-black text-white mt-4 mb-3">איך הדוור יודע לאן ללכת?</h2>
+                    <p class="text-slate-300 leading-relaxed text-base">
+                        כתובות MAC שלמדנו עליהן בשיעור 3 הן מעולות למסגרת המקומית (אותו הרחוב). אך מה קורה כשצריך להעביר חבילה ממדינה אחת למדינה אחרת? 
+                        אם הדוור היה צריך לעבור בית-בית בכל העולם ולבדוק כתובת MAC ייחודית – כל מערכת הדואר העולמית הייתה קורסת. 
+                        בשביל זה נוצרה **כתובת ה-IP (Internet Protocol)**. היא כתובת לוגית בעלת מבנה היררכי המאפשרת ניתוב גלובלי מהיר.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl text-center">
+                            <span class="text-2xl">🌍</span>
+                            <h3 class="text-cyan-400 font-bold mt-2 text-sm">קוד המדינה (רשת)</h3>
+                            <p class="text-xs text-slate-400 mt-1">מגדיר באיזו רשת גלובלית/מדינה החבילה נמצאת.</p>
+                        </div>
+                        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl text-center">
+                            <span class="text-2xl">🏙️</span>
+                            <h3 class="text-cyan-400 font-bold mt-2 text-sm">שם הרחוב (תת-רשת)</h3>
+                            <p class="text-xs text-slate-400 mt-1">מצמצם את המיקום לשכונה/רחוב ספציפי בתוך הרשת.</p>
+                        </div>
+                        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl text-center">
+                            <span class="text-2xl">🏠</span>
+                            <h3 class="text-cyan-400 font-bold mt-2 text-sm">מספר הבית (מארח - Host)</h3>
+                            <p class="text-xs text-slate-400 mt-1">המחשב, הטלפון או המכשיר הספציפי ברחוב.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-slate-900/50 p-5 rounded-xl border border-slate-800/80">
+                        <p class="text-xs text-slate-300 font-bold mb-3">שאלה מהירה: מה קורה אם לשני מחשבים שונים באותו רחוב (רשת מקומית) תהיה אותה כתובת IP בדיוק?</p>
+                        <div class="flex flex-col gap-2">
+                            <button onclick="answerScenario(1)" class="bg-slate-950 hover:bg-slate-800 text-right border border-slate-700 text-slate-300 text-xs px-4 py-2.5 rounded transition-all">ייווצר 'סכסוך כתובות IP' (IP Conflict) והתקשורת של שניהם תיפגע או תיחסם.</button>
+                            <button onclick="answerScenario(2)" class="bg-slate-950 hover:bg-slate-800 text-right border border-slate-700 text-slate-300 text-xs px-4 py-2.5 rounded transition-all">הם יקבלו את אותן הודעות בדיוק כמו זוג תאומים סיאמיים ללא בעיה.</button>
+                        </div>
+                        <div id="scenario-feedback" class="mt-4 hidden p-3 rounded-lg text-xs font-semibold"></div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end">
+                    <button onclick="switchStep(2)" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all">
+                        <span>למד על מבנה ה-IP והמסכה</span>
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2: CONCEPT (IP AND SUBNET) -->
+            <div id="step-2" class="step-container space-y-6 hidden">
+                <div class="bg-slate-950 border border-slate-800/80 rounded-2xl p-6 md:p-8">
+                    <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider">תיאוריה חיונית</span>
+                    <h2 class="text-2xl font-black text-white mt-2 mb-4">איך מפרידים בין "הרחוב" לבין "הבית"?</h2>
+                    
+                    <p class="text-slate-300 leading-relaxed mb-6">
+                        כתובת IPv4 מורכבת מ-32 סיביות (Bits) המחולקות ל-4 מספרים בין 0 ל-255 המופרדים בנקודה (למשל `192.168.1.50`). 
+                        אבל איך המחשב יודע איזה חלק מהכתובת מייצג את ה**רשת (Network)** ואיזה חלק מייצג את ה**מכשיר (Host)**? 
+                        כאן נכנסת לתמונה <span class="text-cyan-450 font-bold">מסכת הרשת (Subnet Mask)</span>!
+                    </p>
+
+                    <!-- Interactive Subnet Cutter Explainer -->
+                    <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 max-w-2xl mx-auto space-y-6">
+                        <div class="text-center text-xs text-slate-400 font-bold">מבנה חלוקה קלאסי מסוג Class C:</div>
+                        
+                        <div class="flex flex-col md:flex-row justify-center items-center gap-4 text-center">
+                            <div class="bg-cyan-950/40 border border-cyan-500/50 p-4 rounded-xl flex-1">
+                                <span class="text-xs text-cyan-400 font-bold block mb-1">חלק הרשת (Network ID)</span>
+                                <span class="code-font text-xl font-bold text-white">192.168.1</span>
+                                <span class="text-[10px] text-slate-500 block mt-2">מוגדר על ידי ה-255.255.255 במסכה</span>
+                            </div>
+                            <div class="text-slate-500 font-black text-2xl">.</div>
+                            <div class="bg-purple-950/40 border border-purple-500/50 p-4 rounded-xl flex-1">
+                                <span class="text-xs text-purple-400 font-bold block mb-1">חלק המארח (Host ID)</span>
+                                <span class="code-font text-xl font-bold text-white">50</span>
+                                <span class="text-[10px] text-slate-500 block mt-2">מוגדר על ידי ה-0 במסכת הרשת</span>
+                            </div>
+                        </div>
+
+                        <!-- CIDR Concept Explainer -->
+                        <div class="border-t border-slate-800 pt-4 text-xs space-y-3">
+                            <p class="text-slate-300"><b>איך עובד החישוב המתמטי?</b></p>
+                            <p class="text-slate-400 leading-relaxed">
+                                מסכת רשת נפוצה של $255.255.255.0$ (המיוצגת גם כ-$/24$) קובעת כי שלושת המספרים הראשונים שייכים לרשת. 
+                                מספר המארחים האפשרי ברשת כזו מחושב לפי הנוסחה: $2^H - 2$, כאשר $H$ הוא מספר הביטים שנותרו למארח ($8$ ביטים במקרה זה). 
+                                כלומר: $2^8 - 2 = 254$ מחשבים אפשריים ברשת!
+                            </p>
+                            <div class="p-3 bg-slate-950 rounded border border-slate-800/80 text-[11px] text-amber-300">
+                                💡 <b>למה מפחיתים 2?</b> הכתובת הראשונה ברשת (למשל `192.168.1.0`) שמורה ככתובת הרשת עצמה, והכתובת האחרונה (למשל `192.168.1.255`) שמורה ככתובת ה-Broadcast לכולם. אסור להקצות אותן למחשבים!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between">
+                    <button onclick="switchStep(1)" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        <span>חזרה לאנלוגיה</span>
+                    </button>
+                    <button onclick="switchStep(3)" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all">
+                        <span>לסימולטור קונפיגורציית רשת</span>
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 3: INTERACTIVE NETWORK CONFIGURATOR -->
+            <div id="step-3" class="step-container space-y-6 hidden">
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 md:p-8">
+                    <span class="bg-cyan-900/60 border border-cyan-400/30 text-cyan-300 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">תחנת עבודה מעשית</span>
+                    <h2 class="text-2xl font-black text-white mt-3">סימולטור: קביעת הגדרות IP בשתי רשתות</h2>
+                    <p class="text-slate-400 text-sm mt-1">
+                        לפניך שני מחשבים (PC A ו-PC B) המחוברים באמצעות נתב (ראוטר). הגדר להם את כתובות ה-IP, מסכת הרשת ושער ברירת המחדל הנכונים כדי לאפשר להם לדבר זה עם זה!
+                    </p>
+
+                    <!-- Configurator Visual Board -->
+                    <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        
+                        <!-- Left Side: Interactive Configuration Forms -->
+                        <div class="lg:col-span-6 space-y-4">
+                            <!-- PC A configuration -->
+                            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                                <h3 class="text-sm font-bold text-cyan-400 flex items-center gap-2 mb-3">
+                                    <i data-lucide="monitor" class="w-4 h-4"></i>
+                                    הגדרות עבור PC A (רשת צפונית)
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                                    <div>
+                                        <label class="block text-slate-400 mb-1">כתובת IP (טווח מותר: 192.168.1.2-254)</label>
+                                        <input type="text" id="ip-pc-a" value="192.168.1.10" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-white font-mono focus:outline-none focus:border-cyan-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-slate-400 mb-1">מסכת רשת (Subnet Mask)</label>
+                                        <input type="text" id="mask-pc-a" value="255.255.255.0" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-white font-mono focus:outline-none focus:border-cyan-500">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-slate-400 mb-1">שער ברירת מחדל (Default Gateway - IP הראוטר המקומי)</label>
+                                        <input type="text" id="gw-pc-a" value="192.168.1.1" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-white font-mono focus:outline-none focus:border-cyan-500">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PC B configuration -->
+                            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                                <h3 class="text-sm font-bold text-purple-400 flex items-center gap-2 mb-3">
+                                    <i data-lucide="monitor" class="w-4 h-4"></i>
+                                    הגדרות עבור PC B (רשת דרומית)
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                                    <div>
+                                        <label class="block text-slate-400 mb-1">כתובת IP (טווח מותר: 10.0.0.2-254)</label>
+                                        <input type="text" id="ip-pc-b" value="10.0.0.20" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-white font-mono focus:outline-none focus:border-purple-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-slate-400 mb-1">מסכת רשת (Subnet Mask)</label>
+                                        <input type="text" id="mask-pc-b" value="255.0.0.0" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-white font-mono focus:outline-none focus:border-purple-500">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-slate-400 mb-1">שער ברירת מחדל (Default Gateway - IP הראוטר המקומי)</label>
+                                        <input type="text" id="gw-pc-b" value="10.0.0.1" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-white font-mono focus:outline-none focus:border-purple-500">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Live Network Topology Visualizer -->
+                        <div class="lg:col-span-6 bg-slate-900 rounded-xl border border-slate-800 p-5 flex flex-col justify-between">
+                            <div class="text-center">
+                                <span class="text-[10px] text-slate-500 font-mono">TOPOLOGY VIEW // CLASS_05</span>
+                                
+                                <!-- Visual Topology Drawing -->
+                                <div class="relative w-full h-48 mt-4 flex items-center justify-between px-6 bg-slate-950 rounded-lg border border-slate-850 overflow-hidden">
+                                    <!-- PC A -->
+                                    <div class="flex flex-col items-center z-10">
+                                        <i data-lucide="monitor" class="w-10 h-10 text-cyan-400"></i>
+                                        <span class="text-xs font-bold mt-1">PC A</span>
+                                        <span id="topo-ip-a" class="text-[9px] font-mono text-slate-400">192.168.1.10</span>
+                                    </div>
+
+                                    <!-- Connecting Lines -->
+                                    <svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Line Left to Router -->
+                                        <line x1="15%" y1="50%" x2="50%" y2="50%" stroke="#1e293b" stroke-width="4"></line>
+                                        <line id="line-left-active" x1="15%" y1="50%" x2="50%" y2="50%" stroke="#06b6d4" stroke-width="2" class="network-line hidden"></line>
+
+                                        <!-- Line Right to Router -->
+                                        <line x1="85%" y1="50%" x2="50%" y2="50%" stroke="#1e293b" stroke-width="4"></line>
+                                        <line id="line-right-active" x1="85%" y1="50%" x2="50%" y2="50%" stroke="#a855f7" stroke-width="2" class="network-line hidden"></line>
+                                    </svg>
+
+                                    <!-- Router in Middle -->
+                                    <div class="flex flex-col items-center z-10 bg-slate-900 border border-slate-700 p-3 rounded-full shadow-lg">
+                                        <i data-lucide="router" class="w-8 h-8 text-white"></i>
+                                        <span class="text-[9px] font-bold text-slate-400">Router</span>
+                                    </div>
+
+                                    <!-- PC B -->
+                                    <div class="flex flex-col items-center z-10">
+                                        <i data-lucide="monitor" class="w-10 h-10 text-purple-400"></i>
+                                        <span class="text-xs font-bold mt-1">PC B</span>
+                                        <span id="topo-ip-b" class="text-[9px] font-mono text-slate-400">10.0.0.20</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 mt-4">
+                                <button onclick="triggerPingTest()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2.5 rounded-lg text-xs transition-all flex items-center justify-center gap-2">
+                                    <i data-lucide="play" class="w-4 h-4"></i>
+                                    <span>הריצו בדיקת פינג (PC A ➔ PC B)</span>
+                                </button>
+                                <p class="text-[10px] text-slate-500 text-center">הסימולטור יבדוק האם הגדרתם כראוי את ה-IP, ה-Mask וערכי ה-Gateway עבור כל מחשב.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sim-feedback" class="mt-6 hidden p-4 rounded-xl text-xs font-bold"></div>
+                </div>
+
+                <div class="flex justify-between">
+                    <button onclick="switchStep(2)" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        <span>חזרה להסבר</span>
+                    </button>
+                    <button id="btn-to-step-4" onclick="switchStep(4)" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all disabled:opacity-40 disabled:pointer-events-none" disabled>
+                        <span>המשך לבודק העבודות AI</span>
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 4: AI WORK VALIDATOR (AI STEP) -->
+            <div id="step-4" class="step-container space-y-6 hidden">
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 md:p-8">
+                    <div class="flex justify-between items-start flex-wrap gap-4 border-b border-slate-800 pb-4">
+                        <div>
+                            <span class="bg-amber-900/60 border border-amber-400/30 text-amber-300 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">מערכת ביקורת מבוססת AI</span>
+                            <h2 class="text-2xl font-black text-white mt-3">מבקר הרשת: AI Code & IP Validator</h2>
+                            <p class="text-slate-400 text-sm mt-1">בשלב זה של הסדרה, הבוט משמש כבודק עבודות קפדני. המצא כתובת תת-רשת ומסכה ושלח אותן לבדיקת ה-AI.</p>
+                        </div>
+                        <div class="bg-slate-900/80 border border-slate-800 px-3 py-1 rounded text-xs text-yellow-400 code-font flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse"></span>
+                            <span>STATUS: LIVE_VALIDATOR</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mt-6">
+                        <!-- Left Side: User Challenge Input -->
+                        <div class="md:col-span-5 bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+                            <h3 class="text-xs font-bold text-white tracking-wide uppercase border-b border-slate-800 pb-2">הגש את תרחיש הרשת שלך:</h3>
+                            
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <label class="block text-slate-300 mb-1">הקלד כתובת IP חוקית כלשהי (IPv4):</label>
+                                    <input type="text" id="ai-user-ip" placeholder="למשל: 192.168.10.35" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded text-white font-mono focus:outline-none focus:border-cyan-500">
+                                </div>
+                                <div>
+                                    <label class="block text-slate-300 mb-1">הקלד מסכת רשת מתאימה:</label>
+                                    <input type="text" id="ai-user-mask" placeholder="למשל: 255.255.255.0" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded text-white font-mono focus:outline-none focus:border-cyan-500">
+                                </div>
+                                <div>
+                                    <label class="block text-slate-300 mb-1">הסבר בקצרה במילים שלך - מהי מטרת ה-Gateway ברשת?</label>
+                                    <textarea id="ai-user-explanation" rows="3" placeholder="הסבר כאן במילים שלך..." class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded text-white text-xs focus:outline-none focus:border-cyan-500"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Chat and AI Validation Output -->
+                        <div class="md:col-span-7 bg-slate-900 border border-slate-800 p-5 rounded-xl flex flex-col justify-between min-h-[400px]">
+                            <!-- Chat Area -->
+                            <div class="flex-grow flex flex-col">
+                                <h3 class="text-xs font-bold text-white mb-3">משוב מנתח הרשתות (AI):</h3>
+                                <div id="chat-messages" class="flex-grow overflow-y-auto bg-slate-950 p-4 rounded-lg border border-slate-800 h-[260px] space-y-3 text-xs">
+                                    <div class="text-slate-400">
+                                        <span class="text-[10px] font-bold text-cyan-400 block mb-1">SYSTEM_VALIDATOR // </span>
+                                        הזן את הגדרות הרשת שלך משמאל והסבר מהו ה-Gateway. אלחץ על כפתור "שלח לבדיקת מומחה AI" ואני אבצע ניתוח לוגי מלא של הנתונים שהגשת!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button onclick="sendWorkToValidator()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-xs transition-all flex items-center justify-center gap-2 mt-4">
+                                <i data-lucide="check-square" class="w-4 h-4"></i>
+                                <span>שלח לבדיקת מומחה AI</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Achievement Unlock Alert -->
+                    <div id="ai-bonus-alert" class="mt-4 hidden bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 p-4 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl">🏆</span>
+                            <div>
+                                <p class="font-bold">הישג נפתח! מומחה סאבנטים צעיר</p>
+                                <p class="text-xs opacity-80">תשובתך נותחה על ידי הבוט ונמצאה תקינה ללא שגיאות כתובת.</p>
+                            </div>
+                        </div>
+                        <span class="font-mono text-xs text-cyan-400 font-bold">+90 XP</span>
+                    </div>
+
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="switchStep(3)" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        <span>חזרה לסימולטור</span>
+                    </button>
+                    <button id="btn-to-step-5" onclick="switchStep(5)" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all disabled:opacity-40 disabled:pointer-events-none" disabled>
+                        <span>עבור לדוח סיום המשימה</span>
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 5: REFLECTION & TEAMWORK -->
+            <div id="step-5" class="step-container space-y-6 hidden">
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 md:p-8">
+                    <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider">משוב עמיתים וסגירת דוח</span>
+                    <h2 class="text-2xl font-black text-white mt-2 mb-4">תעודת ההאקר שלך לשכבה 3 מוכנה!</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Reflection Form -->
+                        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+                            <h3 class="font-bold text-white text-base">רפלקציה עצמית למורה</h3>
+                            <p class="text-xs text-slate-400">השלם את המחשבות שלך על השיעור והמידע הזה יישלח למורה שלך בקליק.</p>
+                            
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-xs text-slate-300 mb-1">1. מהו תפקידו המרכזי של שער ברירת המחדל (Default Gateway) ברשת?</label>
+                                    <textarea id="reflection-q1" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5 text-xs text-white focus:outline-none focus:border-cyan-500" rows="2" placeholder="הסבר במילים שלך..."></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-slate-300 mb-1">2. כמה מארחים (Hosts) ניתן להגדיר ברשת בעלת מסכה של 255.255.255.0? פרט את החישוב.</label>
+                                    <textarea id="reflection-q2" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5 text-xs text-white focus:outline-none focus:border-cyan-500" rows="2" placeholder="פרט את החישוב והנוסחה..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Share card and report exports -->
+                        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-white text-base mb-2">שתף הצלחה עם החברים</h3>
+                                <p class="text-xs text-slate-400 mb-4">העתק את קוד ההישג שלך ושתף אותו עם חברים כדי להשוות תוצאות ניתוב!</p>
+                                
+                                <div class="bg-slate-950 p-3 rounded border border-slate-800 code-font text-xs flex justify-between items-center text-cyan-450">
+                                    <span id="share-code">NET-ACAD-CLASS5-PENDING</span>
+                                    <button onclick="copyShareCode()" class="text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        <span>העתק</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 pt-6 border-t border-slate-800/80 space-y-3">
+                                <button onclick="exportTeacherReport()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2.5 rounded-lg text-sm transition-all flex items-center justify-center gap-2">
+                                    <i data-lucide="download" class="w-4 h-4"></i>
+                                    <span>ייצא דוח מסכם למורה</span>
+                                </button>
+                                <p class="text-[10px] text-slate-400 text-center">בלחיצה כאן יורד קובץ טקסט פשוט שמכיל את התשובות שלך, שאותו תוכל לשלוח למורה.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-900 bg-slate-950 py-4 px-4 text-center">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+            <p>© 2026 NET_ACADEMY - הדרך שלך לרשתות ותקשורת מחשבים</p>
+            <div class="flex gap-4">
+                <span>שיעור 5 מתוך 10</span>
+                <span>•</span>
+                <span class="text-cyan-450 font-bold">RTL תומך באופן מלא</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification system toast -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 border border-cyan-500 text-white px-4 py-3 rounded-xl shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="info" class="w-5 h-5 text-cyan-400" id="toast-icon"></i>
+        <span id="toast-message" class="text-sm"></span>
+    </div>
+
+    <!-- כפתור עזרה צף משודרג (Floating Help Trigger Button) -->
+    <div class="fixed bottom-6 left-6 z-50">
+        <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-black py-3 px-5 rounded-2xl shadow-xl shadow-cyan-500/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 group border border-cyan-400/40 backdrop-blur-md">
+            <div class="relative w-7 h-7 flex items-center justify-center bg-slate-950 rounded-lg border border-cyan-400/50">
+                <!-- עיניים מבריקות בכפתור -->
+                <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping absolute top-2 left-1.5"></span>
+                <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping absolute top-2 right-1.5"></span>
+                <i data-lucide="bot" class="w-4 h-4 text-cyan-400"></i>
+            </div>
+            <span class="text-xs tracking-wider">עוזר AI רשתות</span>
+        </button>
+    </div>
+
+    <!-- חלונית עזרה צפה מושלמת עם אואטר מטורלל (Modal) -->
+    <div id="helpModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[100] hidden flex items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border border-cyan-500/40 rounded-3xl p-6 md:p-8 max-w-sm w-full text-center relative shadow-2xl shadow-cyan-500/10 transform scale-95 transition-transform duration-300 overflow-hidden" id="helpModalContent">
+            
+            <!-- אפקט אור רקע קסום בחלונית -->
+            <div class="absolute -top-24 -left-24 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- כפתור סגירה X -->
+            <button id="closeHelpModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-1.5 rounded-xl hover:bg-slate-800/80 border border-transparent hover:border-slate-700">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <!-- האואטר המטורלל והמטורף (Crazy Cyberpunk Avatar SVG) -->
+            <div class="relative w-28 h-28 mx-auto mb-4 flex items-center justify-center glitch-avatar cursor-pointer">
+                <!-- טבעת אור מסתובבת -->
+                <div class="absolute inset-0 rounded-full border-2 border-dashed border-cyan-400/60 animate-spin" style="animation-duration: 8s;"></div>
+                <div class="absolute inset-1 rounded-full border border-purple-500/40 animate-spin" style="animation-duration: 4s; animation-direction: reverse;"></div>
+                
+                <!-- SVG של האוואטר המטורלל -->
+                <svg class="w-24 h-24 relative z-10 animate-pulse-fast drop-shadow-[0_0_12px_rgba(6,182,212,0.6)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- גוף/ראש הבוט -->
+                    <rect x="20" y="25" width="60" height="50" rx="12" fill="#090d16" stroke="#06b6d4" stroke-width="3"/>
+                    <!-- אנטנה חשמלית -->
+                    <path d="M50 25V10" stroke="#a855f7" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="50" cy="8" r="4" fill="#ef4444" class="animate-ping"/>
+                    <circle cx="50" cy="8" r="4" fill="#ef4444"/>
+                    <!-- אוזניים/ברגים side bolts -->
+                    <rect x="12" y="40" width="8" height="20" rx="3" fill="#1e293b" stroke="#06b6d4"/>
+                    <rect x="80" y="40" width="8" height="20" rx="3" fill="#1e293b" stroke="#06b6d4"/>
+                    <!-- מסך עיניים -->
+                    <rect x="28" y="33" width="44" height="22" rx="6" fill="#030712" stroke="#334155"/>
+                    <!-- עיניים אדומות מטורפות מבריקות -->
+                    <circle cx="40" cy="44" r="5" fill="#ef4444" class="eye-glow"/>
+                    <circle cx="60" cy="44" r="5" fill="#ef4444" class="eye-glow"/>
+                    <circle cx="41" cy="43" r="1.5" fill="#ffffff"/>
+                    <circle cx="61" cy="43" r="1.5" fill="#ffffff"/>
+                    <!-- פה משוגע / זיגזג תקשורתי -->
+                    <path d="M36 63L41 60L46 63L51 60L56 63L61 60L64 63" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- ניצוצות סייבר בצידי הנתב -->
+                    <path d="M22 20L16 14" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M78 20L84 14" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <!-- טקסטים ומעטפת -->
+            <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-[10px] font-bold uppercase tracking-widest mb-2">
+                NET_BOT // AI ASSISTANT
+            </div>
+            <h3 class="text-xl font-black text-white mb-2 tracking-wide">תקוע בחישוב הסאבנט?</h3>
+            <p class="text-xs text-slate-300 mb-6 leading-relaxed">
+                בוט העזרה המשוגע של האקדמיה זמין כעת! לחץ למטה לקבלת רמזים, תשובות והסברים מפורטים בזמן אמת.
+            </p>
+            
+            <!-- כפתור הפניה לבוט -->
+            <a href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-black py-3 px-4 rounded-xl transition-all duration-200 shadow-lg shadow-cyan-500/25 transform hover:-translate-y-0.5">
+                <span>הפעל את הבוט המטורלל</span>
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- MAIN JAVASCRIPT LOGIC -->
+    <script>
+        // State management
+        let xp = 0;
+        let activeStep = 1;
+        let currentLevel = "שוליית נתבים";
+        let hasPassedSim = false;
+        let hasPassedAi = false;
+
+        const xpCounter = document.getElementById('xp-counter');
+        const userLevel = document.getElementById('user-level');
+        const levelBar = document.getElementById('level-bar');
+        const systemLog = document.getElementById('system-log');
+        const toastEl = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-message');
+
+        lucide.createIcons();
+
+        window.onload = function() {
+            loadSavedProgress();
+        };
+
+        function loadSavedProgress() {
+            const savedXp = localStorage.getItem('net_academy_l5_xp');
+            const savedStep = localStorage.getItem('net_academy_l5_step');
+            const savedLevel = localStorage.getItem('net_academy_l5_level');
+            const savedQ1 = localStorage.getItem('net_academy_l5_q1');
+            const savedQ2 = localStorage.getItem('net_academy_l5_q2');
+
+            if (savedXp) {
+                xp = parseInt(savedXp);
+                xpCounter.innerText = xp;
+            } else {
+                xp = 260; // default starting XP from Lesson 4
+                xpCounter.innerText = xp;
+            }
+
+            if (savedLevel) {
+                currentLevel = savedLevel;
+                userLevel.innerText = currentLevel;
+                updateLevelUI();
+            }
+
+            if (savedQ1) document.getElementById('reflection-q1').value = savedQ1;
+            if (savedQ2) document.getElementById('reflection-q2').value = savedQ2;
+
+            if (savedStep) {
+                switchStep(parseInt(savedStep));
+            } else {
+                switchStep(1);
+            }
+            addLog("התקדמות קודמת לשיעור 5 נטענה מהדפדפן.");
+        }
+
+        function saveProgress() {
+            localStorage.setItem('net_academy_l5_xp', xp);
+            localStorage.setItem('net_academy_l5_step', activeStep);
+            localStorage.setItem('net_academy_l5_level', currentLevel);
+            localStorage.setItem('net_academy_l5_q1', document.getElementById('reflection-q1').value);
+            localStorage.setItem('net_academy_l5_q2', document.getElementById('reflection-q2').value);
+        }
+
+        function resetProgress() {
+            if (confirm("האם ברצונך לאפס את התקדמות שיעור 5? כל הניקוד שהושג בשיעור יימחק.")) {
+                localStorage.removeItem('net_academy_l5_xp');
+                localStorage.removeItem('net_academy_l5_step');
+                localStorage.removeItem('net_academy_l5_level');
+                localStorage.removeItem('net_academy_l5_q1');
+                localStorage.removeItem('net_academy_l5_q2');
+                
+                xp = 260;
+                activeStep = 1;
+                hasPassedSim = false;
+                hasPassedAi = false;
+                currentLevel = "שוליית נתבים";
+
+                xpCounter.innerText = xp;
+                userLevel.innerText = currentLevel;
+                levelBar.style.width = "40%";
+                
+                document.getElementById('reflection-q1').value = "";
+                document.getElementById('reflection-q2').value = "";
+                
+                document.getElementById('btn-to-step-4').disabled = true;
+                document.getElementById('btn-to-step-5').disabled = true;
+                document.getElementById('sim-feedback').classList.add('hidden');
+                document.getElementById('ai-bonus-alert').classList.add('hidden');
+                
+                // Reset Topology labels
+                document.getElementById('topo-ip-a').innerText = "192.168.1.10";
+                document.getElementById('topo-ip-b').innerText = "10.0.0.20";
+                document.getElementById('line-left-active').classList.add('hidden');
+                document.getElementById('line-right-active').classList.add('hidden');
+
+                switchStep(1);
+                showToast("ההתקדמות בשיעור 5 אופסה.");
+                addLog("כל התקדמות המשתמש בשיעור זה אופסה.");
+            }
+        }
+
+        function switchStep(stepNum) {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`step-${i}`).classList.add('hidden');
+                const btn = document.getElementById(`btn-step-${i}`);
+                if (btn) {
+                    btn.className = "w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition-all";
+                }
+            }
+
+            document.getElementById(`step-${stepNum}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`btn-step-${stepNum}`);
+            if (activeBtn) {
+                activeBtn.className = "w-full text-right flex items-center justify-between p-3 rounded-lg bg-cyan-950/30 border border-cyan-500/40 text-cyan-300 transition-all font-bold";
+            }
+
+            activeStep = stepNum;
+            saveProgress();
+            addLog(`מעבר לשלב ${stepNum}.`);
+        }
+
+        function addLog(text) {
+            const time = new Date().toLocaleTimeString('he-IL', { hour12: false });
+            systemLog.innerHTML += `<p>[${time}] ${text}</p>`;
+            systemLog.scrollTop = systemLog.scrollHeight;
+        }
+
+        function showToast(message) {
+            toastMsg.innerText = message;
+            toastEl.classList.remove('translate-y-20', 'opacity-0');
+            toastEl.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toastEl.classList.remove('translate-y-0', 'opacity-100');
+                toastEl.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function addXP(amount) {
+            xp += amount;
+            xpCounter.innerText = xp;
+            
+            if (xp >= 450) {
+                currentLevel = "מומחה סאבנטים ו-VLAN";
+                levelBar.style.width = "100%";
+            } else if (xp >= 350) {
+                currentLevel = "מנתח מתגים מומחה";
+                levelBar.style.width = "75%";
+            } else {
+                currentLevel = "שוליית נתבים";
+                levelBar.style.width = "40%";
+            }
+            
+            userLevel.innerText = currentLevel;
+            updateLevelUI();
+            saveProgress();
+            showToast(`נוספו +${amount} נקודות XP!`);
+        }
+
+        function updateLevelUI() {
+            document.getElementById('share-code').innerText = `NET-ACAD-L5-XP${xp}-${currentLevel.replace(/ /g, '_')}`;
+        }
+
+        // STEP 1: Scenario response
+        function answerScenario(choice) {
+            const feedback = document.getElementById('scenario-feedback');
+            feedback.classList.remove('hidden', 'bg-red-950/40', 'text-red-300', 'bg-emerald-950/40', 'text-emerald-300');
+
+            if (choice === 1) {
+                feedback.className += ' bg-emerald-950/40 text-emerald-300 p-3 rounded-lg text-xs';
+                feedback.innerHTML = `🌟 <b>נכון מאוד!</b> ברשת לוגית, כתובת IP חייבת להיות ייחודית בתוך דומיין השידור שלה. אם ייווצר סכסוך כתובות (IP Conflict), הראוטר או המתג לא ידעו לאן להעביר את הפריים ושני המחשבים יאבדו קישוריות.`;
+                addXP(25);
+                addLog("מענה נכון על תרחיש סכסוך כתובות IP.");
+            } else {
+                feedback.className += ' bg-red-950/40 text-red-300 p-3 rounded-lg text-xs';
+                feedback.innerHTML = `❌ <b>לא נכון.</b> לא מדובר בשידור רדיו פתוח. חבילות מידע נשלחות ישירות לכתובות יעד ספציפיות, ואם יש שני מכשירים עם אותה הכתובת, תיווצר שגיאה קשה והמערכת תקרוס.`;
+                addXP(5);
+            }
+        }
+
+        // STEP 3: Switch Simulator IP Configuration Testing Logic
+        function triggerPingTest() {
+            const ipA = document.getElementById('ip-pc-a').value.trim();
+            const maskA = document.getElementById('mask-pc-a').value.trim();
+            const gwA = document.getElementById('gw-pc-a').value.trim();
+
+            const ipB = document.getElementById('ip-pc-b').value.trim();
+            const maskB = document.getElementById('mask-pc-b').value.trim();
+            const gwB = document.getElementById('gw-pc-b').value.trim();
+
+            // Update topology view dynamically
+            document.getElementById('topo-ip-a').innerText = ipA;
+            document.getElementById('topo-ip-b').innerText = ipB;
+
+            addLog(`מריץ בדיקת קישוריות: PC A (${ipA}) ➔ PC B (${ipB})`);
+
+            const feedback = document.getElementById('sim-feedback');
+            feedback.classList.remove('hidden', 'bg-red-950/40', 'text-red-300', 'bg-emerald-950/40', 'text-emerald-300');
+
+            // Quick Client Validation Logic
+            const isMaskAOk = (maskA === '255.255.255.0');
+            const isMaskBOk = (maskB === '255.0.0.0' || maskB === '255.255.255.0');
+            
+            // Check Gateway A
+            const isGwAOk = (gwA === '192.168.1.1');
+            // Check Gateway B
+            const isGwBOk = (gwB === '10.0.0.1');
+
+            // Check if PC A IP is on the same subnet as Gateway A
+            const isIpAOk = ipA.startsWith('192.168.1.') && ipA !== '192.168.1.1' && ipA !== '192.168.1.0' && ipA !== '192.168.1.255';
+            // Check if PC B IP is on the same subnet as Gateway B
+            const isIpBOk = ipB.startsWith('10.') && ipB !== '10.0.0.1' && ipB !== '10.0.0.0';
+
+            if (isMaskAOk && isMaskBOk && isGwAOk && isGwBOk && isIpAOk && isIpBOk) {
+                // Visualize line flows
+                document.getElementById('line-left-active').classList.remove('hidden');
+                document.getElementById('line-right-active').classList.remove('hidden');
+
+                feedback.className += ' bg-emerald-950/40 text-emerald-300';
+                feedback.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">🌟</span>
+                        <div>
+                            <p class="font-bold">ה-Ping עבר בהצלחה! (Successful Routing)!</p>
+                            <p class="text-[11px] opacity-90">ההגדרות שלכם מושלמות. PC A הבין ש-PC B נמצא ברשת מרוחקת (בגלל שהמסכה הראתה שכתובת היעד אינה ברשת 192.168.1.x), שלח את הפריים ישירות לראוטר המקומי (${gwA}), והראוטר ניתב את החבילה בהצלחה ל-PC B ברשת 10.0.0.x!</p>
+                        </div>
+                    </div>
+                `;
+                if (!hasPassedSim) {
+                    addXP(50);
+                    hasPassedSim = true;
+                }
+                document.getElementById('btn-to-step-4').disabled = false;
+                addLog("בדיקת הגדרות ה-IP והניתוב עברה בהצלחה מלאה.");
+            } else {
+                feedback.className += ' bg-red-950/40 text-red-300';
+                let errors = [];
+                if (!isIpAOk) errors.push("כתובת ה-IP של PC A אינה בטווח המותר או שהיא מתנגשת עם הראוטר.");
+                if (!isIpBOk) errors.push("כתובת ה-IP של PC B אינה בטווח המותר או מתנגשת.");
+                if (!isGwAOk) errors.push("שער ברירת המחדל של PC A שגוי (חייב להתאים ל-IP של פורט הראוטר השמאלי: 192.168.1.1).");
+                if (!isGwBOk) errors.push("שער ברירת המחדל של PC B שגוי (חייב להתאים ל-IP של פורט הראוטר הימני: 10.0.0.1).");
+                if (!isMaskAOk || !isMaskBOk) errors.push("מסכת הרשת (Subnet Mask) שגויה או לא תקנית לסוג הרשת.");
+
+                feedback.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span>❌</span>
+                        <div>
+                            <p class="font-bold">נכשלה בדיקת הניתוב! המידע הלך לאיבוד ברשת.</p>
+                            <ul class="list-disc pr-4 text-[11px] opacity-90 space-y-1 mt-1">
+                                ${errors.map(err => `<li>${err}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                addLog("בדיקת הניתוב נכשלה עקב שגיאות בהגדרת כתובות ה-IP או שערי ברירת המחדל.");
+            }
+        }
+
+        // STEP 4: AI Work Validator (Simulated Expert Feedback)
+        function sendWorkToValidator() {
+            const userIp = document.getElementById('ai-user-ip').value.trim();
+            const userMask = document.getElementById('ai-user-mask').value.trim();
+            const explanation = document.getElementById('ai-user-explanation').value.trim();
+
+            const messagesArea = document.getElementById('chat-messages');
+
+            if (!userIp || !userMask || !explanation) {
+                messagesArea.innerHTML += `
+                    <div class="text-red-400 font-bold p-2 bg-red-950/20 border border-red-900/40 rounded">
+                        ⚠️ שגיאה: עליכם למלא את כל השדות בצד שמאל לפני שליחת העבודה למבקר ה-AI!
+                    </div>
+                `;
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+                return;
+            }
+
+            addLog("שולח את הצעת הרשת לבדיקת ה-AI...");
+            messagesArea.innerHTML += `
+                <div class="bg-cyan-900 text-white p-2.5 rounded max-w-[90%] self-end text-xs mb-2">
+                    <b>אני הגשתי:</b><br>
+                    IP: ${userIp}<br>
+                    Mask: ${userMask}<br>
+                    הסבר: ${explanation}
+                </div>
+            `;
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+
+            // Generate analytical feedback
+            const typingId = "typing-" + Date.now();
+            messagesArea.innerHTML += `
+                <div id="${typingId}" class="text-slate-500 italic animate-pulse">
+                    מהנדס ה-AI מנתח את הכתובות ומחשב את גבולות הרשת שלך...
+                </div>
+            `;
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+
+            setTimeout(() => {
+                document.getElementById(typingId).remove();
+
+                // Advanced IPv4 Verification rules simulator
+                const ipRegex = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+                const matchIp = userIp.match(ipRegex);
+                const matchMask = userMask.match(ipRegex);
+
+                let isIpValid = false;
+                let isMaskValid = false;
+                let explanationLengthOk = explanation.length > 15;
+
+                if (matchIp) {
+                    const octets = matchIp.slice(1).map(Number);
+                    isIpValid = octets.every(o => o >= 0 && o <= 255);
+                }
+                if (matchMask) {
+                    const octets = matchMask.slice(1).map(Number);
+                    const validMaskOctets = [0, 128, 192, 224, 240, 248, 252, 254, 255];
+                    isMaskValid = octets.every(o => validMaskOctets.includes(o));
+                }
+
+                let botResponse = "";
+                let isPassed = false;
+
+                if (!isIpValid) {
+                    botResponse = `❌ <b>פסילת כתובת IP:</b> הכתובת שהקלדת (${userIp}) אינה כתובת IPv4 תקנית. זכור שכל אוקטטה (מספר בין הנקודות) חייבת להיות בטווח שבין 0 ל-255. נסו שוב!`;
+                } else if (!isMaskValid) {
+                    botResponse = `❌ <b>פסילת מסכת רשת:</b> מסכת הרשת שהקלדת (${userMask}) אינה תקינה. סיביות המסכה חייבות להיות רציפות (למשל: 255.255.255.0 או 255.255.0.0). תקן את המסכה ונסה שוב!`;
+                } else if (!explanationLengthOk) {
+                    botResponse = `✍️ <b>ההסבר קצר מדי:</b> כתובת ה-IP והמסכה תקינות לחלוטין! אבל ההסבר שלך לגבי ה-Gateway קצר או לא מספק. נסה להסביר בהרחבה: מדוע מחשב צריך Default Gateway ואיך הוא משתמש בו כשהוא רוצה לצאת לאינטרנט?`;
+                } else {
+                    botResponse = `🎯 <b>עבודה מושלמת! האישור התקבל!</b><br><br>
+                    <b>ניתוח IP:</b> הכתובת <code>${userIp}</code> מאובטחת ותקינה תחת מסכה <code>${userMask}</code>.<br>
+                    <b>אישור הסבר:</b> הסברת בצורה מעולה ומדויקת שה-Default Gateway הוא בעצם 'שער היציאה' של הרשת המקומית לכל רשת מרוחקת אחרת בעולם (כמו האינטרנט). ללא שער זה, מחשב יכול לדבר רק עם חבריו לאותו רחוב/מתג!`;
+                    isPassed = true;
+                }
+
+                messagesArea.innerHTML += `
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 max-w-[90%] self-start text-xs text-slate-300">
+                        <span class="text-[10px] font-bold text-cyan-400 block mb-1">CONNECT_BOT_VALIDATOR // </span>
+                        ${botResponse}
+                    </div>
+                `;
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+
+                if (isPassed && !hasPassedAi) {
+                    hasPassedAi = true;
+                    addXP(90);
+                    document.getElementById('ai-bonus-alert').classList.remove('hidden');
+                    document.getElementById('btn-to-step-5').disabled = false;
+                    addLog("מבקר ה-AI אישר את קונפיגורציית הרשת וההבנה של התלמיד.");
+                }
+
+            }, 1800);
+        }
+
+        // Copy Share Code
+        function copyShareCode() {
+            const code = document.getElementById('share-code').innerText;
+            const tempInput = document.createElement("input");
+            tempInput.value = code;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            showToast("קוד ההישג הועתק בהצלחה! שלח לחבר.");
+            addLog("קוד שיתוף הועתק ללוח.");
+        }
+
+        // Export Report to Teacher
+        function exportTeacherReport() {
+            const q1 = document.getElementById('reflection-q1').value;
+            const q2 = document.getElementById('reflection-q2').value;
+            
+            if (!q1 || !q2) {
+                alert("נא למלא את שתי שאלות הרפלקציה לפני שמייצאים דוח למורה!");
+                return;
+            }
+
+            const reportText = `
+=============================================
+דוח מסכם - שיעור 5: כתובות IP ו-Subnetting
+=============================================
+שם התלמיד: [נא להקליד שם מלא כאן]
+דירוג XP סופי: ${xp} XP
+דרגה נוכחית: ${currentLevel}
+
+תשובות לרפלקציה:
+---------------------------------------------
+1. מהו תפקידו המרכזי של שער ברירת המחדל (Default Gateway) ברשת?
+תשובה: ${q1}
+
+2. כמה מארחים (Hosts) ניתן להגדיר ברשת בעלת מסכה של 255.255.255.0? פרט את החישוב.
+תשובה: ${q2}
+
+---------------------------------------------
+מיוצר עבור מורה תקשורת ורשתות - NET_ACADEMY
+=============================================
+            `;
+
+            const blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `NET_ACADEMY_Lesson5_Report.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast("דוח פעילות הורד! העבר אותו למורה שלך.");
+            addLog("דוח פעילות הופק והורד למחשב המשתמש.");
+        }
+
+        // Help Modal Script Controller
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('helpModal');
+            const modalContent = document.getElementById('helpModalContent');
+            const openBtn = document.getElementById('openHelpModalBtn');
+            const closeBtn = document.getElementById('closeHelpModalBtn');
+
+            if(openBtn && modal && modalContent && closeBtn) {
+                // Open modal
+                openBtn.addEventListener('click', () => {
+                    modal.classList.remove('hidden');
+                    setTimeout(() => modalContent.classList.remove('scale-95'), 10);
+                });
+
+                // Close on X button
+                closeBtn.addEventListener('click', () => {
+                    modalContent.classList.add('scale-95');
+                    setTimeout(() => modal.classList.add('hidden'), 150);
+                });
+
+                // Close when clicking backdrop
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modalContent.classList.add('scale-95');
+                        setTimeout(() => modal.classList.add('hidden'), 150);
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
