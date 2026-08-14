@@ -75,8 +75,27 @@
     <header class="border-b border-cyan-900/40 bg-slate-950/90 backdrop-blur sticky top-0 z-50 px-4 py-3">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="bg-cyan-600/20 p-2 rounded-lg border border-cyan-500/30 text-cyan-450">
-                    <i data-lucide="globe" class="w-6 h-6 text-cyan-400"></i>
+                <!-- האוואטר המטורלל בכותרת העליונה -->
+                <div class="relative w-12 h-12 flex items-center justify-center glitch-avatar cursor-pointer flex-shrink-0">
+                    <div class="absolute inset-0 rounded-full border border-dashed border-cyan-400/60 animate-spin" style="animation-duration: 8s;"></div>
+                    <div class="absolute inset-0.5 rounded-full border border-purple-500/40 animate-spin" style="animation-duration: 4s; animation-direction: reverse;"></div>
+                    
+                    <svg class="w-10 h-10 relative z-10 animate-pulse-fast drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="25" width="60" height="50" rx="12" fill="#090d16" stroke="#06b6d4" stroke-width="3"/>
+                        <path d="M50 25V10" stroke="#a855f7" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="50" cy="8" r="4" fill="#ef4444" class="animate-ping"/>
+                        <circle cx="50" cy="8" r="4" fill="#ef4444"/>
+                        <rect x="12" y="40" width="8" height="20" rx="3" fill="#1e293b" stroke="#06b6d4"/>
+                        <rect x="80" y="40" width="8" height="20" rx="3" fill="#1e293b" stroke="#06b6d4"/>
+                        <rect x="28" y="33" width="44" height="22" rx="6" fill="#030712" stroke="#334155"/>
+                        <circle cx="40" cy="44" r="5" fill="#ef4444" class="eye-glow"/>
+                        <circle cx="60" cy="44" r="5" fill="#ef4444" class="eye-glow"/>
+                        <circle cx="41" cy="43" r="1.5" fill="#ffffff"/>
+                        <circle cx="61" cy="43" r="1.5" fill="#ffffff"/>
+                        <path d="M36 63L41 60L46 63L51 60L56 63L61 60L64 63" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 20L16 14" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M78 20L84 14" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                 </div>
                 <div>
                     <h1 class="font-black text-lg tracking-wide text-white">NET_ACADEMY // <span class="text-cyan-400">CLASS_05</span></h1>
