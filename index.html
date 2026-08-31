@@ -116,7 +116,7 @@
                     <button id="btn-step-1" onclick="switchStep(1)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-amber-100/60 border border-amber-300 text-sky-900 transition-all font-bold">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-xs opacity-60">01.</span>
-                            <span>אנלוגיית המיקוד העולמי</span>
+                            <span>מעבר חבילת תקשורת והדוור</span>
                         </div>
                         <i data-lucide="map-pin" class="w-4 h-4 text-sky-600"></i>
                     </button>
@@ -178,11 +178,11 @@
         <!-- CONTENT DISPLAY AREA -->
         <section class="lg:col-span-9 flex flex-col gap-6">
 
-            <!-- STEP 1: INTRO (CLEANED & ENLARGED FONTS) -->
+            <!-- STEP 1: INTRO -->
             <div id="step-1" class="step-container space-y-6">
                 <div class="bg-white border border-amber-200 rounded-2xl p-6 md:p-8 shadow-sm">
                     <span class="bg-amber-100 border border-amber-300 text-amber-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">אתגר השכבה השלישית</span>
-                    <h2 class="text-2xl md:text-3xl font-black text-slate-900 mt-4 mb-3">איך הדוור יודע לאן ללכת?</h2>
+                    <h2 class="text-2xl md:text-3xl font-black text-slate-900 mt-4 mb-3">מעבר חבילת תקשורת והדמיון לעבודת הדוור</h2>
                     <p class="text-slate-700 leading-relaxed text-lg mb-4">
                         כתובות <span class="code-font ltr-dir">MAC</span> שלמדנו עליהן בשיעור 3 הן מעולות למסגרת המקומית (אותו הרחוב). אך מה קורה כשצריך להעביר חבילה ממדינה אחת למדינה אחרת? 
                         אם הדוור היה צריך לעבור בית-בית בכל העולם ולבדוק כתובת <span class="code-font ltr-dir">MAC</span> ייחודית – כל מערכת הדואר העולמית הייתה קורסת. 
@@ -190,28 +190,25 @@
                     </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
-                        <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl text-center shadow-xs">
-                            <span class="text-3xl">🌍</span>
-                            <h3 class="text-sky-900 font-bold mt-3 text-base">קוד המדינה (רשת)</h3>
+                        <div class="bg-amber-50 border border-amber-200 p-6 rounded-xl text-center shadow-xs">
+                            <h3 class="text-sky-900 font-bold text-lg">קוד המדינה (רשת)</h3>
                             <p class="text-sm text-slate-700 mt-2 leading-relaxed">מגדיר באיזו רשת גלובלית או מדינה החבילה נמצאת.</p>
                         </div>
-                        <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl text-center shadow-xs">
-                            <span class="text-3xl">🏙️</span>
-                            <h3 class="text-sky-900 font-bold mt-3 text-base">שם הרחוב (תת-רשת)</h3>
+                        <div class="bg-amber-50 border border-amber-200 p-6 rounded-xl text-center shadow-xs">
+                            <h3 class="text-sky-900 font-bold text-lg">שם הרחוב (תת-רשת)</h3>
                             <p class="text-sm text-slate-700 mt-2 leading-relaxed">מצמצם את המיקום לשכונה או רחוב ספציפי בתוך הרשת.</p>
                         </div>
-                        <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl text-center shadow-xs">
-                            <span class="text-3xl">🏠</span>
-                            <h3 class="text-sky-900 font-bold mt-3 text-base">מספר הבית (מארח - <span class="code-font ltr-dir">Host</span>)</h3>
+                        <div class="bg-amber-50 border border-amber-200 p-6 rounded-xl text-center shadow-xs">
+                            <h3 class="text-sky-900 font-bold text-lg">מספר הבית (מארח - <span class="code-font ltr-dir">Host</span>)</h3>
                             <p class="text-sm text-slate-700 mt-2 leading-relaxed">המחשב, הטלפון או המכשיר הספציפי ברחוב.</p>
                         </div>
                     </div>
 
                     <div class="mt-8 bg-slate-50 p-6 rounded-xl border border-slate-200">
-                        <p class="text-sm text-slate-800 font-bold mb-4">שאלה מהירה: מה קורה אם לשני מחשבים שונים באותו רחוב (רשת מקומית) תהיה אותה כתובת <span class="code-font ltr-dir">IP</span> בדיוק?</p>
+                        <p class="text-base text-slate-800 font-bold mb-4">שאלה מהירה: מה קורה אם לשני מחשבים שונים באותו רחוב (רשת מקומית) תהיה אותה כתובת <span class="code-font ltr-dir">IP</span> בדיוק?</p>
                         <div class="flex flex-col gap-3">
-                            <button onclick="answerScenario(1)" class="bg-white hover:bg-amber-100 text-right border border-slate-300 text-slate-800 text-sm px-4 py-3 rounded-lg transition-all font-medium">ייווצר 'סכסוך כתובות <span class="code-font ltr-dir">IP</span>' (<span class="code-font ltr-dir">IP Conflict</span>) והתקשורת של שניהם תיפגע או תיחסם.</button>
-                            <button onclick="answerScenario(2)" class="bg-white hover:bg-amber-100 text-right border border-slate-300 text-slate-800 text-xs px-4 py-3 rounded-lg transition-all font-medium">הם יקבלו את אותן הודעות בדיוק כמו זוג תאומים סיאמיים ללא בעיה.</button>
+                            <button onclick="answerScenario(1)" class="bg-white hover:bg-amber-100 text-right border border-slate-300 text-slate-800 text-sm px-4 py-3 rounded-lg transition-all font-medium">ייווצר סכסוך כתובות <span class="code-font ltr-dir">IP (IP Conflict)</span> והתקשורת של שניהם תיפגע או תיחסם.</button>
+                            <button onclick="answerScenario(2)" class="bg-white hover:bg-amber-100 text-right border border-slate-300 text-slate-800 text-sm px-4 py-3 rounded-lg transition-all font-medium">הם יקבלו את אותן הודעות בדיוק כמו זוג תאומים סיאמיים ללא בעיה.</button>
                         </div>
                         <div id="scenario-feedback" class="mt-4 hidden p-3 rounded-lg text-xs font-semibold"></div>
                     </div>
@@ -229,17 +226,17 @@
             <div id="step-2" class="step-container space-y-6 hidden">
                 <div class="bg-white border border-amber-200 rounded-2xl p-6 md:p-8 shadow-sm">
                     <p class="text-sky-700 text-xs font-bold uppercase tracking-wider">תיאוריה חיונית</p>
-                    <h2 class="text-2xl font-black text-slate-900 mt-2 mb-4">איך מפרידים בין "הרחוב" לבין "הבית"?</h2>
+                    <h2 class="text-2xl font-black text-slate-900 mt-2 mb-4">איך מפרידים בין הרחוב לבין הבית?</h2>
                     
-                    <p class="text-slate-700 leading-relaxed mb-6">
+                    <p class="text-slate-700 leading-relaxed text-lg mb-6">
                         כתובת <span class="code-font ltr-dir">IPv4</span> מורכבת מ-32 סיביות (<span class="code-font ltr-dir">Bits</span>) המחולקות ל-4 מספרים בין 0 ל-255 המופרדים בנקודה (למשל <code class="code-font ltr-dir">192.168.1.50</code>). 
-                        אבל איך המחשב יודע איזה חלק מהכתובת מייצג את ה**רשת (<span class="code-font ltr-dir">Network</span>)** ואיזה חלק מייצג את ה**מכשיר (<span class="code-font ltr-dir">Host</span>)**? 
-                        כאן נכנסת לתמונה **מסכת הרשת (<span class="code-font ltr-dir">Subnet Mask</span>)**!
+                        אבל איך המחשב יודע איזה חלק מהכתובת מייצג את הכתובת של הרשת (<span class="code-font ltr-dir">Network</span>) ואיזה חלק מייצג את המכשיר (<span class="code-font ltr-dir">Host</span>)? 
+                        כאן נכנסת לתמונה מסכת הרשת (<span class="code-font ltr-dir">Subnet Mask</span>)!
                     </p>
 
                     <!-- Interactive Subnet Cutter Explainer -->
                     <div class="bg-amber-50 p-6 rounded-xl border border-amber-200 max-w-3xl mx-auto space-y-6">
-                        <div class="text-center text-xs text-slate-600 font-bold">
+                        <div class="text-center text-sm text-slate-700 font-bold">
                             מבנה חלוקה קלאסי מסוג <code class="code-font ltr-dir">Class C</code>:
                         </div>
                         
@@ -247,7 +244,7 @@
                             <div class="bg-purple-100 border border-purple-300 p-4 rounded-xl flex-1 w-full">
                                 <p class="text-xs text-purple-900 font-bold mb-1">חלק המארח (<code class="code-font ltr-dir">Host ID</code>)</p>
                                 <p class="code-font text-xl font-bold text-purple-950 ltr-dir">50</p>
-                                <p class="text-[10px] text-slate-600 mt-2">מוגדר על ידי ה-<code class="code-font ltr-dir">0</code> במסכת הרשת</p>
+                                <p class="text-[11px] text-slate-600 mt-2">מוגדר על ידי ה-<code class="code-font ltr-dir">0</code> במסכת הרשת</p>
                             </div>
 
                             <div class="text-slate-400 font-black text-2xl">.</div>
@@ -255,41 +252,41 @@
                             <div class="bg-sky-100 border border-sky-300 p-4 rounded-xl flex-1 w-full">
                                 <p class="text-xs text-sky-900 font-bold mb-1">חלק הרשת (<code class="code-font ltr-dir">Network ID</code>)</p>
                                 <p class="code-font text-xl font-bold text-sky-950 ltr-dir">192.168.1</p>
-                                <p class="text-[10px] text-slate-600 mt-2">מוגדר על ידי ה-<code class="code-font ltr-dir">255.255.255</code> במסכה</p>
+                                <p class="text-[11px] text-slate-600 mt-2">מוגדר על ידי ה-<code class="code-font ltr-dir">255.255.255</code> במסכה</p>
                             </div>
                         </div>
 
-                        <!-- CIDR and Classes Table -->
-                        <div class="border-t border-amber-200 pt-5 text-xs space-y-3">
+                        <!-- CIDR and Classes Table (FIXED LAYOUT) -->
+                        <div class="border-t border-amber-200 pt-5 text-sm space-y-3">
                             <p class="text-slate-800 font-bold">טבלת מחלקות (<span class="code-font ltr-dir">Classes</span>) ופרפיקסים (<span class="code-font ltr-dir">CIDR</span>) - מסודרת:</p>
                             <div class="overflow-x-auto shadow-sm rounded-lg border border-slate-200">
-                                <table class="w-full text-center border-collapse bg-white text-xs">
+                                <table class="w-full text-center border-collapse bg-white text-sm">
                                     <thead>
                                         <tr class="bg-amber-100 text-slate-800 font-bold border-b border-slate-300">
-                                            <th class="p-3 border-r border-slate-200 text-center">מחלקה (<span class="code-font ltr-dir">Class</span>)</th>
-                                            <th class="p-3 border-r border-slate-200 text-center">טווח אוקטטה ראשונה</th>
-                                            <th class="p-3 border-r border-slate-200 text-center">מסכת ברירת מחדל</th>
+                                            <th class="p-3 border-l border-slate-200 text-center">מחלקה (<span class="code-font ltr-dir">Class</span>)</th>
+                                            <th class="p-3 border-l border-slate-200 text-center">טווח אוקטטה ראשונה</th>
+                                            <th class="p-3 border-l border-slate-200 text-center">מסכת ברירת מחדל</th>
                                             <th class="p-3 text-center">פרפיקס <span class="code-font ltr-dir">CIDR</span></th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-200">
                                         <tr class="hover:bg-amber-50/50">
-                                            <td class="p-3 border-r border-slate-200 font-bold text-sky-800 code-font ltr-dir">Class A</td>
-                                            <td class="p-3 border-r border-slate-200 code-font text-center ltr-dir">1 - 126</td>
-                                            <td class="p-3 border-r border-slate-200 code-font text-center ltr-dir">255.0.0.0</td>
-                                            <td class="p-3 code-font text-center font-bold text-sky-700 ltr-dir">/8</td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="font-bold text-sky-800 code-font ltr-dir">Class A</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">1 - 126</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">255.0.0.0</span></td>
+                                            <td class="p-3 text-center"><span class="code-font font-bold text-sky-700 ltr-dir">/8</span></td>
                                         </tr>
                                         <tr class="hover:bg-amber-50/50">
-                                            <td class="p-3 border-r border-slate-200 font-bold text-sky-800 code-font ltr-dir">Class B</td>
-                                            <td class="p-3 border-r border-slate-200 code-font text-center ltr-dir">128 - 191</td>
-                                            <td class="p-3 border-r border-slate-200 code-font text-center ltr-dir">255.255.0.0</td>
-                                            <td class="p-3 code-font text-center font-bold text-sky-700 ltr-dir">/16</td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="font-bold text-sky-800 code-font ltr-dir">Class B</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">128 - 191</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">255.255.0.0</span></td>
+                                            <td class="p-3 text-center"><span class="code-font font-bold text-sky-700 ltr-dir">/16</span></td>
                                         </tr>
                                         <tr class="hover:bg-amber-50/50">
-                                            <td class="p-3 border-r border-slate-200 font-bold text-sky-800 code-font ltr-dir">Class C</td>
-                                            <td class="p-3 border-r border-slate-200 code-font text-center ltr-dir">192 - 223</td>
-                                            <td class="p-3 border-r border-slate-200 code-font text-center ltr-dir">255.255.255.0</td>
-                                            <td class="p-3 code-font text-center font-bold text-sky-700 ltr-dir">/24</td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="font-bold text-sky-800 code-font ltr-dir">Class C</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">192 - 223</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">255.255.255.0</span></td>
+                                            <td class="p-3 text-center"><span class="code-font font-bold text-sky-700 ltr-dir">/24</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -323,7 +320,7 @@
                             <span class="bg-amber-100 border border-amber-300 text-amber-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">תחנת מעבדה ופתרון תקלות</span>
                             <h2 class="text-2xl font-black text-slate-900 mt-2">מעבדת ניתוח תקשורת בין רשתות</h2>
                             <p class="text-slate-600 text-xs mt-1">
-                                המטרה: הגדר את תחנת **<span class="code-font ltr-dir">PC A</span>** כך שתוכל לתקשר עם הרשת המקומית שלה (ממשק הנתב) ולאחר מכן עם תחנת **<span class="code-font ltr-dir">PC B</span>** ברשת המרוחקת.
+                                המטרה: הגדר את תחנת <span class="code-font ltr-dir">PC A</span> כך שתוכל לתקשר עם הרשת המקומית שלה (ממשק הנתב) ולאחר מכן עם תחנת <span class="code-font ltr-dir">PC B</span> ברשת המרוחקת.
                             </p>
                         </div>
 
@@ -555,7 +552,7 @@
                 </div>
             </div>
 
-            <!-- STEP 5: 10 EXERCISES TAB (ADDED TEACHER BUTTON & LOGIC) -->
+            <!-- STEP 5: 10 EXERCISES TAB -->
             <div id="step-5" class="step-container space-y-6 hidden">
                 <div class="bg-white border border-amber-200 rounded-2xl p-6 md:p-8 shadow-sm">
                     <div class="flex justify-between items-center border-b border-slate-200 pb-4 mb-6 flex-wrap gap-3">
@@ -599,38 +596,38 @@
             <div id="step-6" class="step-container space-y-6 hidden">
                 <div class="bg-white border border-amber-200 rounded-2xl p-6 md:p-8 shadow-sm">
                     <span class="text-sky-700 text-xs font-bold uppercase tracking-wider">סגירת דוח למידה</span>
-                    <h2 class="text-2xl font-black text-slate-900 mt-2 mb-4">תעודת ההאקר שלך לשכבה 3 מוכנה!</h2>
+                    <h2 class="text-2xl md:text-3xl font-black text-slate-900 mt-2 mb-4">כל הכבוד על עבודתך המעולה!</h2>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
-                            <h3 class="font-bold text-slate-800 text-base">רפלקציה עצמית למורה</h3>
-                            <div class="space-y-3">
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-slate-800 text-lg">רפלקציה עצמית למורה</h3>
+                            <div class="space-y-4">
                                 <div>
-                                    <label class="block text-xs text-slate-700 mb-1">1. מהו תפקידו המרכזי של שער ברירת המחדל (<span class="code-font ltr-dir">Default Gateway</span>) ברשת?</label>
-                                    <textarea id="reflection-q1" class="w-full bg-white border border-slate-300 rounded p-2.5 text-xs text-slate-900 focus:outline-none focus:border-sky-500" rows="2" placeholder="הסבר במילים שלך..."></textarea>
+                                    <label class="block text-sm text-slate-700 mb-1 font-semibold">1. מהו תפקידו המרכזי של שער ברירת המחדל (<span class="code-font ltr-dir">Default Gateway</span>) ברשת?</label>
+                                    <textarea id="reflection-q1" class="w-full bg-white border border-slate-300 rounded-lg p-3 text-sm text-slate-900 focus:outline-none focus:border-sky-500" rows="3" placeholder="הסבר במילים שלך..."></textarea>
                                 </div>
                                 <div>
-                                    <label class="block text-xs text-slate-700 mb-1">2. כמה מארחים ניתן להגדיר ברשת בעלת מסכה <span class="code-font ltr-dir">255.255.255.0</span>? פרט את החישוב.</label>
-                                    <textarea id="reflection-q2" class="w-full bg-white border border-slate-300 rounded p-2.5 text-xs text-slate-900 focus:outline-none focus:border-sky-500" rows="2" placeholder="פרט את החישוב והנוסחה..."></textarea>
+                                    <label class="block text-sm text-slate-700 mb-1 font-semibold">2. כמה מארחים ניתן להגדיר ברשת בעלת מסכה <span class="code-font ltr-dir">255.255.255.0</span>? פרט את החישוב.</label>
+                                    <textarea id="reflection-q2" class="w-full bg-white border border-slate-300 rounded-lg p-3 text-sm text-slate-900 focus:outline-none focus:border-sky-500" rows="3" placeholder="פרט את החישוב והנוסחה..."></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col justify-between">
                             <div>
-                                <h3 class="font-bold text-slate-800 text-base mb-2">שתף הצלחה עם החברים</h3>
-                                <div class="bg-white p-3 rounded border border-slate-300 code-font text-xs flex justify-between items-center text-sky-800 ltr-dir">
+                                <h3 class="font-bold text-slate-800 text-lg mb-3">שתף הצלחה עם החברים</h3>
+                                <div class="bg-white p-3.5 rounded-lg border border-slate-300 code-font text-sm flex justify-between items-center text-sky-800 ltr-dir shadow-xs">
                                     <span id="share-code">NET-SAAR-CLASS5-PENDING</span>
-                                    <button onclick="copyShareCode()" class="text-sky-600 hover:text-sky-800 transition-colors flex items-center gap-1 font-sans">
-                                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                    <button onclick="copyShareCode()" class="text-sky-600 hover:text-sky-800 transition-colors flex items-center gap-1 font-sans text-xs font-bold">
+                                        <i data-lucide="copy" class="w-4 h-4"></i>
                                         <span>העתק</span>
                                     </button>
                                 </div>
                             </div>
 
                             <div class="mt-6 pt-6 border-t border-slate-200 space-y-3">
-                                <button onclick="exportTeacherReport()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-lg text-sm transition-all flex items-center justify-center gap-2">
-                                    <i data-lucide="download" class="w-4 h-4"></i>
+                                <button onclick="exportTeacherReport()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-base transition-all flex items-center justify-center gap-2 shadow">
+                                    <i data-lucide="download" class="w-5 h-5"></i>
                                     <span>ייצא דוח מסכם למורה</span>
                                 </button>
                             </div>
@@ -833,7 +830,7 @@
                         consoleEl.innerHTML += `<p class="text-red-400">&gt; ERROR: Default Gateway (${gwA}) is unreachable or incorrect for this segment!</p>`;
                         
                         noteEl.classList.remove('hidden');
-                        noteEl.innerHTML = `💡 <b>מסקנה פדגוגית:</b> ה-Default Gateway חייב להיות כתובת ה-IP של **הנתב ברשת המקומית** (Fa0/0: 192.168.1.1). אם תגדיר כתובת מרוחקת (כמו 10.0.0.1) או לא קיימת, PC A לא יידע לאן לשלוח את החבילה!`;
+                        noteEl.innerHTML = `💡 <b>מסקנה פדגוגית:</b> ה-Default Gateway חייב להיות כתובת ה-IP של <b>הנתב ברשת המקומית</b> (Fa0/0: 192.168.1.1). אם תגדיר כתובת מרוחקת (כמו 10.0.0.1) או לא קיימת, PC A לא יידע לאן לשלוח את החבילה!`;
                     } else {
                         pulseRight.style.opacity = "1";
                         badgeEl.className = "bg-emerald-900/80 text-emerald-300 text-[10px] px-2 py-0.5 rounded border border-emerald-700";
@@ -861,16 +858,16 @@
         function renderQuiz() {
             const container = document.getElementById('quiz-container');
             container.innerHTML = quizQuestions.map((q, idx) => `
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs">
-                    <p class="font-bold text-slate-800 mb-3">${idx + 1}. ${q.text}</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm">
+                    <p class="font-bold text-slate-800 text-base mb-3">${idx + 1}. ${q.text}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         ${q.options.map((opt, oIdx) => `
-                            <button id="q-${q.id}-opt-${oIdx}" onclick="answerQuestion(${q.id}, ${oIdx})" class="text-right p-2.5 rounded border border-slate-300 bg-white hover:bg-amber-100 transition-all font-mono ltr-dir">
+                            <button id="q-${q.id}-opt-${oIdx}" onclick="answerQuestion(${q.id}, ${oIdx})" class="text-right p-3 rounded-lg border border-slate-300 bg-white hover:bg-amber-100 transition-all font-mono text-sm ltr-dir font-medium">
                                 ${opt}
                             </button>
                         `).join('')}
                     </div>
-                    <div id="q-${q.id}-feedback" class="mt-2 text-[11px] font-bold hidden"></div>
+                    <div id="q-${q.id}-feedback" class="mt-3 text-xs font-bold hidden"></div>
                 </div>
             `).join('');
         }
@@ -894,22 +891,22 @@
             
             q.options.forEach((_, idx) => {
                 const btn = document.getElementById(`q-${qId}-opt-${idx}`);
-                btn.className = "text-right p-2.5 rounded border border-slate-300 bg-white hover:bg-amber-100 transition-all font-mono ltr-dir";
+                btn.className = "text-right p-3 rounded-lg border border-slate-300 bg-white hover:bg-amber-100 transition-all font-mono text-sm ltr-dir font-medium";
             });
 
             const selectedBtn = document.getElementById(`q-${qId}-opt-${optionIdx}`);
 
             if (optionIdx === q.correct) {
-                selectedBtn.className = "text-right p-2.5 rounded border border-green-500 bg-green-100 font-bold font-mono ltr-dir text-green-900";
-                feedbackEl.className = "mt-2 text-[11px] font-bold text-green-700 block";
+                selectedBtn.className = "text-right p-3 rounded-lg border border-green-500 bg-green-100 font-bold font-mono text-sm ltr-dir text-green-900 shadow-xs";
+                feedbackEl.className = "mt-3 text-xs font-bold text-green-700 block";
                 feedbackEl.innerText = "✓ תשובה נכונה!";
                 if (!quizAnswers[qId]) {
                     quizAnswers[qId] = true;
                     addXP(10);
                 }
             } else {
-                selectedBtn.className = "text-right p-2.5 rounded border border-red-500 bg-red-100 font-bold font-mono ltr-dir text-red-900";
-                feedbackEl.className = "mt-2 text-[11px] font-bold text-red-700 block";
+                selectedBtn.className = "text-right p-3 rounded-lg border border-red-500 bg-red-100 font-bold font-mono text-sm ltr-dir text-red-900 shadow-xs";
+                feedbackEl.className = "mt-3 text-xs font-bold text-red-700 block";
                 feedbackEl.innerText = "✕ תשובה שגויה. נסה שוב!";
             }
 
