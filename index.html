@@ -24,6 +24,24 @@
             direction: ltr;
             display: inline-block;
         }
+        /* עיצוב ממוסגר מיוחד למונחים באנגלית בקטע התוכן */
+        .en-term {
+            font-family: 'JetBrains Mono', monospace;
+            direction: ltr;
+            display: inline-block;
+            border: 1px solid #94a3b8;
+            background-color: #f8fafc;
+            padding: 1px 6px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            line-height: 1.2;
+            margin: 0 2px;
+        }
+        .dark .en-term, .bg-slate-900 .en-term, .bg-slate-950 .en-term {
+            background-color: #1e293b;
+            border-color: #475569;
+            color: #38bdf8;
+        }
         .ltr-dir {
             direction: ltr;
             unicode-bidi: isolate;
@@ -81,8 +99,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="font-black text-xl tracking-wide text-slate-900">לומדים כתובות <span class="code-font ltr-dir">IP</span> עם סהר</h1>
-                    <p class="text-xs text-slate-600">כתובות <span class="code-font ltr-dir">IP</span> ותת-רשתות: השכבה השלישית מתעוררת לחיים</p>
+                    <h1 class="font-black text-xl tracking-wide text-slate-900">לומדים כתובות <span class="en-term">IP</span> עם סהר</h1>
+                    <p class="text-xs text-slate-600">כתובות <span class="en-term">IP</span> ותת-רשתות: השכבה השלישית מתעוררת לחיים</p>
                 </div>
             </div>
             
@@ -98,7 +116,7 @@
                 
                 <div class="flex items-center gap-2 bg-amber-100/60 border border-amber-300 px-3 py-1.5 rounded-lg text-amber-900">
                     <i data-lucide="zap" class="w-4 h-4 text-amber-600 animate-pulse"></i>
-                    <span class="text-xs font-bold"><span class="code-font ltr-dir">XP</span>:</span>
+                    <span class="text-xs font-bold"><span class="en-term">XP</span>:</span>
                     <span class="text-sm font-black code-font text-amber-800" id="xp-counter">0</span>
                 </div>
             </div>
@@ -111,49 +129,49 @@
         <!-- SIDEBAR -->
         <aside class="lg:col-span-3 flex flex-col gap-4">
             <div class="bg-white border border-amber-200/80 rounded-xl p-5 shadow-sm">
-                <h3 class="text-sm font-bold text-slate-700 mb-4 tracking-wider uppercase border-b border-amber-100 pb-2">מפת המשימה</h3>
-                <nav class="flex flex-col gap-2">
-                    <button id="btn-step-1" onclick="switchStep(1)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-amber-100/60 border border-amber-300 text-sky-900 transition-all font-bold">
+                <h3 class="text-base font-bold text-slate-700 mb-4 tracking-wider uppercase border-b border-amber-100 pb-2">מפת המשימה</h3>
+                <nav class="flex flex-col gap-2.5">
+                    <button id="btn-step-1" onclick="switchStep(1)" class="w-full text-right flex items-center justify-between p-3.5 rounded-lg bg-amber-100/60 border border-amber-300 text-sky-900 transition-all font-bold text-base">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">01.</span>
+                            <span class="code-font text-sm opacity-60">01.</span>
                             <span>מעבר חבילת תקשורת והדוור</span>
                         </div>
-                        <i data-lucide="map-pin" class="w-4 h-4 text-sky-600"></i>
+                        <i data-lucide="map-pin" class="w-5 h-5 text-sky-600"></i>
                     </button>
-                    <button id="btn-step-2" onclick="switchStep(2)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all">
+                    <button id="btn-step-2" onclick="switchStep(2)" class="w-full text-right flex items-center justify-between p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all text-base">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">02.</span>
-                            <span>מבנה ה-<span class="code-font ltr-dir">IP</span> והמסכה</span>
+                            <span class="code-font text-sm opacity-60">02.</span>
+                            <span>מבנה ה-<span class="en-term">IP</span> והמסכה</span>
                         </div>
-                        <i data-lucide="binary" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="binary" class="w-5 h-5 opacity-50"></i>
                     </button>
-                    <button id="btn-step-3" onclick="switchStep(3)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all">
+                    <button id="btn-step-3" onclick="switchStep(3)" class="w-full text-right flex items-center justify-between p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all text-base">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">03.</span>
+                            <span class="code-font text-sm opacity-60">03.</span>
                             <span>מעבדת דיאגנוסטיקה וניתוח</span>
                         </div>
-                        <i data-lucide="settings-2" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="settings-2" class="w-5 h-5 opacity-50"></i>
                     </button>
-                    <button id="btn-step-4" onclick="switchStep(4)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all">
+                    <button id="btn-step-4" onclick="switchStep(4)" class="w-full text-right flex items-center justify-between p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all text-base">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">04.</span>
+                            <span class="code-font text-sm opacity-60">04.</span>
                             <span>בוט הניתוח ומבקר הרשת</span>
                         </div>
-                        <i data-lucide="bot" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="bot" class="w-5 h-5 opacity-50"></i>
                     </button>
-                    <button id="btn-step-5" onclick="switchStep(5)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all">
+                    <button id="btn-step-5" onclick="switchStep(5)" class="w-full text-right flex items-center justify-between p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all text-base">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">05.</span>
-                            <span>תרגול <span class="code-font ltr-dir">IP</span> ותת-רשתות (10 שאלות)</span>
+                            <span class="code-font text-sm opacity-60">05.</span>
+                            <span>תרגול <span class="en-term">IP</span> ותת-רשתות (10 שאלות)</span>
                         </div>
-                        <i data-lucide="help-circle" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="help-circle" class="w-5 h-5 opacity-50"></i>
                     </button>
-                    <button id="btn-step-6" onclick="switchStep(6)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all">
+                    <button id="btn-step-6" onclick="switchStep(6)" class="w-full text-right flex items-center justify-between p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all text-base">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">06.</span>
+                            <span class="code-font text-sm opacity-60">06.</span>
                             <span>סיכום והורדת דוח</span>
                         </div>
-                        <i data-lucide="award" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="award" class="w-5 h-5 opacity-50"></i>
                     </button>
                 </nav>
             </div>
@@ -161,9 +179,9 @@
             <!-- SYSTEM LOG -->
             <div class="bg-white border border-amber-200/80 rounded-xl p-5 shadow-sm flex-grow flex flex-col justify-between">
                 <div>
-                    <h4 class="text-xs font-bold text-slate-500 tracking-wider mb-3">יומן הגדרות <span class="code-font ltr-dir">IP</span></h4>
+                    <h4 class="text-xs font-bold text-slate-500 tracking-wider mb-3">יומן הגדרות <span class="en-term">IP</span></h4>
                     <div id="system-log" class="text-xs code-font text-sky-800 space-y-2 h-40 overflow-y-auto bg-amber-50/50 p-3 rounded border border-amber-200">
-                        <p>[15:44:01] פרוטוקול IPv4 מאותחל במערכת.</p>
+                        <p>[15:44:01] פרוטוקול <span class="en-term">IPv4</span> מאותחל במערכת.</p>
                     </div>
                 </div>
                 <div class="mt-4 pt-4 border-t border-slate-200">
@@ -184,9 +202,9 @@
                     <span class="bg-amber-100 border border-amber-300 text-amber-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">אתגר השכבה השלישית</span>
                     <h2 class="text-2xl md:text-3xl font-black text-slate-900 mt-4 mb-3">מעבר חבילת תקשורת והדמיון לעבודת הדוור</h2>
                     <p class="text-slate-700 leading-relaxed text-lg mb-4">
-                        כתובות <span class="code-font ltr-dir">MAC</span> שלמדנו עליהן בשיעור 3 הן מעולות למסגרת המקומית (אותו הרחוב). אך מה קורה כשצריך להעביר חבילה ממדינה אחת למדינה אחרת? 
-                        אם הדוור היה צריך לעבור בית-בית בכל העולם ולבדוק כתובת <span class="code-font ltr-dir">MAC</span> ייחודית – כל מערכת הדואר העולמית הייתה קורסת. 
-                        בשביל זה נוצרה <span class="code-font font-bold ltr-dir">IP (Internet Protocol)</span>. היא כתובת לוגית בעלת מבנה היררכי המאפשרת ניתוב גלובלי מהיר.
+                        כתובות <span class="en-term">MAC</span> שלמדנו עליהן בשיעור 3 הן מעולות למסגרת המקומית (אותו הרחוב). אך מה קורה כשצריך להעביר חבילה ממדינה אחת למדינה אחרת? 
+                        אם הדוור היה צריך לעבור בית-בית בכל העולם ולבדוק כתובת <span class="en-term">MAC</span> ייחודית – כל מערכת הדואר העולמית הייתה קורסת. 
+                        בשביל זה נוצרה <span class="en-term">IP (Internet Protocol)</span>. היא כתובת לוגית בעלת מבנה היררכי המאפשרת ניתוב גלובלי מהיר.
                     </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
@@ -199,15 +217,15 @@
                             <p class="text-sm text-slate-700 mt-2 leading-relaxed">מצמצם את המיקום לשכונה או רחוב ספציפי בתוך הרשת.</p>
                         </div>
                         <div class="bg-amber-50 border border-amber-200 p-6 rounded-xl text-center shadow-xs">
-                            <h3 class="text-sky-900 font-bold text-lg">מספר הבית (מארח - <span class="code-font ltr-dir">Host</span>)</h3>
+                            <h3 class="text-sky-900 font-bold text-lg">מספר הבית (מארח - <span class="en-term">Host</span>)</h3>
                             <p class="text-sm text-slate-700 mt-2 leading-relaxed">המחשב, הטלפון או המכשיר הספציפי ברחוב.</p>
                         </div>
                     </div>
 
                     <div class="mt-8 bg-slate-50 p-6 rounded-xl border border-slate-200">
-                        <p class="text-base text-slate-800 font-bold mb-4">שאלה מהירה: מה קורה אם לשני מחשבים שונים באותו רחוב (רשת מקומית) תהיה אותה כתובת <span class="code-font ltr-dir">IP</span> בדיוק?</p>
+                        <p class="text-base text-slate-800 font-bold mb-4">שאלה מהירה: מה קורה אם לשני מחשבים שונים באותו רחוב (רשת מקומית) תהיה אותה כתובת <span class="en-term">IP</span> בדיוק?</p>
                         <div class="flex flex-col gap-3">
-                            <button onclick="answerScenario(1)" class="bg-white hover:bg-amber-100 text-right border border-slate-300 text-slate-800 text-sm px-4 py-3 rounded-lg transition-all font-medium">ייווצר סכסוך כתובות <span class="code-font ltr-dir">IP (IP Conflict)</span> והתקשורת של שניהם תיפגע או תיחסם.</button>
+                            <button onclick="answerScenario(1)" class="bg-white hover:bg-amber-100 text-right border border-slate-300 text-slate-800 text-sm px-4 py-3 rounded-lg transition-all font-medium">ייווצר סכסוך כתובות <span class="en-term">IP Conflict</span> והתקשורת של שניהם תיפגע או תיחסם.</button>
                             <button onclick="answerScenario(2)" class="bg-white hover:bg-amber-100 text-right border border-slate-300 text-slate-800 text-sm px-4 py-3 rounded-lg transition-all font-medium">הם יקבלו את אותן הודעות בדיוק כמו זוג תאומים סיאמיים ללא בעיה.</button>
                         </div>
                         <div id="scenario-feedback" class="mt-4 hidden p-3 rounded-lg text-xs font-semibold"></div>
@@ -216,7 +234,7 @@
                 
                 <div class="flex justify-end">
                     <button onclick="switchStep(2)" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all shadow-sm">
-                        <span>למד על מבנה ה-<span class="code-font ltr-dir">IP</span> והמסכה</span>
+                        <span>למד על מבנה ה-<span class="en-term">IP</span> והמסכה</span>
                         <i data-lucide="arrow-left" class="w-5 h-5"></i>
                     </button>
                 </div>
@@ -229,72 +247,72 @@
                     <h2 class="text-2xl font-black text-slate-900 mt-2 mb-4">איך מפרידים בין הרחוב לבין הבית?</h2>
                     
                     <p class="text-slate-700 leading-relaxed text-lg mb-6">
-                        כתובת <span class="code-font ltr-dir">IPv4</span> מורכבת מ-32 סיביות (<span class="code-font ltr-dir">Bits</span>) המחולקות ל-4 מספרים בין 0 ל-255 המופרדים בנקודה (למשל <code class="code-font ltr-dir">192.168.1.50</code>). 
-                        אבל איך המחשב יודע איזה חלק מהכתובת מייצג את הכתובת של הרשת (<span class="code-font ltr-dir">Network</span>) ואיזה חלק מייצג את המכשיר (<span class="code-font ltr-dir">Host</span>)? 
-                        כאן נכנסת לתמונה מסכת הרשת (<span class="code-font ltr-dir">Subnet Mask</span>)!
+                        כתובת <span class="en-term">IPv4</span> מורכבת מ-32 סיביות (<span class="en-term">Bits</span>) המחולקות ל-4 מספרים בין 0 ל-255 המופרדים בנקודה (למשל <span class="en-term">192.168.1.50</span>). 
+                        אבל איך המחשב יודע איזה חלק מהכתובת מייצג את הכתובת של הרשת (<span class="en-term">Network</span>) ואיזה חלק מייצג את המכשיר (<span class="en-term">Host</span>)? 
+                        כאן נכנסת לתמונה מסכת הרשת (<span class="en-term">Subnet Mask</span>)!
                     </p>
 
                     <!-- Interactive Subnet Cutter Explainer -->
                     <div class="bg-amber-50 p-6 rounded-xl border border-amber-200 max-w-3xl mx-auto space-y-6">
                         <div class="text-center text-sm text-slate-700 font-bold">
-                            מבנה חלוקה קלאסי מסוג <code class="code-font ltr-dir">Class C</code>:
+                            מבנה חלוקה קלאסי מסוג <span class="en-term">Class C</span>:
                         </div>
                         
                         <div class="flex flex-col md:flex-row justify-center items-center gap-4 text-center">
                             <div class="bg-purple-100 border border-purple-300 p-4 rounded-xl flex-1 w-full">
-                                <p class="text-xs text-purple-900 font-bold mb-1">חלק המארח (<code class="code-font ltr-dir">Host ID</code>)</p>
-                                <p class="code-font text-xl font-bold text-purple-950 ltr-dir">50</p>
-                                <p class="text-[11px] text-slate-600 mt-2">מוגדר על ידי ה-<code class="code-font ltr-dir">0</code> במסכת הרשת</p>
+                                <p class="text-xs text-purple-900 font-bold mb-1">חלק המארח (<span class="en-term">Host ID</span>)</p>
+                                <p class="code-font text-xl font-bold text-purple-950 ltr-dir"><span class="en-term">50</span></p>
+                                <p class="text-[11px] text-slate-600 mt-2">מוגדר על ידי ה-<span class="en-term">0</span> במסכת הרשת</p>
                             </div>
 
                             <div class="text-slate-400 font-black text-2xl">.</div>
 
                             <div class="bg-sky-100 border border-sky-300 p-4 rounded-xl flex-1 w-full">
-                                <p class="text-xs text-sky-900 font-bold mb-1">חלק הרשת (<code class="code-font ltr-dir">Network ID</code>)</p>
-                                <p class="code-font text-xl font-bold text-sky-950 ltr-dir">192.168.1</p>
-                                <p class="text-[11px] text-slate-600 mt-2">מוגדר על ידי ה-<code class="code-font ltr-dir">255.255.255</code> במסכה</p>
+                                <p class="text-xs text-sky-900 font-bold mb-1">חלק הרשת (<span class="en-term">Network ID</span>)</p>
+                                <p class="code-font text-xl font-bold text-sky-950 ltr-dir"><span class="en-term">192.168.1</span></p>
+                                <p class="text-[11px] text-slate-600 mt-2">מוגדר על ידי ה-<span class="en-term">255.255.255</span> במסכה</p>
                             </div>
                         </div>
 
                         <!-- CIDR and Classes Table (FIXED LAYOUT) -->
                         <div class="border-t border-amber-200 pt-5 text-sm space-y-3">
-                            <p class="text-slate-800 font-bold">טבלת מחלקות (<span class="code-font ltr-dir">Classes</span>) ופרפיקסים (<span class="code-font ltr-dir">CIDR</span>) - מסודרת:</p>
+                            <p class="text-slate-800 font-bold">טבלת מחלקות (<span class="en-term">Classes</span>) ופרפיקסים (<span class="en-term">CIDR</span>) - מסודרת:</p>
                             <div class="overflow-x-auto shadow-sm rounded-lg border border-slate-200">
                                 <table class="w-full text-center border-collapse bg-white text-sm">
                                     <thead>
                                         <tr class="bg-amber-100 text-slate-800 font-bold border-b border-slate-300">
-                                            <th class="p-3 border-l border-slate-200 text-center">מחלקה (<span class="code-font ltr-dir">Class</span>)</th>
+                                            <th class="p-3 border-l border-slate-200 text-center">מחלקה (<span class="en-term">Class</span>)</th>
                                             <th class="p-3 border-l border-slate-200 text-center">טווח אוקטטה ראשונה</th>
                                             <th class="p-3 border-l border-slate-200 text-center">מסכת ברירת מחדל</th>
-                                            <th class="p-3 text-center">פרפיקס <span class="code-font ltr-dir">CIDR</span></th>
+                                            <th class="p-3 text-center">פרפיקס <span class="en-term">CIDR</span></th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-200">
                                         <tr class="hover:bg-amber-50/50">
-                                            <td class="p-3 border-l border-slate-200 text-center"><span class="font-bold text-sky-800 code-font ltr-dir">Class A</span></td>
-                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">1 - 126</span></td>
-                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">255.0.0.0</span></td>
-                                            <td class="p-3 text-center"><span class="code-font font-bold text-sky-700 ltr-dir">/8</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="font-bold text-sky-800 en-term">Class A</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="en-term">1 - 126</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="en-term">255.0.0.0</span></td>
+                                            <td class="p-3 text-center"><span class="font-bold text-sky-700 en-term">/8</span></td>
                                         </tr>
                                         <tr class="hover:bg-amber-50/50">
-                                            <td class="p-3 border-l border-slate-200 text-center"><span class="font-bold text-sky-800 code-font ltr-dir">Class B</span></td>
-                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">128 - 191</span></td>
-                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">255.255.0.0</span></td>
-                                            <td class="p-3 text-center"><span class="code-font font-bold text-sky-700 ltr-dir">/16</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="font-bold text-sky-800 en-term">Class B</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="en-term">128 - 191</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="en-term">255.255.0.0</span></td>
+                                            <td class="p-3 text-center"><span class="font-bold text-sky-700 en-term">/16</span></td>
                                         </tr>
                                         <tr class="hover:bg-amber-50/50">
-                                            <td class="p-3 border-l border-slate-200 text-center"><span class="font-bold text-sky-800 code-font ltr-dir">Class C</span></td>
-                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">192 - 223</span></td>
-                                            <td class="p-3 border-l border-slate-200 text-center"><span class="code-font ltr-dir">255.255.255.0</span></td>
-                                            <td class="p-3 text-center"><span class="code-font font-bold text-sky-700 ltr-dir">/24</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="font-bold text-sky-800 en-term">Class C</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="en-term">192 - 223</span></td>
+                                            <td class="p-3 border-l border-slate-200 text-center"><span class="en-term">255.255.255.0</span></td>
+                                            <td class="p-3 text-center"><span class="font-bold text-sky-700 en-term">/24</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
 
                             <p class="text-slate-700 leading-relaxed mt-3">
-                                מסכת רשת של <code class="code-font ltr-dir">255.255.255.0</code> (פרפיקס <code class="code-font ltr-dir">/24</code>) קובעת כי 24 הביטים הראשונים שייכים לרשת. 
-                                מספר המארחים מחושב לפי הנוסחה: <code class="code-font ltr-dir">2<sup>H</sup> - 2</code>. עבור 8 ביטים של מארח: <code class="code-font ltr-dir">2<sup>8</sup> - 2 = 254</code> כתובות זמינות.
+                                מסכת רשת של <span class="en-term">255.255.255.0</span> (פרפיקס <span class="en-term">/24</span>) קובעת כי 24 הביטים הראשונים שייכים לרשת. 
+                                מספר המארחים מחושב לפי הנוסחה: <span class="en-term">2<sup>H</sup> - 2</span>. עבור 8 ביטים של מארח: <span class="en-term">2<sup>8</sup> - 2 = 254</span> כתובות זמינות.
                             </p>
                         </div>
                     </div>
@@ -320,7 +338,7 @@
                             <span class="bg-amber-100 border border-amber-300 text-amber-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">תחנת מעבדה ופתרון תקלות</span>
                             <h2 class="text-2xl font-black text-slate-900 mt-2">מעבדת ניתוח תקשורת בין רשתות</h2>
                             <p class="text-slate-600 text-xs mt-1">
-                                המטרה: הגדר את תחנת <span class="code-font ltr-dir">PC A</span> כך שתוכל לתקשר עם הרשת המקומית שלה (ממשק הנתב) ולאחר מכן עם תחנת <span class="code-font ltr-dir">PC B</span> ברשת המרוחקת.
+                                המטרה: הגדר את תחנת <span class="en-term">PC A</span> כך שתוכל לתקשר עם הרשת המקומית שלה (ממשק הנתב) ולאחר מכן עם תחנת <span class="en-term">PC B</span> ברשת המרוחקת.
                             </p>
                         </div>
 
@@ -328,10 +346,10 @@
                         <div class="flex items-center gap-2 flex-wrap">
                             <span class="text-xs text-slate-500 font-bold">תרחישי תקלות:</span>
                             <button onclick="loadScenario('wrong-gw')" class="text-xs bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-bold px-2.5 py-1.5 rounded-lg transition-all">
-                                ⚠️ תקלה 1: Gateway שגוי
+                                ⚠️ תקלה 1: <span class="en-term">Gateway</span> שגוי
                             </button>
                             <button onclick="loadScenario('wrong-ip')" class="text-xs bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-bold px-2.5 py-1.5 rounded-lg transition-all">
-                                ⚠️ תקלה 2: IP מחוץ לסבנט
+                                ⚠️ תקלה 2: <span class="en-term">IP</span> מחוץ לסבנט
                             </button>
                             <button onclick="loadScenario('correct')" class="text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold px-2.5 py-1.5 rounded-lg transition-all">
                                 ✅ הגדרה תקינה
@@ -342,9 +360,9 @@
                     <!-- Topology Visualizer -->
                     <div class="bg-slate-900 rounded-2xl p-5 border border-slate-800 shadow-inner relative overflow-hidden mb-6">
                         <div class="text-center flex justify-between items-center text-[10px] text-slate-400 code-font mb-2 ltr-dir">
-                            <span>SUBNET A: 192.168.1.0/24</span>
-                            <span class="text-amber-400 font-bold">ROUTER R1 (LAYER 3 GATEWAY)</span>
-                            <span>SUBNET B: 10.0.0.0/8</span>
+                            <span><span class="en-term">SUBNET A: 192.168.1.0/24</span></span>
+                            <span class="text-amber-400 font-bold"><span class="en-term">ROUTER R1 (LAYER 3 GATEWAY)</span></span>
+                            <span><span class="en-term">SUBNET B: 10.0.0.0/8</span></span>
                         </div>
 
                         <div class="relative w-full h-44 flex items-center justify-between px-4 sm:px-12 bg-slate-950/80 rounded-xl border border-slate-800">
@@ -353,8 +371,8 @@
                                 <div class="p-3 bg-slate-800 border-2 border-sky-500 rounded-xl shadow-lg">
                                     <i data-lucide="monitor" class="w-8 h-8 text-sky-400"></i>
                                 </div>
-                                <span class="text-xs font-bold text-slate-200 mt-2 code-font ltr-dir">PC A</span>
-                                <span id="visual-ip-a" class="text-[10px] code-font text-sky-300 bg-sky-950 px-2 py-0.5 rounded border border-sky-800 mt-1 ltr-dir">192.168.1.10</span>
+                                <span class="text-xs font-bold text-slate-200 mt-2 code-font ltr-dir"><span class="en-term">PC A</span></span>
+                                <span id="visual-ip-a" class="text-[10px] code-font text-sky-300 bg-sky-950 px-2 py-0.5 rounded border border-sky-800 mt-1 ltr-dir"><span class="en-term">192.168.1.10</span></span>
                             </div>
 
                             <!-- Connection Line A -->
@@ -363,7 +381,7 @@
                                 <div id="line-left-pulse" class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
                                     <div class="w-full h-1 bg-sky-400 animate-pulse"></div>
                                 </div>
-                                <span class="absolute top-2 text-[9px] code-font bg-slate-900 text-slate-400 px-1 rounded border border-slate-800 ltr-dir">Eth0</span>
+                                <span class="absolute top-2 text-[9px] code-font bg-slate-900 text-slate-400 px-1 rounded border border-slate-800 ltr-dir"><span class="en-term">Eth0</span></span>
                             </div>
 
                             <!-- Router (Center) -->
@@ -372,13 +390,13 @@
                                     <i data-lucide="router" class="w-9 h-9 text-amber-400"></i>
                                     <!-- Dynamic Interface Badges -->
                                     <div class="absolute -right-16 top-0 bg-amber-950/90 text-amber-300 border border-amber-600/50 text-[9px] code-font px-1.5 py-0.5 rounded shadow ltr-dir">
-                                        Fa0/0: 192.168.1.1
+                                        <span class="en-term">Fa0/0: 192.168.1.1</span>
                                     </div>
                                     <div class="absolute -left-14 top-0 bg-purple-950/90 text-purple-300 border border-purple-600/50 text-[9px] code-font px-1.5 py-0.5 rounded shadow ltr-dir">
-                                        Fa0/1: 10.0.0.1
+                                        <span class="en-term">Fa0/1: 10.0.0.1</span>
                                     </div>
                                 </div>
-                                <span class="text-xs font-bold text-amber-400 mt-2 code-font ltr-dir">Router (R1)</span>
+                                <span class="text-xs font-bold text-amber-400 mt-2 code-font ltr-dir"><span class="en-term">Router (R1)</span></span>
                             </div>
 
                             <!-- Connection Line B -->
@@ -387,7 +405,7 @@
                                 <div id="line-right-pulse" class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
                                     <div class="w-full h-1 bg-purple-400 animate-pulse"></div>
                                 </div>
-                                <span class="absolute top-2 text-[9px] code-font bg-slate-900 text-slate-400 px-1 rounded border border-slate-800 ltr-dir">Fa0/1</span>
+                                <span class="absolute top-2 text-[9px] code-font bg-slate-900 text-slate-400 px-1 rounded border border-slate-800 ltr-dir"><span class="en-term">Fa0/1</span></span>
                             </div>
 
                             <!-- PC B -->
@@ -395,8 +413,8 @@
                                 <div class="p-3 bg-slate-800 border-2 border-purple-500 rounded-xl shadow-lg">
                                     <i data-lucide="monitor" class="w-8 h-8 text-purple-400"></i>
                                 </div>
-                                <span class="text-xs font-bold text-slate-200 mt-2 code-font ltr-dir">PC B (קבוע)</span>
-                                <span class="text-[10px] code-font text-purple-300 bg-purple-950 px-2 py-0.5 rounded border border-purple-800 mt-1 ltr-dir">10.0.0.20 /8</span>
+                                <span class="text-xs font-bold text-slate-200 mt-2 code-font ltr-dir"><span class="en-term">PC B (קבוע)</span></span>
+                                <span class="text-[10px] code-font text-purple-300 bg-purple-950 px-2 py-0.5 rounded border border-purple-800 mt-1 ltr-dir"><span class="en-term">10.0.0.20 /8</span></span>
                             </div>
                         </div>
                     </div>
@@ -407,35 +425,35 @@
                         <div class="lg:col-span-7 bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
                             <h3 class="text-xs font-bold text-slate-800 tracking-wide uppercase border-b border-slate-200 pb-2 flex items-center gap-2">
                                 <i data-lucide="sliders" class="w-4 h-4 text-sky-600"></i>
-                                הגדרות כרטיס רשת - <span class="code-font ltr-dir">PC A</span>
+                                הגדרות כרטיס רשת - <span class="en-term">PC A</span>
                             </h3>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                                 <div>
-                                    <label class="block font-bold text-slate-700 mb-1">כתובת <span class="code-font ltr-dir">IP</span> עבור <span class="code-font ltr-dir">PC A</span>:</label>
+                                    <label class="block font-bold text-slate-700 mb-1">כתובת <span class="en-term">IP</span> עבור <span class="en-term">PC A</span>:</label>
                                     <input type="text" id="sim-ip-a" value="192.168.1.99" oninput="updateVisuals()" class="w-full bg-white border border-slate-300 rounded p-2.5 text-slate-900 code-font ltr-dir focus:outline-none focus:border-sky-500 font-bold">
-                                    <span class="text-[10px] text-slate-500 mt-0.5 block">מטווח הרשת המקומית: <span class="code-font ltr-dir">192.168.1.X</span></span>
+                                    <span class="text-[10px] text-slate-500 mt-0.5 block">מטווח הרשת המקומית: <span class="en-term">192.168.1.X</span></span>
                                 </div>
                                 <div>
-                                    <label class="block font-bold text-slate-700 mb-1">מסכת רשת (<span class="code-font ltr-dir">Subnet Mask</span>):</label>
+                                    <label class="block font-bold text-slate-700 mb-1">מסכת רשת (<span class="en-term">Subnet Mask</span>):</label>
                                     <input type="text" id="sim-mask-a" value="255.255.255.0" oninput="updateVisuals()" class="w-full bg-white border border-slate-300 rounded p-2.5 text-slate-900 code-font ltr-dir focus:outline-none focus:border-sky-500 font-bold">
-                                    <span class="text-[10px] text-slate-500 mt-0.5 block">מגדיר את גודל הסבנט (<span class="code-font ltr-dir">/24</span>)</span>
+                                    <span class="text-[10px] text-slate-500 mt-0.5 block">מגדיר את גודל הסבנט (<span class="en-term">/24</span>)</span>
                                 </div>
                                 <div class="md:col-span-2">
-                                    <label class="block font-bold text-slate-700 mb-1">שער ברירת מחדל (<span class="code-font ltr-dir">Default Gateway</span>):</label>
+                                    <label class="block font-bold text-slate-700 mb-1">שער ברירת מחדל (<span class="en-term">Default Gateway</span>):</label>
                                     <input type="text" id="sim-gw-a" value="192.168.1.254" oninput="updateVisuals()" class="w-full bg-white border border-slate-300 rounded p-2.5 text-slate-900 code-font ltr-dir focus:outline-none focus:border-sky-500 font-bold">
-                                    <span class="text-[10px] text-amber-800 font-semibold mt-0.5 block">💡 רמז: לאיזה כתובת של הנתב <span class="code-font ltr-dir">PC A</span> מחובר פיזית?</span>
+                                    <span class="text-[10px] text-amber-800 font-semibold mt-0.5 block">💡 רמז: לאיזה כתובת של הנתב <span class="en-term">PC A</span> מחובר פיזית?</span>
                                 </div>
                             </div>
 
                             <div class="pt-3 border-t border-slate-200 flex flex-col sm:flex-row gap-2">
                                 <button onclick="runDiagnosticPing('local')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 rounded-lg text-xs transition-all flex items-center justify-center gap-1.5">
                                     <i data-lucide="arrow-left-right" class="w-4 h-4 text-amber-400"></i>
-                                    <span>בדיקת תקשורת מקומית (<span class="code-font ltr-dir">PC A ➔ Gateway</span>)</span>
+                                    <span>בדיקת תקשורת מקומית (<span class="en-term">PC A ➔ Gateway</span>)</span>
                                 </button>
                                 <button onclick="runDiagnosticPing('remote')" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-lg text-xs transition-all flex items-center justify-center gap-1.5 shadow">
                                     <i data-lucide="send" class="w-4 h-4"></i>
-                                    <span>בדיקה מרוחקת מקצה לקצה (<span class="code-font ltr-dir">PC A ➔ PC B</span>)</span>
+                                    <span>בדיקה מרוחקת מקצה לקצה (<span class="en-term">PC A ➔ PC B</span>)</span>
                                 </button>
                             </div>
                         </div>
@@ -469,7 +487,7 @@
                         <span>חזרה להסבר</span>
                     </button>
                     <button id="btn-to-step-4" onclick="switchStep(4)" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all disabled:opacity-40 disabled:pointer-events-none" disabled>
-                        <span>המשך לבודק העבודות <span class="code-font ltr-dir">AI</span></span>
+                        <span>המשך לבודק העבודות <span class="en-term">AI</span></span>
                         <i data-lucide="arrow-left" class="w-5 h-5"></i>
                     </button>
                 </div>
@@ -480,8 +498,8 @@
                 <div class="bg-white border border-amber-200 rounded-2xl p-6 md:p-8 shadow-sm">
                     <div class="flex justify-between items-start flex-wrap gap-4 border-b border-slate-200 pb-4">
                         <div>
-                            <span class="bg-amber-100 border border-amber-300 text-amber-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">מערכת ביקורת <span class="code-font ltr-dir">AI</span></span>
-                            <h2 class="text-2xl font-black text-slate-900 mt-3">מבקר הרשת: <span class="code-font ltr-dir">AI Cyber Bot</span></h2>
+                            <span class="bg-amber-100 border border-amber-300 text-amber-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">מערכת ביקורת <span class="en-term">AI</span></span>
+                            <h2 class="text-2xl font-black text-slate-900 mt-3">מבקר הרשת: <span class="en-term">AI Cyber Bot</span></h2>
                         </div>
                     </div>
 
@@ -491,7 +509,7 @@
                             <h3 class="text-xs font-bold text-slate-800 tracking-wide uppercase border-b border-slate-200 pb-2">הגש את תרחיש הרשת שלך:</h3>
                             <div class="space-y-3 text-xs">
                                 <div>
-                                    <label class="block text-slate-600 mb-1">כתובת <span class="code-font ltr-dir">IP</span> חוקית (<span class="code-font ltr-dir">IPv4</span>):</label>
+                                    <label class="block text-slate-600 mb-1">כתובת <span class="en-term">IP</span> חוקית (<span class="en-term">IPv4</span>):</label>
                                     <input type="text" id="ai-user-ip" placeholder="192.168.10.35" class="w-full bg-white border border-slate-300 p-2.5 rounded text-slate-900 code-font ltr-dir focus:outline-none focus:border-sky-500">
                                 </div>
                                 <div>
@@ -499,7 +517,7 @@
                                     <input type="text" id="ai-user-mask" placeholder="255.255.255.0" class="w-full bg-white border border-slate-300 p-2.5 rounded text-slate-900 code-font ltr-dir focus:outline-none focus:border-sky-500">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-600 mb-1">מהי מטרת ה-<span class="code-font ltr-dir">Gateway</span> ברשת?</label>
+                                    <label class="block text-slate-600 mb-1">מהי מטרת ה-<span class="en-term">Gateway</span> ברשת?</label>
                                     <textarea id="ai-user-explanation" rows="3" placeholder="הסבר במילים שלך..." class="w-full bg-white border border-slate-300 p-2.5 rounded text-slate-900 text-xs focus:outline-none focus:border-sky-500"></textarea>
                                 </div>
                             </div>
@@ -517,7 +535,7 @@
                                     </div>
                                     <div>
                                         <div class="flex items-center gap-2">
-                                            <h3 class="font-bold text-sm text-sky-400 code-font ltr-dir">SAAR_CYBER_BOT v2.4</h3>
+                                            <h3 class="font-bold text-sm text-sky-400 code-font ltr-dir"><span class="en-term">SAAR_CYBER_BOT v2.4</span></h3>
                                             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                                         </div>
                                         <p class="text-[11px] text-slate-400 mt-0.5">מנתח הרשתות האלגוריתמי פעיל ומוכן לבדיקה</p>
@@ -526,15 +544,15 @@
 
                                 <div id="chat-messages" class="overflow-y-auto bg-slate-950/80 p-4 rounded-xl border border-slate-800 h-[200px] space-y-3 text-xs font-mono">
                                     <div class="text-sky-300">
-                                        <span class="text-[10px] font-bold text-purple-400 block mb-1 ltr-dir">&gt;&gt; SYSTEM_READY // </span>
-                                        הזן את הנתונים בטופס משמאל ולחץ על "שלח לבדיקת מומחה <span class="code-font ltr-dir">AI</span>". אנליזת הרשת תופעל מיידית!
+                                        <span class="text-[10px] font-bold text-purple-400 block mb-1 ltr-dir"><span class="en-term">&gt;&gt; SYSTEM_READY // </span></span>
+                                        הזן את הנתונים בטופס משמאל ולחץ על "שלח לבדיקת מומחה <span class="en-term">AI</span>". אנליזת הרשת תופעל מיידית!
                                     </div>
                                 </div>
                             </div>
 
                             <button onclick="sendWorkToValidator()" class="relative z-10 w-full bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold py-3 rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-lg mt-4">
                                 <i data-lucide="cpu" class="w-4 h-4"></i>
-                                <span>שלח לבדיקת מומחה <span class="code-font ltr-dir">AI</span></span>
+                                <span>שלח לבדיקת מומחה <span class="en-term">AI</span></span>
                             </button>
                         </div>
                     </div>
@@ -546,7 +564,7 @@
                         <span>חזרה לסימולטור</span>
                     </button>
                     <button onclick="switchStep(5)" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all">
-                        <span>עבור לתרגול <span class="code-font ltr-dir">IP</span> ותת-רשתות</span>
+                        <span>עבור לתרגול <span class="en-term">IP</span> ותת-רשתות</span>
                         <i data-lucide="arrow-left" class="w-5 h-5"></i>
                     </button>
                 </div>
@@ -558,7 +576,7 @@
                     <div class="flex justify-between items-center border-b border-slate-200 pb-4 mb-6 flex-wrap gap-3">
                         <div>
                             <span class="bg-amber-100 border border-amber-300 text-amber-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">מבחן שליטה מעשי</span>
-                            <h2 class="text-2xl font-black text-slate-900 mt-2">תרגול <span class="code-font ltr-dir">IP</span> ותת-רשתות (10 שאלות)</h2>
+                            <h2 class="text-2xl font-black text-slate-900 mt-2">תרגול <span class="en-term">IP</span> ותת-רשתות (10 שאלות)</h2>
                         </div>
                         <div class="flex items-center gap-3">
                             <!-- DESIGNED TEACHER BUTTON -->
@@ -583,7 +601,7 @@
                 <div class="flex justify-between">
                     <button onclick="switchStep(4)" class="bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
                         <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                        <span>חזרה לבודק ה-<span class="code-font ltr-dir">AI</span></span>
+                        <span>חזרה לבודק ה-<span class="en-term">AI</span></span>
                     </button>
                     <button onclick="switchStep(6)" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all">
                         <span>עבור לדוח הסיכום והרפלקציה</span>
@@ -603,11 +621,11 @@
                             <h3 class="font-bold text-slate-800 text-lg">רפלקציה עצמית למורה</h3>
                             <div class="space-y-4">
                                 <div>
-                                    <label class="block text-sm text-slate-700 mb-1 font-semibold">1. מהו תפקידו המרכזי של שער ברירת המחדל (<span class="code-font ltr-dir">Default Gateway</span>) ברשת?</label>
+                                    <label class="block text-sm text-slate-700 mb-1 font-semibold">1. מהו תפקידו המרכזי של שער ברירת המחדל (<span class="en-term">Default Gateway</span>) ברשת?</label>
                                     <textarea id="reflection-q1" class="w-full bg-white border border-slate-300 rounded-lg p-3 text-sm text-slate-900 focus:outline-none focus:border-sky-500" rows="3" placeholder="הסבר במילים שלך..."></textarea>
                                 </div>
                                 <div>
-                                    <label class="block text-sm text-slate-700 mb-1 font-semibold">2. כמה מארחים ניתן להגדיר ברשת בעלת מסכה <span class="code-font ltr-dir">255.255.255.0</span>? פרט את החישוב.</label>
+                                    <label class="block text-sm text-slate-700 mb-1 font-semibold">2. כמה מארחים ניתן להגדיר ברשת בעלת מסכה <span class="en-term">255.255.255.0</span>? פרט את החישוב.</label>
                                     <textarea id="reflection-q2" class="w-full bg-white border border-slate-300 rounded-lg p-3 text-sm text-slate-900 focus:outline-none focus:border-sky-500" rows="3" placeholder="פרט את החישוב והנוסחה..."></textarea>
                                 </div>
                             </div>
@@ -617,7 +635,7 @@
                             <div>
                                 <h3 class="font-bold text-slate-800 text-lg mb-3">שתף הצלחה עם החברים</h3>
                                 <div class="bg-white p-3.5 rounded-lg border border-slate-300 code-font text-sm flex justify-between items-center text-sky-800 ltr-dir shadow-xs">
-                                    <span id="share-code">NET-SAAR-CLASS5-PENDING</span>
+                                    <span id="share-code"><span class="en-term">NET-SAAR-CLASS5-PENDING</span></span>
                                     <button onclick="copyShareCode()" class="text-sky-600 hover:text-sky-800 transition-colors flex items-center gap-1 font-sans text-xs font-bold">
                                         <i data-lucide="copy" class="w-4 h-4"></i>
                                         <span>העתק</span>
@@ -652,13 +670,13 @@
             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                 <div class="flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-                    <span class="text-xs font-bold text-sky-400 code-font ltr-dir">SAAR_BOT_LIVE v2.4</span>
+                    <span class="text-xs font-bold text-sky-400 code-font ltr-dir"><span class="en-term">SAAR_BOT_LIVE v2.4</span></span>
                 </div>
                 <button onclick="toggleFloatingBot()" class="text-slate-400 hover:text-white text-xs font-bold bg-slate-800 hover:bg-slate-700 px-2 py-0.5 rounded">✕</button>
             </div>
             
             <p class="text-[11px] text-slate-300 leading-relaxed">
-                🤖 <b>מצב צף פעיל:</b> אני כאן איתך לאורך כל הלמידה! שאל אותי שאלות על <span class="code-font ltr-dir">IP</span>, <span class="code-font ltr-dir">Subnet Mask</span> וניתוב.
+                🤖 <b>מצב צף פעיל:</b> אני כאן איתך לאורך כל הלמידה! שאל אותי שאלות על <span class="en-term">IP</span>, <span class="en-term">Subnet Mask</span> וניתוב.
             </p>
 
             <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-[10px] code-font text-sky-300 space-y-1 ltr-dir">
@@ -669,7 +687,7 @@
 
             <button onclick="switchStep(4)" class="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 rounded-lg text-xs transition-all flex items-center justify-center gap-2">
                 <i data-lucide="bot" class="w-4 h-4"></i>
-                <span>פתח מעבדת <span class="code-font ltr-dir">AI</span> מלאה</span>
+                <span>פתח מעבדת <span class="en-term">AI</span> מלאה</span>
             </button>
         </div>
 
@@ -697,11 +715,11 @@
     <!-- FOOTER -->
     <footer class="border-t border-amber-200 bg-amber-50/60 py-4 px-4 text-center mt-auto">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-600">
-            <p>© 2026 לומדים כתובות <span class="code-font ltr-dir">IP</span> עם סהר - כל הזכויות שמורות</p>
+            <p>© 2026 לומדים כתובות <span class="en-term">IP</span> עם סהר - כל הזכויות שמורות</p>
             <div class="flex gap-4">
                 <span>שיעור 5</span>
                 <span>•</span>
-                <span class="text-sky-800 font-bold"><span class="code-font ltr-dir">RTL & LTR</span> תומך באופן מלא</span>
+                <span class="text-sky-800 font-bold"><span class="en-term">RTL & LTR</span> תומך באופן מלא</span>
             </div>
         </div>
     </footer>
@@ -720,16 +738,16 @@
         let quizAnswers = {};
 
         const quizQuestions = [
-            { id: 1, text: "לאיזו מחלקה (Class) שייכת הכתובת 10.5.8.1?", options: ["Class A", "Class B", "Class C", "Class D"], correct: 0 },
-            { id: 2, text: "מהי מסכת ברירת המחדל (Default Subnet Mask) של Class B?", options: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "255.255.255.255"], correct: 1 },
-            { id: 3, text: "מה מייצג הפרפיקס /24 במבנה ה-CIDR?", options: ["8 ביטים לרשת", "16 ביטים לרשת", "24 ביטים לרשת", "24 ביטים למארחים"], correct: 2 },
-            { id: 4, text: "כמה כתובות IP זמינות להקצאה למחשבים (Hosts) יש ברשת עם מסכה 255.255.255.0?", options: ["256", "255", "254", "252"], correct: 2 },
-            { id: 5, text: "למה משמשת הכתובת הראשונה ברשת (למשל 192.168.1.0)?", options: ["כתובת מוקצת למחשב הראשי", "כתובת הרשת עצמה (Network ID)", "כתובת ה-Broadcast", "כתובת ה-Gateway"], correct: 1 },
-            { id: 6, text: "למה משמשת הכתובת האחרונה ברשת (למשל 192.168.1.255)?", options: ["כתובת ה-Broadcast לכל המחשבים", "שער ברירת מחדל", "כתובת השרת המרכזי", "כתובת לולאה עצמית (Loopback)"], correct: 0 },
-            { id: 7, text: "מהו תפקידו של ה-Default Gateway?", options: ["להקצות כתובות IP באופן אוטומטי", "לחבר את המחשב המקומי לרשתות חיצוניות", "לתרגם שמות מתחם ל-IP", "להגן מפני וירוסים במחשב"], correct: 1 },
-            { id: 8, text: "איזו מהכתובות הבאות אינה כתובת IPv4 חוקית?", options: ["172.16.254.1", "192.168.1.1", "256.100.0.1", "10.0.0.1"], correct: 2 },
-            { id: 9, text: "איזה חלק בכתובת IP מגדיר את ה-Subnet Mask 255.255.0.0?", options: ["האוקטטה הראשונה בלבד", "שתי האוקטטות הראשונות", "שלוש האוקטטות הראשונות", "האוקטטה האחרונה בלבד"], correct: 1 },
-            { id: 10, text: "מהי נוסחת חישוב מספר המארחים האפשריים ברשת בתשובה לפי הביטים של המארח (H)?", options: ["2^H", "2^H - 1", "2^H - 2", "2 * H"], correct: 2 }
+            { id: 1, text: "לאיזו מחלקה (Class) שייכת הכתובת <span class='en-term'>10.5.8.1</span>?", options: ["Class A", "Class B", "Class C", "Class D"], correct: 0 },
+            { id: 2, text: "מהי מסכת ברירת המחדל (Default Subnet Mask) של <span class='en-term'>Class B</span>?", options: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "255.255.255.255"], correct: 1 },
+            { id: 3, text: "מה מייצג הפרפיקס <span class='en-term'>/24</span> במבנה ה-CIDR?", options: ["8 ביטים לרשת", "16 ביטים לרשת", "24 ביטים לרשת", "24 ביטים למארחים"], correct: 2 },
+            { id: 4, text: "כמה כתובות IP זמינות להקצאה למחשבים (Hosts) יש ברשת עם מסכה <span class='en-term'>255.255.255.0</span>?", options: ["256", "255", "254", "252"], correct: 2 },
+            { id: 5, text: "למה משמשת הכתובת הראשונה ברשת (למשל <span class='en-term'>192.168.1.0</span>)?", options: ["כתובת מוקצת למחשב הראשי", "כתובת הרשת עצמה (Network ID)", "כתובת ה-Broadcast", "כתובת ה-Gateway"], correct: 1 },
+            { id: 6, text: "למה משמשת הכתובת האחרונה ברשת (למשל <span class='en-term'>192.168.1.255</span>)?", options: ["כתובת ה-Broadcast לכל המחשבים", "שער ברירת מחדל", "כתובת השרת המרכזי", "כתובת לולאה עצמית (Loopback)"], correct: 0 },
+            { id: 7, text: "מהו תפקידו של ה-<span class='en-term'>Default Gateway</span>?", options: ["להקצות כתובות IP באופן אוטומטי", "לחבר את המחשב המקומי לרשתות חיצוניות", "לתרגם שמות מתחם ל-IP", "להגן מפני וירוסים במחשב"], correct: 1 },
+            { id: 8, text: "איזו מהכתובות הבאות אינה כתובת <span class='en-term'>IPv4</span> חוקית?", options: ["172.16.254.1", "192.168.1.1", "256.100.0.1", "10.0.0.1"], correct: 2 },
+            { id: 9, text: "איזה חלק בכתובת IP מגדיר את ה-<span class='en-term'>Subnet Mask 255.255.0.0</span>?", options: ["האוקטטה הראשונה בלבד", "שתי האוקטטות הראשונות", "שלוש האוקטטות הראשונות", "האוקטטה האחרונה בלבד"], correct: 1 },
+            { id: 10, text: "מהי נוסחת חישוב מספר המארחים האפשריים ברשת בתשובה לפי הביטים של המארח (<span class='en-term'>H</span>)?", options: ["2^H", "2^H - 1", "2^H - 2", "2 * H"], correct: 2 }
         ];
 
         lucide.createIcons();
@@ -748,7 +766,7 @@
         /* SIMULATOR DIAGNOSTICS & TROUBLESHOOTING LOGIC */
         function updateVisuals() {
             const ipA = document.getElementById('sim-ip-a').value.trim();
-            document.getElementById('visual-ip-a').innerText = ipA || '192.168.1.X';
+            document.getElementById('visual-ip-a').innerHTML = `<span class="en-term">${ipA || '192.168.1.X'}</span>`;
         }
 
         function loadScenario(type) {
@@ -862,8 +880,8 @@
                     <p class="font-bold text-slate-800 text-base mb-3">${idx + 1}. ${q.text}</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         ${q.options.map((opt, oIdx) => `
-                            <button id="q-${q.id}-opt-${oIdx}" onclick="answerQuestion(${q.id}, ${oIdx})" class="text-right p-3 rounded-lg border border-slate-300 bg-white hover:bg-amber-100 transition-all font-mono text-sm ltr-dir font-medium">
-                                ${opt}
+                            <button id="q-${q.id}-opt-${oIdx}" onclick="answerQuestion(${q.id},${oIdx})" class="text-right p-3 rounded-lg border border-slate-300 bg-white hover:bg-amber-100 transition-all font-mono text-sm ltr-dir font-medium">
+                                <span class="en-term">${opt}</span>
                             </button>
                         `).join('')}
                     </div>
@@ -919,14 +937,14 @@
                 document.getElementById(`step-${i}`).classList.add('hidden');
                 const btn = document.getElementById(`btn-step-${i}`);
                 if (btn) {
-                    btn.className = "w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all";
+                    btn.className = "w-full text-right flex items-center justify-between p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all text-base";
                 }
             }
 
             document.getElementById(`step-${stepNum}`).classList.remove('hidden');
             const activeBtn = document.getElementById(`btn-step-${stepNum}`);
             if (activeBtn) {
-                activeBtn.className = "w-full text-right flex items-center justify-between p-3 rounded-lg bg-amber-100/60 border border-amber-300 text-sky-900 transition-all font-bold";
+                activeBtn.className = "w-full text-right flex items-center justify-between p-3.5 rounded-lg bg-amber-100/60 border border-amber-300 text-sky-900 transition-all font-bold text-base";
             }
 
             activeStep = stepNum;
