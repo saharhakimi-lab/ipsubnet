@@ -162,7 +162,7 @@
                     <button id="btn-step-5" onclick="switchStep(5)" class="w-full text-right flex items-center justify-between p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:bg-amber-50 transition-all text-base">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-sm opacity-60">05.</span>
-                            <span>תרגול <span class="en-term">IP</span> ותת-רשתות (10 שאלות)</span>
+                            <span>תרגול <span class="en-term">IP</span> ותת-רשתות, 10 שאלות</span>
                         </div>
                         <i data-lucide="help-circle" class="w-5 h-5 opacity-50"></i>
                     </button>
@@ -202,28 +202,28 @@
                     <span class="bg-amber-100 border border-amber-300 text-amber-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">אתגר השכבה השלישית</span>
                     <h2 class="text-2xl md:text-3xl font-black text-slate-900 mt-4 mb-3">מעבר חבילת תקשורת והדמיון לעבודת הדוור</h2>
                     <p class="text-slate-700 leading-relaxed text-lg mb-4">
-                        כתובות <span class="en-term">MAC</span> שלמדנו עליהן בשיעור 3 הן מעולות למסגרת המקומית (אותו הרחוב). אך מה קורה כשצריך להעביר חבילה ממדינה אחת למדינה אחרת? 
+                        כתובות <span class="en-term">MAC</span> שלמדנו עליהן בשיעור 3 הן מעולות למסגרת המקומית, לאותו הרחוב. אך מה קורה כשצריך להעביר חבילה ממדינה אחת למדינה אחרת? 
                         אם הדוור היה צריך לעבור בית-בית בכל העולם ולבדוק כתובת <span class="en-term">MAC</span> ייחודית – כל מערכת הדואר העולמית הייתה קורסת. 
-                        בשביל זה נוצרה <span class="en-term">IP (Internet Protocol)</span>. היא כתובת לוגית בעלת מבנה היררכי המאפשרת ניתוב גלובלי מהיר.
+                        בשביל זה נוצרה <span class="en-term">IP</span>, שהיא <span class="en-term">Internet Protocol</span>. היא כתובת לוגית בעלת מבנה היררכי המאפשרת ניתוב גלובלי מהיר.
                     </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
                         <div class="bg-amber-50 border border-amber-200 p-6 rounded-xl text-center shadow-xs">
-                            <h3 class="text-sky-900 font-bold text-lg">קוד המדינה (רשת)</h3>
+                            <h3 class="text-sky-900 font-bold text-lg">קוד המדינה, רשת</h3>
                             <p class="text-sm text-slate-700 mt-2 leading-relaxed">מגדיר באיזו רשת גלובלית או מדינה החבילה נמצאת.</p>
                         </div>
                         <div class="bg-amber-50 border border-amber-200 p-6 rounded-xl text-center shadow-xs">
-                            <h3 class="text-sky-900 font-bold text-lg">שם הרחוב (תת-רשת)</h3>
+                            <h3 class="text-sky-900 font-bold text-lg">שם הרחוב, תת-רשת</h3>
                             <p class="text-sm text-slate-700 mt-2 leading-relaxed">מצמצם את המיקום לשכונה או רחוב ספציפי בתוך הרשת.</p>
                         </div>
                         <div class="bg-amber-50 border border-amber-200 p-6 rounded-xl text-center shadow-xs">
-                            <h3 class="text-sky-900 font-bold text-lg">מספר הבית (מארח - <span class="en-term">Host</span>)</h3>
+                            <h3 class="text-sky-900 font-bold text-lg">מספר הבית, מארח - <span class="en-term">Host</span></h3>
                             <p class="text-sm text-slate-700 mt-2 leading-relaxed">המחשב, הטלפון או המכשיר הספציפי ברחוב.</p>
                         </div>
                     </div>
 
                     <div class="mt-8 bg-slate-50 p-6 rounded-xl border border-slate-200">
-                        <p class="text-base text-slate-800 font-bold mb-4">שאלה מהירה: מה קורה אם לשני מחשבים שונים באותו רחוב (רשת מקומית) תהיה אותה כתובת <span class="en-term">IP</span> בדיוק?</p>
+                        <p class="text-base text-slate-800 font-bold mb-4">שאלה מהירה: מה קורה אם לשני מחשבים שונים באותו רחוב, ברשת מקומית, תהיה אותה כתובת <span class="en-term">IP</span> בדיוק?</p>
                         <div class="flex flex-col gap-3">
                             <button onclick="answerScenario(1)" class="bg-white hover:bg-amber-100 text-right border border-slate-300 text-slate-800 text-sm px-4 py-3 rounded-lg transition-all font-medium">ייווצר סכסוך כתובות <span class="en-term">IP Conflict</span> והתקשורת של שניהם תיפגע או תיחסם.</button>
                             <button onclick="answerScenario(2)" class="bg-white hover:bg-amber-100 text-right border border-slate-300 text-slate-800 text-sm px-4 py-3 rounded-lg transition-all font-medium">הם יקבלו את אותן הודעות בדיוק כמו זוג תאומים סיאמיים ללא בעיה.</button>
@@ -247,9 +247,9 @@
                     <h2 class="text-2xl font-black text-slate-900 mt-2 mb-4">איך מפרידים בין הרחוב לבין הבית?</h2>
                     
                     <p class="text-slate-700 leading-relaxed text-lg mb-6">
-                        כתובת <span class="en-term">IPv4</span> מורכבת מ-32 סיביות (<span class="en-term">Bits</span>) המחולקות ל-4 מספרים בין 0 ל-255 המופרדים בנקודה (למשל <span class="en-term">192.168.1.50</span>). 
-                        אבל איך המחשב יודע איזה חלק מהכתובת מייצג את הכתובת של הרשת (<span class="en-term">Network</span>) ואיזה חלק מייצג את המכשיר (<span class="en-term">Host</span>)? 
-                        כאן נכנסת לתמונה מסכת הרשת (<span class="en-term">Subnet Mask</span>)!
+                        כתובת <span class="en-term">IPv4</span> מורכבת מ-32 סיביות, שהן <span class="en-term">Bits</span>, המחולקות ל-4 מספרים בין 0 ל-255 המופרדים בנקודה, למשל <span class="en-term">192.168.1.50</span>. 
+                        אבל איך המחשב יודע איזה חלק מהכתובת מייצג את הכתובת של הרשת, שהיא <span class="en-term">Network</span>, ואיזה חלק מייצג את המכשיר, שהוא <span class="en-term">Host</span>? 
+                        כאן נכנסת לתמונה מסכת הרשת, שהיא <span class="en-term">Subnet Mask</span>!
                     </p>
 
                     <!-- Interactive Subnet Cutter Explainer -->
@@ -260,7 +260,7 @@
                         
                         <div class="flex flex-col md:flex-row justify-center items-center gap-4 text-center">
                             <div class="bg-purple-100 border border-purple-300 p-4 rounded-xl flex-1 w-full">
-                                <p class="text-xs text-purple-900 font-bold mb-1">חלק המארח (<span class="en-term">Host ID</span>)</p>
+                                <p class="text-xs text-purple-900 font-bold mb-1">חלק המארח, <span class="en-term">Host ID</span></p>
                                 <p class="code-font text-xl font-bold text-purple-950 ltr-dir"><span class="en-term">50</span></p>
                                 <p class="text-[11px] text-slate-600 mt-2">מוגדר על ידי ה-<span class="en-term">0</span> במסכת הרשת</p>
                             </div>
@@ -268,7 +268,7 @@
                             <div class="text-slate-400 font-black text-2xl">.</div>
 
                             <div class="bg-sky-100 border border-sky-300 p-4 rounded-xl flex-1 w-full">
-                                <p class="text-xs text-sky-900 font-bold mb-1">חלק הרשת (<span class="en-term">Network ID</span>)</p>
+                                <p class="text-xs text-sky-900 font-bold mb-1">חלק הרשת, <span class="en-term">Network ID</span></p>
                                 <p class="code-font text-xl font-bold text-sky-950 ltr-dir"><span class="en-term">192.168.1</span></p>
                                 <p class="text-[11px] text-slate-600 mt-2">מוגדר על ידי ה-<span class="en-term">255.255.255</span> במסכה</p>
                             </div>
@@ -276,12 +276,12 @@
 
                         <!-- CIDR and Classes Table (FIXED LAYOUT) -->
                         <div class="border-t border-amber-200 pt-5 text-sm space-y-3">
-                            <p class="text-slate-800 font-bold">טבלת מחלקות (<span class="en-term">Classes</span>) ופרפיקסים (<span class="en-term">CIDR</span>) - מסודרת:</p>
+                            <p class="text-slate-800 font-bold">טבלת מחלקות <span class="en-term">Classes</span> ופרפיקסים <span class="en-term">CIDR</span> - מסודרת:</p>
                             <div class="overflow-x-auto shadow-sm rounded-lg border border-slate-200">
                                 <table class="w-full text-center border-collapse bg-white text-sm">
                                     <thead>
                                         <tr class="bg-amber-100 text-slate-800 font-bold border-b border-slate-300">
-                                            <th class="p-3 border-l border-slate-200 text-center">מחלקה (<span class="en-term">Class</span>)</th>
+                                            <th class="p-3 border-l border-slate-200 text-center">מחלקה <span class="en-term">Class</span></th>
                                             <th class="p-3 border-l border-slate-200 text-center">טווח אוקטטה ראשונה</th>
                                             <th class="p-3 border-l border-slate-200 text-center">מסכת ברירת מחדל</th>
                                             <th class="p-3 text-center">פרפיקס <span class="en-term">CIDR</span></th>
@@ -311,7 +311,7 @@
                             </div>
 
                             <p class="text-slate-700 leading-relaxed mt-3">
-                                מסכת רשת של <span class="en-term">255.255.255.0</span> (פרפיקס <span class="en-term">/24</span>) קובעת כי 24 הביטים הראשונים שייכים לרשת. 
+                                מסכת רשת של <span class="en-term">255.255.255.0</span>, כלומר פרפיקס <span class="en-term">/24</span>, קובעת כי 24 הביטים הראשונים שייכים לרשת. 
                                 מספר המארחים מחושב לפי הנוסחה: <span class="en-term">2<sup>H</sup> - 2</span>. עבור 8 ביטים של מארח: <span class="en-term">2<sup>8</sup> - 2 = 254</span> כתובות זמינות.
                             </p>
                         </div>
@@ -338,7 +338,7 @@
                             <span class="bg-amber-100 border border-amber-300 text-amber-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">תחנת מעבדה ופתרון תקלות</span>
                             <h2 class="text-2xl font-black text-slate-900 mt-2">מעבדת ניתוח תקשורת בין רשתות</h2>
                             <p class="text-slate-600 text-xs mt-1">
-                                המטרה: הגדר את תחנת <span class="en-term">PC A</span> כך שתוכל לתקשר עם הרשת המקומית שלה (ממשק הנתב) ולאחר מכן עם תחנת <span class="en-term">PC B</span> ברשת המרוחקת.
+                                המטרה: הגדר את תחנת <span class="en-term">PC A</span> כך שתוכל לתקשר עם הרשת המקומית שלה, ממשק הנתב, ולאחר מכן עם תחנת <span class="en-term">PC B</span> ברשת המרוחקת.
                             </p>
                         </div>
 
@@ -361,7 +361,7 @@
                     <div class="bg-slate-900 rounded-2xl p-5 border border-slate-800 shadow-inner relative overflow-hidden mb-6">
                         <div class="text-center flex justify-between items-center text-[10px] text-slate-400 code-font mb-2 ltr-dir">
                             <span><span class="en-term">SUBNET A: 192.168.1.0/24</span></span>
-                            <span class="text-amber-400 font-bold"><span class="en-term">ROUTER R1 (LAYER 3 GATEWAY)</span></span>
+                            <span class="text-amber-400 font-bold"><span class="en-term">ROUTER R1 LAYER 3 GATEWAY</span></span>
                             <span><span class="en-term">SUBNET B: 10.0.0.0/8</span></span>
                         </div>
 
@@ -396,7 +396,7 @@
                                         <span class="en-term">Fa0/1: 10.0.0.1</span>
                                     </div>
                                 </div>
-                                <span class="text-xs font-bold text-amber-400 mt-2 code-font ltr-dir"><span class="en-term">Router (R1)</span></span>
+                                <span class="text-xs font-bold text-amber-400 mt-2 code-font ltr-dir"><span class="en-term">Router R1</span></span>
                             </div>
 
                             <!-- Connection Line B -->
@@ -413,7 +413,7 @@
                                 <div class="p-3 bg-slate-800 border-2 border-purple-500 rounded-xl shadow-lg">
                                     <i data-lucide="monitor" class="w-8 h-8 text-purple-400"></i>
                                 </div>
-                                <span class="text-xs font-bold text-slate-200 mt-2 code-font ltr-dir"><span class="en-term">PC B (קבוע)</span></span>
+                                <span class="text-xs font-bold text-slate-200 mt-2 code-font ltr-dir"><span class="en-term">PC B</span>, קבוע</span>
                                 <span class="text-[10px] code-font text-purple-300 bg-purple-950 px-2 py-0.5 rounded border border-purple-800 mt-1 ltr-dir"><span class="en-term">10.0.0.20 /8</span></span>
                             </div>
                         </div>
@@ -435,12 +435,12 @@
                                     <span class="text-[10px] text-slate-500 mt-0.5 block">מטווח הרשת המקומית: <span class="en-term">192.168.1.X</span></span>
                                 </div>
                                 <div>
-                                    <label class="block font-bold text-slate-700 mb-1">מסכת רשת (<span class="en-term">Subnet Mask</span>):</label>
+                                    <label class="block font-bold text-slate-700 mb-1">מסכת רשת, <span class="en-term">Subnet Mask</span>:</label>
                                     <input type="text" id="sim-mask-a" value="255.255.255.0" oninput="updateVisuals()" class="w-full bg-white border border-slate-300 rounded p-2.5 text-slate-900 code-font ltr-dir focus:outline-none focus:border-sky-500 font-bold">
-                                    <span class="text-[10px] text-slate-500 mt-0.5 block">מגדיר את גודל הסבנט (<span class="en-term">/24</span>)</span>
+                                    <span class="text-[10px] text-slate-500 mt-0.5 block">מגדיר את גודל הסבנט, <span class="en-term">/24</span></span>
                                 </div>
                                 <div class="md:col-span-2">
-                                    <label class="block font-bold text-slate-700 mb-1">שער ברירת מחדל (<span class="en-term">Default Gateway</span>):</label>
+                                    <label class="block font-bold text-slate-700 mb-1">שער ברירת מחדל, <span class="en-term">Default Gateway</span>:</label>
                                     <input type="text" id="sim-gw-a" value="192.168.1.254" oninput="updateVisuals()" class="w-full bg-white border border-slate-300 rounded p-2.5 text-slate-900 code-font ltr-dir focus:outline-none focus:border-sky-500 font-bold">
                                     <span class="text-[10px] text-amber-800 font-semibold mt-0.5 block">💡 רמז: לאיזה כתובת של הנתב <span class="en-term">PC A</span> מחובר פיזית?</span>
                                 </div>
@@ -449,11 +449,11 @@
                             <div class="pt-3 border-t border-slate-200 flex flex-col sm:flex-row gap-2">
                                 <button onclick="runDiagnosticPing('local')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 rounded-lg text-xs transition-all flex items-center justify-center gap-1.5">
                                     <i data-lucide="arrow-left-right" class="w-4 h-4 text-amber-400"></i>
-                                    <span>בדיקת תקשורת מקומית (<span class="en-term">PC A ➔ Gateway</span>)</span>
+                                    <span>בדיקת תקשורת מקומית, <span class="en-term">PC A ➔ Gateway</span></span>
                                 </button>
                                 <button onclick="runDiagnosticPing('remote')" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-lg text-xs transition-all flex items-center justify-center gap-1.5 shadow">
                                     <i data-lucide="send" class="w-4 h-4"></i>
-                                    <span>בדיקה מרוחקת מקצה לקצה (<span class="en-term">PC A ➔ PC B</span>)</span>
+                                    <span>בדיקה מרוחקת מקצה לקצה, <span class="en-term">PC A ➔ PC B</span></span>
                                 </button>
                             </div>
                         </div>
@@ -509,7 +509,7 @@
                             <h3 class="text-xs font-bold text-slate-800 tracking-wide uppercase border-b border-slate-200 pb-2">הגש את תרחיש הרשת שלך:</h3>
                             <div class="space-y-3 text-xs">
                                 <div>
-                                    <label class="block text-slate-600 mb-1">כתובת <span class="en-term">IP</span> חוקית (<span class="en-term">IPv4</span>):</label>
+                                    <label class="block text-slate-600 mb-1">כתובת <span class="en-term">IP</span> חוקית, <span class="en-term">IPv4</span>:</label>
                                     <input type="text" id="ai-user-ip" placeholder="192.168.10.35" class="w-full bg-white border border-slate-300 p-2.5 rounded text-slate-900 code-font ltr-dir focus:outline-none focus:border-sky-500">
                                 </div>
                                 <div>
@@ -544,7 +544,7 @@
 
                                 <div id="chat-messages" class="overflow-y-auto bg-slate-950/80 p-4 rounded-xl border border-slate-800 h-[200px] space-y-3 text-xs font-mono">
                                     <div class="text-sky-300">
-                                        <span class="text-[10px] font-bold text-purple-400 block mb-1 ltr-dir"><span class="en-term">&gt;&gt; SYSTEM_READY // </span></span>
+                                        <span class="text-[10px] font-bold text-purple-400 block mb-1 ltr-dir"><span class="en-term">&gt;&gt; SYSTEM_READY</span></span>
                                         הזן את הנתונים בטופס משמאל ולחץ על "שלח לבדיקת מומחה <span class="en-term">AI</span>". אנליזת הרשת תופעל מיידית!
                                     </div>
                                 </div>
@@ -576,13 +576,13 @@
                     <div class="flex justify-between items-center border-b border-slate-200 pb-4 mb-6 flex-wrap gap-3">
                         <div>
                             <span class="bg-amber-100 border border-amber-300 text-amber-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">מבחן שליטה מעשי</span>
-                            <h2 class="text-2xl font-black text-slate-900 mt-2">תרגול <span class="en-term">IP</span> ותת-רשתות (10 שאלות)</h2>
+                            <h2 class="text-2xl font-black text-slate-900 mt-2">תרגול <span class="en-term">IP</span> ותת-רשתות, 10 שאלות</h2>
                         </div>
                         <div class="flex items-center gap-3">
                             <!-- DESIGNED TEACHER BUTTON -->
                             <button onclick="unlockTeacherMode()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-4 py-2 rounded-xl border border-purple-400 shadow-md flex items-center gap-2 transition-all">
                                 <i data-lucide="shield-check" class="w-4 h-4 text-purple-200"></i>
-                                <span>מורה 🔒</span>
+                                <span>מורה</span>
                             </button>
                             <span class="text-xs font-bold bg-sky-100 text-sky-800 px-3 py-2 rounded-xl border border-sky-200" id="quiz-score">ניקוד: 0 / 100</span>
                         </div>
@@ -621,7 +621,7 @@
                             <h3 class="font-bold text-slate-800 text-lg">רפלקציה עצמית למורה</h3>
                             <div class="space-y-4">
                                 <div>
-                                    <label class="block text-sm text-slate-700 mb-1 font-semibold">1. מהו תפקידו המרכזי של שער ברירת המחדל (<span class="en-term">Default Gateway</span>) ברשת?</label>
+                                    <label class="block text-sm text-slate-700 mb-1 font-semibold">1. מהו תפקידו המרכזי של שער ברירת המחדל <span class="en-term">Default Gateway</span> ברשת?</label>
                                     <textarea id="reflection-q1" class="w-full bg-white border border-slate-300 rounded-lg p-3 text-sm text-slate-900 focus:outline-none focus:border-sky-500" rows="3" placeholder="הסבר במילים שלך..."></textarea>
                                 </div>
                                 <div>
@@ -676,7 +676,7 @@
             </div>
             
             <p class="text-[11px] text-slate-300 leading-relaxed">
-                🤖 <b>מצב צף פעיל:</b> אני כאן איתך לאורך כל הלמידה! שאל אותי שאלות על <span class="en-term">IP</span>, <span class="en-term">Subnet Mask</span> וניתוב.
+                <b>מצב צף פעיל:</b> אני כאן איתך לאורך כל הלמידה! שאל אותי שאלות על <span class="en-term">IP</span>, <span class="en-term">Subnet Mask</span> וניתוב.
             </p>
 
             <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-[10px] code-font text-sky-300 space-y-1 ltr-dir">
@@ -738,16 +738,16 @@
         let quizAnswers = {};
 
         const quizQuestions = [
-            { id: 1, text: "לאיזו מחלקה (Class) שייכת הכתובת <span class='en-term'>10.5.8.1</span>?", options: ["Class A", "Class B", "Class C", "Class D"], correct: 0 },
-            { id: 2, text: "מהי מסכת ברירת המחדל (Default Subnet Mask) של <span class='en-term'>Class B</span>?", options: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "255.255.255.255"], correct: 1 },
-            { id: 3, text: "מה מייצג הפרפיקס <span class='en-term'>/24</span> במבנה ה-CIDR?", options: ["8 ביטים לרשת", "16 ביטים לרשת", "24 ביטים לרשת", "24 ביטים למארחים"], correct: 2 },
-            { id: 4, text: "כמה כתובות IP זמינות להקצאה למחשבים (Hosts) יש ברשת עם מסכה <span class='en-term'>255.255.255.0</span>?", options: ["256", "255", "254", "252"], correct: 2 },
-            { id: 5, text: "למה משמשת הכתובת הראשונה ברשת (למשל <span class='en-term'>192.168.1.0</span>)?", options: ["כתובת מוקצת למחשב הראשי", "כתובת הרשת עצמה (Network ID)", "כתובת ה-Broadcast", "כתובת ה-Gateway"], correct: 1 },
-            { id: 6, text: "למה משמשת הכתובת האחרונה ברשת (למשל <span class='en-term'>192.168.1.255</span>)?", options: ["כתובת ה-Broadcast לכל המחשבים", "שער ברירת מחדל", "כתובת השרת המרכזי", "כתובת לולאה עצמית (Loopback)"], correct: 0 },
+            { id: 1, text: "לאיזו מחלקה <span class='en-term'>Class</span> שייכת הכתובת <span class='en-term'>10.5.8.1</span>?", options: ["Class A", "Class B", "Class C", "Class D"], correct: 0 },
+            { id: 2, text: "מהי מסכת ברירת המחדל <span class='en-term'>Default Subnet Mask</span> של <span class='en-term'>Class B</span>?", options: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "255.255.255.255"], correct: 1 },
+            { id: 3, text: "מה מייצג הפרפיקס <span class='en-term'>/24</span> במבנה ה-<span class='en-term'>CIDR</span>?", options: ["8 ביטים לרשת", "16 ביטים לרשת", "24 ביטים לרשת", "24 ביטים למארחים"], correct: 2 },
+            { id: 4, text: "כמה כתובות <span class='en-term'>IP</span> זמינות להקצאה למחשבים, <span class='en-term'>Hosts</span>, יש ברשת עם מסכה <span class='en-term'>255.255.255.0</span>?", options: ["256", "255", "254", "252"], correct: 2 },
+            { id: 5, text: "למה משמשת הכתובת הראשונה ברשת, למשל <span class='en-term'>192.168.1.0</span>?", options: ["כתובת מוקצת למחשב הראשי", "כתובת הרשת עצמה, Network ID", "כתובת ה-Broadcast", "כתובת ה-Gateway"], correct: 1 },
+            { id: 6, text: "למה משמשת הכתובת האחרונה ברשת, למשל <span class='en-term'>192.168.1.255</span>?", options: ["כתובת ה-Broadcast לכל המחשבים", "שער ברירת מחדל", "כתובת השרת המרכזי", "כתובת לולאה עצמית, Loopback"], correct: 0 },
             { id: 7, text: "מהו תפקידו של ה-<span class='en-term'>Default Gateway</span>?", options: ["להקצות כתובות IP באופן אוטומטי", "לחבר את המחשב המקומי לרשתות חיצוניות", "לתרגם שמות מתחם ל-IP", "להגן מפני וירוסים במחשב"], correct: 1 },
             { id: 8, text: "איזו מהכתובות הבאות אינה כתובת <span class='en-term'>IPv4</span> חוקית?", options: ["172.16.254.1", "192.168.1.1", "256.100.0.1", "10.0.0.1"], correct: 2 },
-            { id: 9, text: "איזה חלק בכתובת IP מגדיר את ה-<span class='en-term'>Subnet Mask 255.255.0.0</span>?", options: ["האוקטטה הראשונה בלבד", "שתי האוקטטות הראשונות", "שלוש האוקטטות הראשונות", "האוקטטה האחרונה בלבד"], correct: 1 },
-            { id: 10, text: "מהי נוסחת חישוב מספר המארחים האפשריים ברשת בתשובה לפי הביטים של המארח (<span class='en-term'>H</span>)?", options: ["2^H", "2^H - 1", "2^H - 2", "2 * H"], correct: 2 }
+            { id: 9, text: "איזה חלק בכתובת <span class='en-term'>IP</span> מגדיר את ה-<span class='en-term'>Subnet Mask 255.255.0.0</span>?", options: ["האוקטטה הראשונה בלבד", "שתי האוקטטות הראשונות", "שלוש האוקטטות הראשונות", "האוקטטה האחרונה בלבד"], correct: 1 },
+            { id: 10, text: "מהי נוסחת חישוב מספר המארחים האפשריים ברשת בתשובה לפי הביטים של המארח, <span class='en-term'>H</span>?", options: ["2^H", "2^H - 1", "2^H - 2", "2 * H"], correct: 2 }
         ];
 
         lucide.createIcons();
@@ -819,7 +819,7 @@
                         consoleEl.innerHTML += `<p class="text-red-400">&gt; ERROR: PC A IP address (${ipA}) is not in the same subnet as interface Fa0/0 (192.168.1.1/24).</p>`;
                         
                         noteEl.classList.remove('hidden');
-                        noteEl.innerHTML = `💡 <b>מסקנה פדגוגית:</b> תחנה לא יכולה לדבר אפילו עם הנתב שלה אם ה-IP או מסכת הרשת שלה שגויים ולא משויכים לאותו הרחוב (תת-רשת)!`;
+                        noteEl.innerHTML = `💡 <b>מסקנה פדגוגית:</b> תחנה לא יכולה לדבר אפילו עם הנתב שלה אם ה-IP או מסכת הרשת שלה שגויים ולא משויכים לאותו הרחוב, לתת-הרשת!`;
                     } else {
                         badgeEl.className = "bg-emerald-900/80 text-emerald-300 text-[10px] px-2 py-0.5 rounded border border-emerald-700";
                         badgeEl.innerText = "SUCCESS: LOCAL LINK OK";
@@ -848,7 +848,7 @@
                         consoleEl.innerHTML += `<p class="text-red-400">&gt; ERROR: Default Gateway (${gwA}) is unreachable or incorrect for this segment!</p>`;
                         
                         noteEl.classList.remove('hidden');
-                        noteEl.innerHTML = `💡 <b>מסקנה פדגוגית:</b> ה-Default Gateway חייב להיות כתובת ה-IP של <b>הנתב ברשת המקומית</b> (Fa0/0: 192.168.1.1). אם תגדיר כתובת מרוחקת (כמו 10.0.0.1) או לא קיימת, PC A לא יידע לאן לשלוח את החבילה!`;
+                        noteEl.innerHTML = `💡 <b>מסקנה פדגוגית:</b> ה-Default Gateway חייב להיות כתובת ה-IP של <b>הנתב ברשת המקומית</b>, Fa0/0: 192.168.1.1. אם תגדיר כתובת מרוחקת, כמו 10.0.0.1, או לא קיימת, PC A לא יידע לאן לשלוח את החבילה!`;
                     } else {
                         pulseRight.style.opacity = "1";
                         badgeEl.className = "bg-emerald-900/80 text-emerald-300 text-[10px] px-2 py-0.5 rounded border border-emerald-700";
@@ -858,7 +858,7 @@
                         consoleEl.innerHTML += `<p class="text-emerald-400">&gt; Reply from 10.0.0.20: bytes=32 time=3ms TTL=63</p>`;
                         
                         noteEl.classList.remove('hidden');
-                        noteEl.innerHTML = `🎉 <b>הצלחה מלאה!</b> הנתב קיבל את החבילה בממשק המקומי, ניתב אותה דרך טבלת הניתוב לממשק המרוחק (Fa0/1), והיא הגיעה ליעדה ב-PC B!`;
+                        noteEl.innerHTML = `🎉 <b>הצלחה מלאה!</b> הנתב קיבל את החבילה בממשק המקומי, ניתב אותה דרך טבלת הניתוב לממשק המרוחק, Fa0/1, והיא הגיעה ליעדה ב-PC B!`;
                         
                         document.getElementById('btn-to-step-4').disabled = false;
                         addXP(50);
