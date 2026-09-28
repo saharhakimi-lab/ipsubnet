@@ -877,15 +877,15 @@
             const container = document.getElementById('quiz-container');
             container.innerHTML = quizQuestions.map((q, idx) => `
                 <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm">
-                    <p class="font-bold text-slate-800 text-base mb-3">${idx + 1}. ${q.text}</p>
+                    <p class="font-bold text-slate-800 text-base mb-4 text-center">${idx + 1}. ${q.text}</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         ${q.options.map((opt, oIdx) => `
-                            <button id="q-${q.id}-opt-${oIdx}" onclick="answerQuestion(${q.id},${oIdx})" class="text-right p-3 rounded-lg border border-slate-300 bg-white hover:bg-amber-100 transition-all font-mono text-sm ltr-dir font-medium">
+                            <button id="q-${q.id}-opt-${oIdx}" onclick="answerQuestion(${q.id},${oIdx})" class="text-center justify-center flex items-center p-3 rounded-lg border border-slate-300 bg-white hover:bg-amber-100 transition-all font-medium text-sm">
                                 <span class="en-term">${opt}</span>
                             </button>
                         `).join('')}
                     </div>
-                    <div id="q-${q.id}-feedback" class="mt-3 text-xs font-bold hidden"></div>
+                    <div id="q-${q.id}-feedback" class="mt-3 text-xs font-bold text-center hidden"></div>
                 </div>
             `).join('');
         }
@@ -909,22 +909,22 @@
             
             q.options.forEach((_, idx) => {
                 const btn = document.getElementById(`q-${qId}-opt-${idx}`);
-                btn.className = "text-right p-3 rounded-lg border border-slate-300 bg-white hover:bg-amber-100 transition-all font-mono text-sm ltr-dir font-medium";
+                btn.className = "text-center justify-center flex items-center p-3 rounded-lg border border-slate-300 bg-white hover:bg-amber-100 transition-all font-medium text-sm";
             });
 
             const selectedBtn = document.getElementById(`q-${qId}-opt-${optionIdx}`);
 
             if (optionIdx === q.correct) {
-                selectedBtn.className = "text-right p-3 rounded-lg border border-green-500 bg-green-100 font-bold font-mono text-sm ltr-dir text-green-900 shadow-xs";
-                feedbackEl.className = "mt-3 text-xs font-bold text-green-700 block";
+                selectedBtn.className = "text-center justify-center flex items-center p-3 rounded-lg border border-green-500 bg-green-100 font-bold text-sm text-green-900 shadow-xs";
+                feedbackEl.className = "mt-3 text-xs font-bold text-green-700 text-center block";
                 feedbackEl.innerText = "✓ תשובה נכונה!";
                 if (!quizAnswers[qId]) {
                     quizAnswers[qId] = true;
                     addXP(10);
                 }
             } else {
-                selectedBtn.className = "text-right p-3 rounded-lg border border-red-500 bg-red-100 font-bold font-mono text-sm ltr-dir text-red-900 shadow-xs";
-                feedbackEl.className = "mt-3 text-xs font-bold text-red-700 block";
+                selectedBtn.className = "text-center justify-center flex items-center p-3 rounded-lg border border-red-500 bg-red-100 font-bold text-sm text-red-900 shadow-xs";
+                feedbackEl.className = "mt-3 text-xs font-bold text-red-700 text-center block";
                 feedbackEl.innerText = "✕ תשובה שגויה. נסה שוב!";
             }
 
