@@ -666,32 +666,7 @@
 
     <!-- CRAZY BOT FLOATING WIDGET -->
     <div id="floating-bot-widget" class="fixed bottom-4 left-4 z-50 flex flex-col items-start transition-all duration-300">
-        <div id="floating-bot-body" class="mb-3 w-80 bg-slate-900 border-2 border-sky-500/80 rounded-2xl shadow-2xl p-4 text-white space-y-3 hidden">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-                    <span class="text-xs font-bold text-sky-400 code-font ltr-dir"><span class="en-term">SAAR_BOT_LIVE v2.4</span></span>
-                </div>
-                <button onclick="toggleFloatingBot()" class="text-slate-400 hover:text-white text-xs font-bold bg-slate-800 hover:bg-slate-700 px-2 py-0.5 rounded">✕</button>
-            </div>
-            
-            <p class="text-[11px] text-slate-300 leading-relaxed">
-                <b>מצב צף פעיל:</b> אני כאן איתך לאורך כל הלמידה! שאל אותי שאלות על <span class="en-term">IP</span>, <span class="en-term">Subnet Mask</span> וניתוב.
-            </p>
-
-            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-[10px] code-font text-sky-300 space-y-1 ltr-dir">
-                <div>&gt; System: Online</div>
-                <div>&gt; Ping Test: Ready</div>
-                <div>&gt; Status: Monitoring Packets...</div>
-            </div>
-
-            <button onclick="switchStep(4)" class="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 rounded-lg text-xs transition-all flex items-center justify-center gap-2">
-                <i data-lucide="bot" class="w-4 h-4"></i>
-                <span>פתח מעבדת <span class="en-term">AI</span> מלאה</span>
-            </button>
-        </div>
-
-        <button onclick="toggleFloatingBot()" class="group relative flex items-center gap-3 bg-slate-900 hover:bg-slate-800 border-2 border-sky-500 p-2.5 pr-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95">
+        <a href="https://gemini.google.com/gem/167016ac4a4b?usp=sharing" target="_blank" class="group relative flex items-center gap-3 bg-slate-900 hover:bg-slate-800 border-2 border-sky-500 p-2.5 pr-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 text-decoration-none">
             <div class="relative w-10 h-10 flex items-center justify-center flex-shrink-0">
                 <div class="absolute inset-0 rounded-full border border-dashed border-sky-400 animate-spin" style="animation-duration: 4s;"></div>
                 <svg class="w-9 h-9 relative z-10 animate-pulse-fast" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -707,9 +682,9 @@
             </div>
             <div class="text-right">
                 <span class="block text-xs font-black text-sky-400">הבוט המטורלל</span>
-                <span class="block text-[10px] text-slate-300">לחץ לצ'אט מהיר ⚡</span>
+                <span class="block text-[10px] text-slate-300">מעבר ל-Gem ⚡</span>
             </div>
-        </button>
+        </a>
     </div>
 
     <!-- FOOTER -->
@@ -757,11 +732,6 @@
             loadSavedProgress();
             updateVisuals();
         };
-
-        function toggleFloatingBot() {
-            const botBody = document.getElementById('floating-bot-body');
-            botBody.classList.toggle('hidden');
-        }
 
         /* SIMULATOR DIAGNOSTICS & TROUBLESHOOTING LOGIC */
         function updateVisuals() {
