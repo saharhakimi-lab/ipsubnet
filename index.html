@@ -438,16 +438,19 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 
 <div class="grid2">
   <div class="card">
-    <h3>הגש את תרחיש הרשת שלך:</h3>
+    <h3 style="color:var(--gold);">📋 משימת הגשה: הגדרת תחנה חדשה לרשת A</h3>
+    <p style="font-size: 13px; color: #94A3B8; margin-bottom: 14px;">
+      הנכם מתבקשים להוסיף מחשב חדש (<b>PC C</b>) ל<b>רשת A</b> המקומית (<span class="en-inline">192.168.1.0/24</span>). הזינו כתובת <span class="en-inline">IP</span> חוקית ופנויה עבור המחשב, התאימו את מסכת הרשת, והסבירו מדוע מחשב זה חייב לעבור דרך ה-<span class="en-inline">Gateway</span> כדי לתקשר עם <span class="en-inline">PC B</span>.
+    </p>
     <div style="margin-top:12px;">
-      <label style="font-size:12px; color:#94A3B8; display:block; margin-bottom:4px;">כתובת <span class="en-inline">IP</span> חוקית (<span class="en-inline">IPv4</span>):</label>
-      <input type="text" id="ai-user-ip" placeholder="192.168.10.35" dir="ltr" style="width:100%; padding:8px; background:var(--panel2); color:#FFF; border:1px solid var(--border); border-radius:6px; margin-bottom:10px; text-align:left; font-family:'Fira Code',monospace;">
+      <label style="font-size:12px; color:#94A3B8; display:block; margin-bottom:4px;">כתובת <span class="en-inline">IP</span> מוצעת ל-PC C (ברשת A):</label>
+      <input type="text" id="ai-user-ip" placeholder="לדוגמה: 192.168.1.50" dir="ltr" style="width:100%; padding:8px; background:var(--panel2); color:#FFF; border:1px solid var(--border); border-radius:6px; margin-bottom:10px; text-align:left; font-family:'Fira Code',monospace;">
       
       <label style="font-size:12px; color:#94A3B8; display:block; margin-bottom:4px;">מסכת רשת מתאימה:</label>
       <input type="text" id="ai-user-mask" placeholder="255.255.255.0" dir="ltr" style="width:100%; padding:8px; background:var(--panel2); color:#FFF; border:1px solid var(--border); border-radius:6px; margin-bottom:10px; text-align:left; font-family:'Fira Code',monospace;">
       
-      <label style="font-size:12px; color:#94A3B8; display:block; margin-bottom:4px;">מהי מטרת ה-<span class="en-inline">Gateway</span> ברשת?</label>
-      <textarea id="ai-user-explanation" rows="3" placeholder="הסבר במילים שלך..." style="width:100%; padding:8px; background:var(--panel2); color:#FFF; border:1px solid var(--border); border-radius:6px; font-family:'Rubik'; font-size:13px;"></textarea>
+      <label style="font-size:12px; color:#94A3B8; display:block; margin-bottom:4px;">מדוע PC C חייב לשלוח חבילות ל-Gateway כדי להגיע לרשת B?</label>
+      <textarea id="ai-user-explanation" rows="3" placeholder="הסבר במילים שלך מדוע נדרש ה-Gateway לתקשורת מחוץ לרשת המקומית..." style="width:100%; padding:8px; background:var(--panel2); color:#FFF; border:1px solid var(--border); border-radius:6px; font-family:'Rubik'; font-size:13px;"></textarea>
     </div>
     <button class="btn" style="margin-top:10px; width:100%;" onclick="sendWorkToValidator()">שלח לבדיקת מומחה <span class="en-inline">AI 🤖</span></button>
   </div>
@@ -457,9 +460,9 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
       <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
       <span style="margin-left:8px; color:var(--cyber-purple); font-weight:bold; font-size:12px;" dir="ltr">SAAR_CYBER_BOT v2.4</span>
     </div>
-    <div id="chat-messages" style="height:180px; overflow-y:auto; font-size:12px;" dir="rtl">
+    <div id="chat-messages" style="height:240px; overflow-y:auto; font-size:12px;" dir="rtl">
       <div style="color:var(--cyber-purple); direction:ltr; text-align:left; font-family:'Fira Code',monospace;">&gt;&gt; SYSTEM_READY</div>
-      <p style="margin-top:6px; color:#94A3B8;">הזן את הנתונים בטופס משמאל ולחץ על "שלח לבדיקה". אנליזת הרשת תופעל מיידית!</p>
+      <p style="margin-top:6px; color:#94A3B8;">שלום צוות הדיגיטל! הזינו את הגדרות המחשב החדש PC C והסבירו את תפקיד השער. אני אבצע ניתוח בזמן אמת להגשה שלכם!</p>
     </div>
   </div>
 </div>
@@ -749,12 +752,31 @@ function sendWorkToValidator() {
     return;
   }
 
-  chat.innerHTML += `<div style="color:#FFF; margin-top:8px; text-align:right;"><b>הגשה:</b> <span class="en-inline">${userIp}</span> | <span class="en-inline">${userMask}</span><br>${explanation}</div>`;
+  chat.innerHTML += `<div style="color:#FFF; margin-top:8px; text-align:right;"><b>הגשת התלמיד:</b><br>IP: <span class="en-inline">${userIp}</span> | Mask: <span class="en-inline">${userMask}</span><br><b>הסבר:</b> ${explanation}</div>`;
+
+  // בדיקת תקינות ה-IP והמסכה עבור רשת A (192.168.1.0/24)
+  const isMaskValid = (userMask === "255.255.255.0" || userMask === "/24");
+  const parsedIp = parseIPv4(userIp);
+  const isIpInSubnet = parsedIp !== null && 
+                        userIp.startsWith("192.168.1.") && 
+                        userIp !== "192.168.1.1" && // הנתב
+                        userIp !== "192.168.1.10" && // PC A
+                        userIp !== "192.168.1.0" &&  // כתובת רשת
+                        userIp !== "192.168.1.255"; // כתובת Broadcast
+
   setTimeout(() => {
-    chat.innerHTML += `<div style="color:var(--acl-permit); margin-top:8px; text-align:right;">🤖 <b>AI BOT ANALYZER:</b> הנתונים חוקיים! ה-IP והמסכה תואמים, והסבר השער נכון ומדויק.</div>`;
+    if (isMaskValid && isIpInSubnet && explanation.length >= 10) {
+      chat.innerHTML += `<div style="color:var(--acl-permit); margin-top:8px; text-align:right;">🤖 <b>AI BOT ANALYZER:</b> כל הכבוד! ה-IP שקבעת (<span class="en-inline">${userIp}</span>) והמסכה מתאימים בול לרשת A. ההסבר שסיפקת מראה שזיהית נכון שחבילות ליעדים מרוחקים (רשת B) חייבות לעבור דרך ה-Gateway. المשימה הושלמה בהצלחה!</div>`;
+      markDone("s4");
+    } else {
+      let errorMsg = "🤖 <b>AI BOT ANALYZER:</b> נמצאו אי-דיוקים בהגשה:<br>";
+      if (!isIpInSubnet) errorMsg += "• ה-IP אינו תקין/פנוי ברשת A. עליו להיות בטווח 192.168.1.2 עד 192.168.1.254 (למעט 192.168.1.10 השייך ל-PC A).<br>";
+      if (!isMaskValid) errorMsg += "• המסכה אינה מתאימה ל-Class C לרשת A (נדרש 255.255.255.0).<br>";
+      if (explanation.length < 10) errorMsg += "• ההסבר קצר מדי, הסבר בקצרה מדוע המחשב חייב את השער כדי לצאת מהרשת המקומית.<br>";
+      chat.innerHTML += `<div style="color:var(--acl-deny); margin-top:8px; text-align:right;">${errorMsg}</div>`;
+    }
     chat.scrollTop = chat.scrollHeight;
-    markDone("s4");
-  }, 800);
+  }, 600);
 }
 
 /* 10 שאלות למבחן ההסמכה */
