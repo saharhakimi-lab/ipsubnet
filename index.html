@@ -358,28 +358,225 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
   </div>
 </header>
 
+<!-- ============================================================
+     סעיף s1 החדש: מסע המכתב (רקע בהיר, אינטראקטיבי)
+     ============================================================ -->
 <section id="s1">
+
+<style>
+/* ===== סעיף s1 · מסע המכתב (רקע בהיר) ===== */
+#s1 .pm-scene{
+  position:relative; margin-top:16px; border-radius:26px; padding:22px 22px 24px; overflow:hidden;
+  background:linear-gradient(180deg,#D6EFFF 0%,#EAF6FF 38%,#FFF5D9 72%,#DDF5CF 100%);
+  border:2px solid #fff;
+  box-shadow:0 22px 55px rgba(59,130,246,.18), inset 0 0 0 1px rgba(15,23,42,.06);
+}
+#s1 .pm-deco{position:absolute; inset:0; pointer-events:none; z-index:0;}
+#s1 .pm-sun{position:absolute; top:-46px; left:-40px; width:160px; height:160px; border-radius:50%;
+  background:radial-gradient(circle,#FFE066 0 38%,rgba(255,224,102,0) 70%); animation:pmPulse 5s ease-in-out infinite;}
+#s1 .pm-sun::before{content:""; position:absolute; inset:-34px; border-radius:50%;
+  background:repeating-conic-gradient(from 0deg,rgba(255,196,40,.38) 0 7deg,transparent 7deg 22deg);
+  -webkit-mask:radial-gradient(circle,transparent 28%,#000 34%,transparent 72%);
+          mask:radial-gradient(circle,transparent 28%,#000 34%,transparent 72%);
+  animation:pmSpin 40s linear infinite;}
+#s1 .pm-cloud{position:absolute; left:-90px; font-size:44px; opacity:.92; animation:pmDrift linear infinite; filter:drop-shadow(0 6px 6px rgba(59,130,246,.15));}
+#s1 .pm-cloud.c1{top:14px; animation-duration:55s; animation-delay:-12s;}
+#s1 .pm-cloud.c2{top:70px; font-size:32px; animation-duration:80s; animation-delay:-40s; opacity:.7;}
+#s1 .pm-cloud.c3{top:34px; font-size:38px; animation-duration:68s; animation-delay:-60s; opacity:.8;}
+
+#s1 .pm-top{position:relative; z-index:3; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:22px;}
+#s1 .pm-chip{font-weight:800; font-size:14px; color:#1E3A8A; background:rgba(255,255,255,.85); border:1px solid rgba(59,130,246,.25); padding:7px 14px; border-radius:99px; backdrop-filter:blur(4px);}
+#s1 .pm-send{background:linear-gradient(135deg,#8B5CF6,#3B82F6); color:#fff; padding:13px 26px; border-radius:99px; font-size:16px;
+  box-shadow:0 10px 24px rgba(99,102,241,.38); animation:pmBtn 2.4s ease-in-out infinite;}
+#s1 .pm-send:disabled{opacity:.7; cursor:wait; animation:none;}
+
+/* תחנות */
+#s1 .pm-stages{position:relative; z-index:2; display:flex;}
+#s1 .pm-stage{flex:1; background:none; border:0; padding:0 6px; font-family:inherit; color:#0F172A; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; text-align:center;}
+#s1 .pm-stage.start{cursor:default;}
+#s1 .pm-orb{position:relative; width:92px; height:92px; border-radius:50%; display:grid; place-items:center; font-size:44px;
+  background:radial-gradient(circle at 30% 25%,#fff,#F1F5F9); border:4px solid var(--c);
+  box-shadow:0 12px 26px rgba(15,23,42,.16); transition:transform .45s cubic-bezier(.3,1.6,.5,1), box-shadow .4s; z-index:1;}
+#s1 .pm-stage:not(.start):hover .pm-orb{transform:translateY(-4px) scale(1.06);}
+#s1 .pm-stage.active .pm-orb{transform:scale(1.14); box-shadow:0 0 0 7px color-mix(in srgb,var(--c) 18%,transparent),0 14px 30px rgba(15,23,42,.2);}
+#s1 .pm-stage.active .pm-orb::after{content:""; position:absolute; inset:-9px; border-radius:50%; border:3px solid var(--c); animation:pmRing 1.5s ease-out infinite;}
+#s1 .pm-stage.done .pm-orb{background:radial-gradient(circle at 30% 25%,#fff,color-mix(in srgb,var(--c) 14%,#fff));}
+#s1 .pm-txt{display:flex; flex-direction:column; align-items:center; margin-top:14px;}
+#s1 .pm-name{font-weight:800; font-size:17px; line-height:1.2;}
+#s1 .pm-sub{font-size:13px; color:#475569; margin-top:2px;}
+#s1 .pm-pill{margin-top:7px; font-family:'Fira Code',monospace; font-size:11px; font-weight:600; direction:ltr; unicode-bidi:isolate;
+  padding:2px 10px; border-radius:99px; background:#fff; border:1.5px solid var(--c); color:var(--c);}
+#s1 .pm-pill.he{font-family:'Rubik',sans-serif; direction:rtl;}
+#s1 .pm-orb .b,#s1 .pm-badge{display:none;}
+#s1 .pm-badge{display:block; position:absolute; bottom:-8px; left:-10px; font-size:28px; transform:scale(0); transition:transform .5s cubic-bezier(.3,1.9,.5,1);}
+#s1 .delivered .pm-badge{transform:scale(1);}
+#s1 .delivered .pm-orb .a{display:none;}
+#s1 .delivered .pm-orb .b{display:inline;}
+
+/* כביש */
+#s1 .pm-road{position:absolute; z-index:0; top:44px; right:12.5%; left:12.5%; height:5px; border-radius:5px;
+  background:repeating-linear-gradient(to left,rgba(217,119,6,.55) 0 14px,transparent 14px 26px);}
+#s1 .pm-fill{position:absolute; z-index:0; top:44px; right:12.5%; width:0; height:5px; border-radius:5px;
+  background:linear-gradient(to left,#10B981,#8B5CF6,#3B82F6,#F59E0B);
+  transition:width 1.35s cubic-bezier(.65,0,.35,1),height 1.35s cubic-bezier(.65,0,.35,1);}
+
+/* הדוור */
+#s1 .pm-man{position:absolute; left:0; top:0; z-index:5; width:64px; height:64px; margin:-32px 0 0 -32px; pointer-events:none;
+  transition:transform 1.35s cubic-bezier(.65,0,.35,1);}
+#s1 .pm-man-in{display:block; font-size:48px; line-height:64px; text-align:center; filter:drop-shadow(0 7px 4px rgba(15,23,42,.22)); animation:pmBob 2.2s ease-in-out infinite;}
+#s1 .pm-man.moving .pm-man-in{animation:pmRide .26s ease-in-out infinite;}
+#s1 .pm-mail{position:absolute; top:-12px; right:-4px; font-size:22px; animation:pmFloat 1.6s ease-in-out infinite;}
+#s1 .pm-spark{position:absolute; z-index:4; font-size:16px; pointer-events:none; animation:pmSpark .9s ease-out forwards;}
+
+/* חלק תחתון */
+#s1 .pm-bottom{position:relative; z-index:2; display:grid; grid-template-columns:1fr 1.2fr; gap:18px; margin-top:26px;}
+#s1 .pm-letter{padding:7px; border-radius:16px; background:repeating-linear-gradient(135deg,#EF4444 0 14px,#fff 14px 24px,#3B82F6 24px 38px,#fff 38px 48px);
+  box-shadow:0 14px 30px rgba(15,23,42,.14); transform:rotate(-1.2deg);}
+#s1 .pm-paper{position:relative; background:#FFFDF6; border-radius:10px; padding:16px;}
+#s1 .pm-env-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-weight:800; color:#0F172A;}
+#s1 .pm-stamp{border:3px solid #059669; color:#059669; border-radius:8px; padding:1px 10px; font-size:13px; font-weight:800; opacity:0; transform:rotate(-10deg) scale(0);
+  transition:transform .5s cubic-bezier(.3,1.9,.5,1),opacity .2s;}
+#s1 .delivered .pm-stamp{opacity:1; transform:rotate(-10deg) scale(1);}
+#s1 .pm-line{display:flex; align-items:center; gap:10px; padding:8px 10px; margin-bottom:8px; border-radius:10px; background:#F8FAFC; border:1px dashed #CBD5E1; transition:all .4s;}
+#s1 .pm-line i{font-style:normal; font-size:20px;}
+#s1 .pm-line b{font-size:12px; color:#64748B; min-width:68px;}
+#s1 .pm-line span{font-weight:700; color:#0F172A; filter:blur(6px); opacity:.4; transition:all .55s;}
+#s1 .pm-line.on{background:#fff; border:1px solid var(--lc);}
+#s1 .pm-line.on span{filter:none; opacity:1;}
+#s1 .pm-line.pop{animation:pmPop .55s;}
+#s1 .pm-ip{margin-top:12px; text-align:center; font-family:'Fira Code',monospace; font-size:20px; font-weight:600; color:#94A3B8; direction:ltr; unicode-bidi:isolate;}
+#s1 .pm-ip .net,#s1 .pm-ip .host{padding:3px 8px; border-radius:8px; transition:all .4s;}
+#s1 .pm-ip .net.on{background:#DBEAFE; color:#1D4ED8;}
+#s1 .pm-ip .host.on{background:#FEF3C7; color:#B45309;}
+#s1 .pm-ip-cap{margin:6px 0 0; font-size:12px; text-align:center; color:#64748B;}
+
+#s1 .pm-info{background:rgba(255,255,255,.92); border:1px solid rgba(15,23,42,.08); border-right:6px solid var(--c,#059669); border-radius:18px; padding:20px 22px;
+  box-shadow:0 14px 30px rgba(15,23,42,.1); display:flex; flex-direction:column; justify-content:center; transition:border-color .4s;}
+#s1 .pm-info.swap{animation:pmPop .5s;}
+#s1 .pm-info-step{font-family:'Fira Code',monospace; font-size:12px; font-weight:600; color:var(--c,#059669); margin-bottom:4px;}
+#s1 .pm-info h3{font-size:22px; color:#0F172A; margin-bottom:8px;}
+#s1 .pm-info p{font-size:15px; color:#334155; margin-bottom:10px;}
+
+/* שאלה למחשבה */
+#s1 .pm-q{margin-top:22px; background:#fff; border:1px solid #E2E8F0; border-right:5px solid var(--gold); border-radius:18px; padding:22px; box-shadow:0 8px 24px rgba(15,23,42,.06);}
+#s1 .pm-q h3{color:#0F172A;}
+#s1 .pm-q p{color:#475569;}
+#s1 .pm-q .btn.secondary{background:#F8FAFC; color:#1E293B; border:2px solid #CBD5E1; text-align:right;}
+#s1 .pm-q .btn.secondary:hover{border-color:var(--cyber-purple); background:#F5F3FF; box-shadow:none;}
+
+/* אנימציות */
+@keyframes pmSpin{to{transform:rotate(360deg);}}
+@keyframes pmPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+@keyframes pmDrift{from{left:-90px;}to{left:105%;}}
+@keyframes pmBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+@keyframes pmRide{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-7px) rotate(2deg);}}
+@keyframes pmFloat{0%,100%{transform:translateY(0) rotate(-8deg);}50%{transform:translateY(-6px) rotate(8deg);}}
+@keyframes pmRing{0%{transform:scale(.9);opacity:.9;}100%{transform:scale(1.35);opacity:0;}}
+@keyframes pmPop{0%{transform:scale(.94);}60%{transform:scale(1.04);}100%{transform:scale(1);}}
+@keyframes pmBtn{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+@keyframes pmSpark{from{opacity:.95; transform:translateY(0) scale(1);}to{opacity:0; transform:translateY(12px) scale(.4);}}
+@keyframes pmConf{from{transform:translate(0,0) rotate(0); opacity:1;}to{transform:translate(var(--dx),var(--dy)) rotate(var(--r)); opacity:0;}}
+#s1 .pm-conf{position:absolute; z-index:6; width:9px; height:14px; border-radius:2px; pointer-events:none; animation:pmConf 1.5s cubic-bezier(.2,.8,.3,1) forwards;}
+
+@media(max-width:720px){
+  #s1 .pm-scene{padding:18px 14px 20px;}
+  #s1 .pm-stages{flex-direction:column; gap:14px;}
+  #s1 .pm-stage{flex-direction:row; align-items:center; text-align:right; gap:14px; padding:0;}
+  #s1 .pm-orb{width:76px; height:76px; font-size:36px; flex-shrink:0;}
+  #s1 .pm-txt{align-items:flex-start; margin-top:0;}
+  #s1 .pm-road{top:38px; bottom:38px; right:36px; left:auto; width:5px; height:auto;
+    background:repeating-linear-gradient(to bottom,rgba(217,119,6,.55) 0 14px,transparent 14px 26px);}
+  #s1 .pm-fill{top:38px; right:36px; left:auto; width:5px; height:0; background:linear-gradient(to bottom,#10B981,#8B5CF6,#3B82F6,#F59E0B);}
+  #s1 .pm-bottom{grid-template-columns:1fr;}
+  #s1 .pm-send{width:100%;}
+}
+@media(prefers-reduced-motion:reduce){
+  #s1 .pm-scene *{animation:none !important;}
+}
+</style>
+
 <div class="section-head" style="margin-bottom:6px;">
   <h2 class="section-title" style="margin-top:0; margin-bottom:4px;">מעבר חבילת תקשורת והדמיון לעבודת הדוור</h2>
   <p style="margin:0; font-weight:500; color:#334155;">חשבו על שליחת מכתב בדואר. כדי שהדוור יידע לאן להביא את המכתב, הוא חייב כתובת מדויקת הבנויה בשלבים:</p>
 </div>
 
-<div class="grid3" style="margin-top:12px;">
-  <div class="card concept-card">
-    <h3 style="color:var(--cyber-purple);">רשת — המדינה</h3>
-    <p>קובעת באיזו מדינה המכתב נמצא בעולם. הדוור קודם כל מעביר את החבילה למדינה הנכונה.</p>
+<div class="pm-scene" id="pmScene">
+  <div class="pm-deco" aria-hidden="true">
+    <span class="pm-sun"></span>
+    <span class="pm-cloud c1">☁️</span>
+    <span class="pm-cloud c2">☁️</span>
+    <span class="pm-cloud c3">☁️</span>
   </div>
-  <div class="card concept-card">
-    <h3 style="color:var(--cyber-blue);">תת-רשת — העיר והרחוב</h3>
-    <p>מצמצמת את האזור לשכונה או לרחוב הספציפי שבו נמצא הנמען בתוך אותה המדינה.</p>
+
+  <div class="pm-top">
+    <div class="pm-chip">🗺️ המסע של המכתב</div>
+    <button class="btn pm-send" id="pmSend" type="button">▶ שלח את המכתב</button>
   </div>
-  <div class="card concept-card">
-    <h3 style="color:var(--gold);">מארח — מספר הבית</h3>
-    <p>זהו המחשב או הטלפון הנייד הספציפי שמקבל את המכתב בתוך אותה כתובת רחוב.</p>
+
+  <div class="pm-stages" id="pmStages">
+    <div class="pm-road"></div>
+    <div class="pm-fill" id="pmFill"></div>
+
+    <div class="pm-stage start" style="--c:#059669;">
+      <div class="pm-orb">🏤</div>
+      <div class="pm-txt">
+        <div class="pm-name">סניף הדואר</div>
+        <div class="pm-sub">כאן יוצא המכתב</div>
+        <span class="pm-pill he">השולח</span>
+      </div>
+    </div>
+
+    <button class="pm-stage" type="button" style="--c:#7C3AED;" aria-label="תחנה 1: הרשת היא המדינה">
+      <div class="pm-orb">🌍</div>
+      <div class="pm-txt">
+        <div class="pm-name">רשת</div>
+        <div class="pm-sub">המדינה</div>
+        <span class="pm-pill">Network</span>
+      </div>
+    </button>
+
+    <button class="pm-stage" type="button" style="--c:#2563EB;" aria-label="תחנה 2: תת-רשת היא העיר והרחוב">
+      <div class="pm-orb">🏘️</div>
+      <div class="pm-txt">
+        <div class="pm-name">תת-רשת</div>
+        <div class="pm-sub">העיר והרחוב</div>
+        <span class="pm-pill">Subnet</span>
+      </div>
+    </button>
+
+    <button class="pm-stage" type="button" style="--c:#D97706;" aria-label="תחנה 3: מארח הוא מספר הבית">
+      <div class="pm-orb"><span class="a">🏠</span><span class="b">🏡</span><span class="pm-badge">📬</span></div>
+      <div class="pm-txt">
+        <div class="pm-name">מארח</div>
+        <div class="pm-sub">מספר הבית</div>
+        <span class="pm-pill">Host</span>
+      </div>
+    </button>
+
+    <div class="pm-man" id="pmMan" aria-hidden="true">
+      <span class="pm-mail">✉️</span>
+      <span class="pm-man-in">🛵</span>
+    </div>
+  </div>
+
+  <div class="pm-bottom">
+    <div class="pm-letter">
+      <div class="pm-paper">
+        <div class="pm-env-top"><span>✉️ המכתב שלי</span><span class="pm-stamp">נמסר ✓</span></div>
+        <div class="pm-line" style="--lc:#7C3AED;"><i>🌍</i><b>מדינה</b><span>ישראל 🇮🇱</span></div>
+        <div class="pm-line" style="--lc:#2563EB;"><i>🏘️</i><b>עיר ורחוב</b><span>חיפה, רחוב הרצל</span></div>
+        <div class="pm-line" style="--lc:#D97706;"><i>🏠</i><b>מספר בית</b><span>50</span></div>
+        <div class="pm-ip"><span class="net" id="pmNet">192.168.1</span><span>.</span><span class="host" id="pmHost">50</span></div>
+        <p class="pm-ip-cap">בעולם הרשתות: חלק הרשת מוביל עד הרחוב, וחלק המארח הוא הבית</p>
+      </div>
+    </div>
+
+    <div class="pm-info" id="pmInfo"></div>
   </div>
 </div>
 
-<div class="card" style="margin-top:20px; border-right:4px solid var(--gold);">
+<div class="pm-q">
   <h3>❓ שאלה למחשבה: התנגשות כתובות (<span class="en-inline">IP Conflict</span>)</h3>
   <p>מה קורה אם לשני מחשבים שונים באותו רחוב, ברשת מקומית, תהיה אותה כתובת <span class="en-inline">IP</span> בדיוק?</p>
   <div class="controls-row">
@@ -388,6 +585,161 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
   </div>
   <div id="scenario-feedback" style="margin-top:14px; font-size:14px; display:none;"></div>
 </div>
+
+<script>
+(function(){
+  const scene = document.getElementById('pmScene');
+  if(!scene) return;
+  const stagesEl = document.getElementById('pmStages');
+  const man = document.getElementById('pmMan');
+  const fill = document.getElementById('pmFill');
+  const sendBtn = document.getElementById('pmSend');
+  const infoEl = document.getElementById('pmInfo');
+  const nodes = Array.from(stagesEl.querySelectorAll('.pm-stage'));   // 0 = סניף דואר, 1..3 = תחנות
+  const lines = Array.from(scene.querySelectorAll('.pm-line'));
+  const net = document.getElementById('pmNet');
+  const host = document.getElementById('pmHost');
+
+  const INFO = [
+    {c:'#059669', step:'מוכנים ליציאה', t:'המכתב מחכה בסניף הדואר', p:'לחצו על "שלח את המכתב" וצפו איך כתובת נבנית בשלבים. אפשר גם ללחוץ על כל תחנה בדרך ולקפוץ אליה.', pill:''},
+    {c:'#7C3AED', step:'שלב 1 מתוך 3', t:'הרשת היא המדינה', p:'קובעת באיזו מדינה המכתב נמצא בעולם. הדוור קודם כל מעביר את החבילה למדינה הנכונה. כך גם נתב: קודם בודק לאיזו רשת שייכת הכתובת.', pill:'Network'},
+    {c:'#2563EB', step:'שלב 2 מתוך 3', t:'תת-רשת היא העיר והרחוב', p:'מצמצמת את האזור לשכונה או לרחוב הספציפי שבו נמצא הנמען בתוך אותה המדינה.', pill:'Subnet'},
+    {c:'#D97706', step:'שלב 3 מתוך 3', t:'מארח הוא מספר הבית', p:'זהו המחשב או הטלפון הנייד הספציפי שמקבל את המכתב בתוך אותה כתובת רחוב. המכתב הגיע ליעד! 🎉', pill:'Host'}
+  ];
+
+  let cur = 0, run = 0;
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const vertical = () => getComputedStyle(stagesEl).flexDirection === 'column';
+
+  function target(i){
+    const o = nodes[i].querySelector('.pm-orb').getBoundingClientRect();
+    const s = stagesEl.getBoundingClientRect();
+    return {x: o.left + o.width/2 - s.left, y: o.bottom - 6 - s.top};
+  }
+
+  function place(i, anim){
+    const t = target(i), z = target(0);
+    man.style.transition = anim ? '' : 'none';
+    man.style.transform = 'translate(' + t.x + 'px,' + t.y + 'px)';
+    if(vertical()){
+      fill.style.width = '5px';
+      fill.style.height = Math.max(0, t.y - z.y) + 'px';
+    } else {
+      fill.style.height = '5px';
+      fill.style.width = Math.max(0, z.x - t.x) + 'px';
+    }
+  }
+
+  function spark(){
+    const m = man.getBoundingClientRect(), s = stagesEl.getBoundingClientRect();
+    const p = document.createElement('i');
+    p.className = 'pm-spark';
+    p.style.fontStyle = 'normal';
+    p.textContent = ['✨','💨','⭐'][Math.floor(Math.random()*3)];
+    p.style.left = (m.left + m.width/2 - s.left + (Math.random()*16-8)) + 'px';
+    p.style.top = (m.top + m.height - s.top - 14) + 'px';
+    stagesEl.appendChild(p);
+    setTimeout(()=>p.remove(), 900);
+  }
+
+  function confetti(){
+    const o = nodes[3].querySelector('.pm-orb').getBoundingClientRect();
+    const s = scene.getBoundingClientRect();
+    const cx = o.left + o.width/2 - s.left, cy = o.top + o.height/2 - s.top;
+    const cols = ['#8B5CF6','#3B82F6','#F59E0B','#10B981','#EF4444','#EC4899'];
+    for(let i=0;i<32;i++){
+      const p = document.createElement('i');
+      p.className = 'pm-conf';
+      const a = Math.random()*Math.PI*2, d = 70 + Math.random()*140;
+      p.style.cssText = 'left:'+cx+'px;top:'+cy+'px;background:'+cols[i%cols.length]+
+        ';--dx:'+(Math.cos(a)*d)+'px;--dy:'+(Math.sin(a)*d-40)+'px;--r:'+(Math.random()*720)+'deg';
+      scene.appendChild(p);
+      setTimeout(()=>p.remove(), 1600);
+    }
+  }
+
+  function showInfo(i){
+    const d = INFO[i];
+    infoEl.style.setProperty('--c', d.c);
+    infoEl.innerHTML =
+      '<div class="pm-info-step">' + d.step + '</div>' +
+      '<h3>' + d.t + '</h3>' +
+      '<p>' + d.p + '</p>' +
+      (d.pill ? '<span class="pm-pill" style="--c:'+d.c+';align-self:flex-start;">' + d.pill + '</span>' : '');
+    infoEl.classList.remove('swap'); void infoEl.offsetWidth; infoEl.classList.add('swap');
+  }
+
+  function activate(i){
+    nodes.forEach((n,k)=>{
+      n.classList.toggle('active', k===i && k>0);
+      n.classList.toggle('done', k>0 && k<i);
+    });
+    const s = i - 1;
+    lines.forEach((l,j)=>{
+      const on = j <= s;
+      if(on && !l.classList.contains('on')){
+        l.classList.add('pop'); setTimeout(()=>l.classList.remove('pop'), 600);
+      }
+      l.classList.toggle('on', on);
+    });
+    net.classList.toggle('on', s >= 0);
+    host.classList.toggle('on', s >= 2);
+    const wasDelivered = scene.classList.contains('delivered');
+    scene.classList.toggle('delivered', i === 3);
+    showInfo(i);
+    if(i === 3 && !wasDelivered) confetti();
+  }
+
+  async function goTo(i, my){
+    if(i !== cur){
+      man.classList.add('moving');
+      const iv = setInterval(spark, 110);
+      cur = i;
+      place(i, true);
+      await sleep(1350);
+      clearInterval(iv);
+      if(my === run) man.classList.remove('moving');
+    }
+    if(my !== run) return false;
+    activate(i);
+    return true;
+  }
+
+  async function send(){
+    const my = ++run;
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'הדוור בדרך… 🛵';
+    if(cur !== 0){ if(!(await goTo(0, my))) return; await sleep(300); }
+    else activate(0);
+    for(let i=1;i<=3;i++){
+      if(!(await goTo(i, my))) return;
+      await sleep(i === 3 ? 200 : 1500);
+    }
+    sendBtn.disabled = false;
+    sendBtn.textContent = '↻ שלח שוב';
+  }
+
+  sendBtn.addEventListener('click', send);
+
+  nodes.forEach((n,i)=>{
+    if(i === 0) return;
+    n.addEventListener('click', async ()=>{
+      const my = ++run;
+      sendBtn.disabled = false;
+      sendBtn.textContent = '↻ שלח שוב';
+      await goTo(i, my);
+    });
+  });
+
+  function init(){ place(cur, false); }
+  init();
+  showInfo(0);
+  window.addEventListener('load', init);
+  if('ResizeObserver' in window) new ResizeObserver(()=>place(cur,false)).observe(stagesEl);
+  else window.addEventListener('resize', ()=>place(cur,false));
+})();
+</script>
+
 </section>
 
 <section id="s2">
