@@ -13,25 +13,48 @@
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
 :root{
-  --bg:#FAF5E8; --panel:#121824; --panel2:#1C2336; --panel3:#252F48;
-  --border:#344668; --border2:#475569;
-  --text:#E2E8F0; --muted:#64748B; --muted2:#475569;
-  --acl-deny:#EF4444; --acl-deny-dim:rgba(239,68,68,0.15);
-  --acl-permit:#10B981; --acl-permit-dim:rgba(16,185,129,0.15);
-  --cyber-purple:#8B5CF6; --cyber-blue:#3B82F6;
-  --gold:#F59E0B;
-  --radius:14px;
+  --bg: #fbf8ee;
+  --paper: #ffffff;
+  --ink: #20150f;
+  --soft: #3b2b22;
+  --muted: #5a4a40;
+  --line: #e6d9bf;
+  --red: #b91c1c;
+  --red-text: #a11a1a;
+  --red-soft: #fcebe7;
+  --red-edge: #e9b8ae;
+  --term: #0b5d73;
+  --term-soft: #e1f3f8;
+  --aside-bg: #f6eadc;
+  --aside-edge: #e2c9a8;
+  --aside-ink: #5b3a1a;
+
+  --panel: #ffffff;
+  --panel2: #f6eadc;
+  --panel3: #e6d9bf;
+  --border: #e6d9bf;
+  --border2: #d6c9af;
+  --text: #20150f;
+  
+  --acl-deny: #b91c1c;
+  --acl-deny-dim: rgba(185,28,28,0.12);
+  --acl-permit: #0b6b4a;
+  --acl-permit-dim: rgba(11,107,74,0.12);
+  --cyber-purple: #b91c1c;
+  --cyber-blue: #0e7490;
+  --gold: #b45309;
+  --radius: 18px;
 }
 *{box-sizing:border-box;}
 body{
-  margin:0; background:var(--bg); color:#1E293B;
-  font-family:'Rubik',sans-serif; line-height:1.6;
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:'Rubik',sans-serif; line-height:1.7;
   padding-bottom:140px;
 }
 .mono{font-family:'Fira Code',monospace; direction: ltr; unicode-bidi: isolate;}
 .wrap{max-width:1100px; margin:0 auto; padding:0 20px;}
 h1,h2,h3{font-weight:700; margin:0 0 8px;}
-p{margin:0 0 12px; color:#475569;}
+p{margin:0 0 12px; color:var(--muted);}
 
 .en-inline {
   direction: ltr;
@@ -41,28 +64,22 @@ p{margin:0 0 12px; color:#475569;}
   font-size:0.9em;
   padding: 1px 7px;
   margin: 0 1px;
-  border: 1px solid rgba(139,92,246,0.35);
-  background: rgba(139,92,246,0.08);
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--red-text);
   border-radius: 5px;
   line-height: 1.5;
 }
 
-/* סרגל התקדמות עליון */
-.progressbar{position:sticky; top:0; z-index:150; background:rgba(18,24,36,0.95); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); padding:14px 20px;}
-.progressbar-inner{max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:14px;}
-.progressbar-title{font-weight:700; font-size:15px; white-space:nowrap; color:#FFFFFF;}
-.steps{display:flex; gap:6px; flex:1;}
-.step{flex:1; height:6px; border-radius:4px; background:var(--panel3); position:relative; overflow:hidden;}
-.step.done{background:var(--acl-permit);}
-.step.active{background:var(--cyber-blue);}
-.progress-pct{font-size:13px; color:#94A3B8; font-family:'Fira Code',monospace; white-space:nowrap; direction: ltr; unicode-bidi: isolate;}
-
-/* ============ HEADER (קומפקטי, רציף ומסודר בלי רווחים מיותרים) ============ */
+/* ============ HEADER ============ */
 header.hero{
-  padding: 10px 0 12px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  position: relative;
-  background: #fbf3e2;
+  padding: 14px 0 16px;
+  border-bottom: 2px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--paper);
+  box-shadow: 0 4px 20px rgba(120,40,20,0.06);
 }
 
 .header-inner {
@@ -80,7 +97,7 @@ header.hero{
 .header-main-group {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
@@ -89,14 +106,15 @@ header.hero{
   100% { transform: rotate(360deg); }
 }
 .title-avatar {
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   object-fit: cover;
-  animation: spinCrazy 12s linear infinite;
-  border: 2px solid var(--cyber-purple);
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+  animation: spinCrazy 15s linear infinite;
+  border: 2px solid var(--red);
+  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.15);
   flex-shrink: 0;
+  background: #fff;
 }
 
 .header-text-content {
@@ -104,9 +122,6 @@ header.hero{
   flex-direction: column;
   gap: 3px;
 }
-
-.eyebrow{display:inline-block; font-family:'Fira Code',monospace; font-size:10.5px; letter-spacing:1px; color:var(--cyber-purple); background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); padding:2px 8px; border-radius:12px; direction: ltr; unicode-bidi: isolate; width: fit-content;}
-.eyebrow .en-inline, .tag .en-inline{border:none; background:none; padding:0; margin:0; font-size:1em; border-radius:0;}
 
 .title-row {
   display: flex;
@@ -116,18 +131,20 @@ header.hero{
 }
 
 h1.title{
-  font-size: 22px; 
+  font-size: 24px; 
   margin: 0; 
-  color: #0F172A; 
+  color: var(--red-text); 
   letter-spacing: -0.5px;
   display: flex;
   align-items: center;
   gap: 10px;
-  line-height: 1.1;
+  line-height: 1.2;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 900;
 }
-h1.title span{color:var(--cyber-purple); text-shadow:0 0 15px rgba(139,92,246,0.2); direction: ltr; display: inline-block; unicode-bidi: isolate;}
+h1.title span{color:var(--red-text); direction: ltr; display: inline-block; unicode-bidi: isolate;}
 
-.subtitle{font-size:12px; max-width:750px; margin:0; color:#475569;}
+.subtitle{font-size:13px; max-width:750px; margin:0; color:var(--muted); font-weight:600;}
 
 .header-actions-group {
   display: flex;
@@ -138,19 +155,19 @@ h1.title span{color:var(--cyber-purple); text-shadow:0 0 15px rgba(139,92,246,0.
 
 .protocol-row {
   display: flex;
-  gap: 4px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .protocol-chip {
   font-family: 'Fira Code', monospace;
-  font-size: 9.5px;
-  font-weight: 600;
-  color: var(--cyber-purple);
-  background: rgba(139,92,246,0.1);
-  border: 1px solid rgba(139,92,246,0.25);
-  padding: 2px 6px;
-  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--red-text);
+  background: var(--red-soft);
+  border: 1px solid var(--red-edge);
+  padding: 3px 8px;
+  border-radius: 6px;
   letter-spacing: 0.3px;
   direction: ltr;
   unicode-bidi: isolate;
@@ -159,155 +176,159 @@ h1.title span{color:var(--cyber-purple); text-shadow:0 0 15px rgba(139,92,246,0.
 .navbar {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .nav-btn {
-  font-family: 'Fira Code', monospace;
-  font-size: 10.5px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 12px;
   font-weight: 700;
-  padding: 5px 10px;
-  border-radius: 6px;
+  padding: 6px 14px;
+  border-radius: 10px;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   cursor: pointer;
-  border: 1px solid var(--border);
-  background: var(--panel);
-  color: #fff;
-  transition: transform 0.18s ease, opacity 0.18s ease;
-  letter-spacing: 0.2px;
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  transition: transform 0.18s ease, border-color 0.18s ease;
 }
 
-.nav-btn:hover { transform: translateY(-1px); }
-.nav-btn.solid { background: var(--cyber-purple); border-color: transparent; }
+.nav-btn:hover { transform: translateY(-1px); border-color: var(--red); color: var(--red); }
+.nav-btn.solid { background: linear-gradient(120deg, #dc2626, #b91c1c); border-color: transparent; color: #fff; }
+.nav-btn.solid:hover { color: #fff; }
 
-section{padding:50px 0; border-top:1px solid rgba(0,0,0,0.08);}
-.section-head{margin-bottom:12px;}
-.section-num{font-family:'Fira Code',monospace; color:var(--cyber-purple); font-size:13px; margin-bottom:6px; font-weight:600; direction: ltr; display: inline-block; unicode-bidi: isolate;}
-.section-title{font-size:24px; color:#0F172A;}
+section{padding:50px 0; border-top:1px solid var(--line);}
+.section-head{margin-bottom:16px;}
+.section-num{font-family:'Fira Code',monospace; color:var(--red-text); font-size:13px; margin-bottom:6px; font-weight:700; direction: ltr; display: inline-block; unicode-bidi: isolate;}
+.section-title{font-size:24px; color:var(--ink); font-family:'Rubik',sans-serif; font-weight:800;}
 
-.card{background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:var(--radius); padding:24px;}
-.card p{color:#94A3B8;}
+.card{background:var(--paper); color:var(--ink); border:2px solid var(--line); border-radius:var(--radius); padding:24px; box-shadow: 0 10px 30px -12px rgba(120, 40, 20, 0.08);}
+.card p{color:var(--muted);}
 .grid2{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
 .grid3{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
 @media(max-width:720px){.grid2, .grid3{grid-template-columns:1fr;}}
 
-.concept-card{border-right:4px solid var(--cyber-purple); background:linear-gradient(to left, var(--panel), #141B29);}
+.concept-card{border-right:5px solid var(--red); background:var(--paper);}
 .tag{display:inline-block; font-family:'Fira Code',monospace; font-size:11px; padding:3px 8px; border-radius:6px; margin:2px 4px 2px 0; direction: ltr; unicode-bidi: isolate;}
 .tag.deny{background:var(--acl-deny-dim); color:var(--acl-deny);}
 .tag.permit{background:var(--acl-permit-dim); color:var(--acl-permit);}
-.tag.purple{background:rgba(139,92,246,0.15); color:var(--cyber-purple);}
+.tag.purple{background:var(--red-soft); color:var(--red-text);}
 
-.accordion{border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin-bottom:12px;}
-.acc-head{padding:16px 18px; background:var(--panel); color:var(--text); cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-weight:600;}
+.accordion{border:2px solid var(--line); border-radius:var(--radius); overflow:hidden; margin-bottom:12px; background:var(--paper);}
+.acc-head{padding:16px 18px; background:var(--paper); color:var(--ink); cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-weight:700;}
 .acc-head:hover{background:var(--panel2);}
-.acc-body{max-height:0; overflow:hidden; transition:max-height .3s ease; background:var(--panel); color:var(--text);}
+.acc-body{max-height:0; overflow:hidden; transition:max-height .3s ease; background:var(--paper); color:var(--ink);}
 .acc-body-inner{padding:0 18px 18px;}
-.acc-body-inner p{color:#94A3B8;}
+.acc-body-inner p{color:var(--muted);}
 .accordion.open .acc-body{max-height:600px;}
-.acc-arrow{transition:transform .3s; color:#94A3B8;}
+.acc-arrow{transition:transform .3s; color:var(--muted);}
 .accordion.open .acc-arrow{transform:rotate(180deg);}
 
-.diagram-wrap{background:#070A10; border:2px solid var(--border); border-radius:var(--radius); padding:30px; overflow-x:auto; margin-top:20px; position:relative;}
+.diagram-wrap{background:#fff; border:2px solid var(--line); border-radius:var(--radius); padding:30px; overflow-x:auto; margin-top:20px; position:relative; box-shadow: 0 10px 30px -12px rgba(120, 40, 20, 0.08);}
 .node-box{cursor:pointer; transition:transform 0.2s, opacity 0.15s;}
 .node-box:hover{opacity:0.95; transform:scale(1.01); fill-opacity:0.9;}
 .controls-row{display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:20px;}
-button.btn{background:var(--cyber-purple); color:#FFFFFF; border:none; border-radius:8px; padding:12px 22px; font-family:'Rubik'; font-weight:600; font-size:15px; cursor:pointer; transition:transform .1s, opacity .15s;}
-button.btn:hover{opacity:0.9; box-shadow:0 0 12px rgba(139,92,246,0.4);}
+button.btn{background:linear-gradient(120deg, #dc2626, #b91c1c); color:#FFFFFF; border:none; border-radius:10px; padding:12px 22px; font-family:'Rubik'; font-weight:700; font-size:14px; cursor:pointer; transition:transform .1s, opacity .15s, box-shadow .2s; box-shadow: 0 4px 12px rgba(185, 28, 28, 0.25);}
+button.btn:hover{opacity:0.95; transform: translateY(-1px);}
 button.btn:active{transform:scale(0.97);}
-button.btn.secondary{background:var(--panel3); color:var(--text); border:1px solid var(--border2);}
-button.btn.danger{background:var(--acl-deny);}
-button.btn.warning{background:var(--gold); color:#000;}
+button.btn.secondary{background:var(--paper); color:var(--ink); border:2px solid var(--line); box-shadow: none;}
+button.btn.secondary:hover{border-color:var(--red); color:var(--red); background:var(--red-soft);}
+button.btn.danger{background:var(--acl-deny); box-shadow: 0 4px 12px rgba(185,28,28,0.25);}
+button.btn.warning{background:var(--gold); color:#fff; box-shadow: 0 4px 12px rgba(180,83,9,0.25);}
 
-.log-panel{background:#04060A; border:1px solid var(--border); border-radius:10px; margin-top:16px; padding:16px; font-family:'Fira Code',monospace; font-size:13px; max-height:240px; overflow-y:auto; color:#A1B0CB; border-left:3px solid var(--cyber-blue); direction: ltr; text-align: left;}
+.log-panel{background:var(--paper); border:2px solid var(--line); border-radius:10px; margin-top:16px; padding:16px; font-family:'Fira Code',monospace; font-size:13px; max-height:240px; overflow-y:auto; color:var(--ink); border-left:4px solid var(--red); direction: ltr; text-align: left;}
 .log-line{margin-bottom:8px; animation:fadeIn .3s ease;}
-.log-line .lbl{color:var(--cyber-purple); font-weight:bold;}
+.log-line .lbl{color:var(--red-text); font-weight:bold;}
 
 .terminal{
-  background:#05070B; 
-  border:1px solid var(--cyber-purple); 
-  border-radius:10px; 
+  background:#1e1b18; 
+  border:2px solid var(--line); 
+  border-radius:16px; 
   padding:18px; 
   font-family:'Fira Code',monospace; 
   font-size:13px; 
-  box-shadow:0 4px 20px rgba(0,0,0,0.5);
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
   direction: ltr;
   text-align: left;
+  color: #f8efe7;
 }
 .term-topbar{display:flex; gap:6px; margin-bottom:12px; align-items:center; direction: ltr;}
 .dot{width:10px; height:10px; border-radius:50%;}
 .dot.r{background:#EF4444;} .dot.y{background:#F59E0B;} .dot.g{background:#10B981;}
 .term-output{
   white-space:pre-wrap; 
-  color:#94A3B8; 
+  color:#d0c0b3; 
   margin-bottom:10px; 
   min-height:60px; 
   line-height:1.7;
   direction: ltr;
   text-align: left;
 }
-.term-output .ok{color:#10B981; font-weight:bold;}
-.term-output .bad{color:#EF4444; font-weight:bold;}
-.term-output .hint{color:#F59E0B; direction: rtl; display: block; text-align: right;}
+.term-output .ok{color:#6ee7b7; font-weight:bold;}
+.term-output .bad{color:#ff9b9b; font-weight:bold;}
+.term-output .hint{color:#fcd34d; direction: rtl; display: block; text-align: right;}
 
 /* מערכת חידון */
-.quiz-q{background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin-bottom:20px;}
-.quiz-q-num{font-family:'Fira Code',monospace; color:var(--cyber-purple); font-size:12px; margin-bottom:6px; font-weight:600; direction: ltr; display: inline-block; unicode-bidi: isolate;}
+.quiz-q{background:var(--paper); color:var(--ink); border:2px solid var(--line); border-radius:var(--radius); padding:24px; margin-bottom:20px; box-shadow: 0 10px 30px -12px rgba(120, 40, 20, 0.08);}
+.quiz-q-num{font-family:'Fira Code',monospace; color:var(--red-text); font-size:12px; margin-bottom:6px; font-weight:700; direction: ltr; display: inline-block; unicode-bidi: isolate;}
 .quiz-opts{display:flex; flex-direction:column; gap:10px; margin-top:14px;}
-.quiz-opt{background:var(--panel3); border:1px solid var(--border2); border-radius:8px; padding:14px; cursor:pointer; text-align:right; font-size:14px; transition:all 0.15s;}
-.quiz-opt:hover{border-color:#94A3B8; background:var(--panel2);}
-.quiz-opt.correct{background:rgba(16,185,129,0.15); border-color:var(--acl-permit); color:var(--acl-permit); font-weight:600;}
-.quiz-opt.wrong{background:rgba(239,68,68,0.15); border-color:var(--acl-deny); color:var(--acl-deny); font-weight:600;}
+.quiz-opt{background:var(--bg); border:2px solid var(--line); border-radius:10px; padding:14px; cursor:pointer; text-align:right; font-size:14px; font-weight: 600; transition:all 0.15s; color: var(--ink);}
+.quiz-opt:hover{border-color:var(--red); background:var(--red-soft); color: var(--red-text);}
+.quiz-opt.correct{background:var(--ok-bg, #d8f3e6); border-color:var(--ok-edge, #0b6b4a); color:var(--ok-edge, #0b6b4a); font-weight:700;}
+.quiz-opt.wrong{background:var(--bad-bg, #fcdcd6); border-color:var(--bad-edge, #a11a1a); color:var(--bad-edge, #a11a1a); font-weight:700;}
 .quiz-opt.disabled{pointer-events:none;}
-.quiz-explain{margin-top:12px; padding:12px; background:var(--panel2); border-radius:8px; font-size:13px; display:none; border-right:3px solid var(--gold); color:#94A3B8;}
+.quiz-explain{margin-top:12px; padding:14px; background:var(--panel2); border-radius:10px; font-size:13px; display:none; border-right:4px solid var(--gold); color:var(--ink); font-weight: 500;}
 .quiz-explain.show{display:block;}
 
 .score-box {
-  background: linear-gradient(135deg, #1C2336, #252F48);
-  border: 2px solid var(--cyber-purple);
+  background: linear-gradient(135deg, #fbf3e2, #f7ecd6);
+  border: 2px solid var(--red);
   border-radius: var(--radius);
   padding: 20px;
   text-align: center;
-  color: #fff;
+  color: var(--ink);
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 24px;
+  box-shadow: 0 10px 30px rgba(185,28,28,0.1);
 }
 
 /* אזור למורה */
 .teacher-zone {
-  background: linear-gradient(135deg, #1E1B4B, #311042);
-  border: 2px dashed var(--cyber-purple);
+  background: linear-gradient(135deg, #fcebe7, #f6eadc);
+  border: 2px dashed var(--red);
   border-radius: var(--radius);
   padding: 20px;
   margin-top: 30px;
-  color: #FFF;
+  color: var(--ink);
   cursor: pointer;
   transition: all 0.3s;
 }
 .teacher-zone:hover {
   border-color: var(--gold);
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 15px rgba(180, 83, 9, 0.2);
 }
 
-.completion{text-align:center; padding:50px 20px; background:linear-gradient(135deg, #111827, #062F22); color:#FFFFFF; border:2px solid var(--acl-permit); border-radius:var(--radius); display:none; margin-top:30px; box-shadow:0 0 20px rgba(16,185,129,0.2);}
+.completion{text-align:center; padding:50px 20px; background:linear-gradient(135deg, #e0f5ec, #d8f3e6); color:#0b6b4a; border:2px solid #0b6b4a; border-radius:var(--radius); display:none; margin-top:30px; box-shadow:0 10px 30px rgba(11,107,74,0.15);}
 .completion.show{display:block;}
 
-.footer-note{text-align:center; color:#64748B; font-size:12px; margin-top:60px;}
+.footer-note{text-align:center; color:var(--muted); font-size:12px; font-weight: 600; margin-top:60px;}
 table.styled-table {
   width: 100%;
   border-collapse: collapse;
   margin: 15px 0;
   font-size: 14px;
   text-align: center;
-  background: var(--panel2);
-  border-radius: 8px;
+  background: var(--paper);
+  border-radius: 12px;
   overflow: hidden;
+  border: 2px solid var(--line);
 }
-table.styled-table th { background: var(--panel3); color: var(--gold); padding: 12px; border-bottom: 1px solid var(--border); }
-table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); color: var(--text); }
+table.styled-table th { background: var(--panel2); color: var(--red-text); padding: 12px; border-bottom: 2px solid var(--line); font-weight: 800; }
+table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); color: var(--text); font-weight: 500; }
 
 ::-webkit-scrollbar{width:8px; height:8px;}
 ::-webkit-scrollbar-thumb{background:var(--border2); border-radius:4px;}
@@ -316,23 +337,14 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 </head>
 <body>
 
-<div class="progressbar">
-  <div class="progressbar-inner">
-    <div class="progressbar-title">לומדים כתובות <span class="en-inline">IP</span> עם סהר</div>
-    <div class="steps" id="stepsBar"></div>
-    <div class="progress-pct" id="progressPct">0%</div>
-  </div>
-</div>
-
 <div class="wrap">
 
 <header class="hero">
   <div class="header-inner">
-    <!-- קבוצה ימנית: אוואטר, תג, כותרת וסאבטייטל -->
+    <!-- קבוצה ימנית: אוואטר, כותרת וסאבטייטל -->
     <div class="header-main-group">
       <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" class="title-avatar" alt="Crazy Avatar">
       <div class="header-text-content">
-        <div class="eyebrow"><span class="en-inline">Network Architecture · Layer 3 IPv4 &amp; Subnetting</span></div>
         <div class="title-row">
           <h1 class="title">
             <div>לומדים כתובות <span class="en-inline">IP</span> עם סהר</div>
@@ -359,54 +371,54 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 </header>
 
 <!-- ============================================================
-     סעיף s1 החדש: מסע המכתב (רקע בהיר, אינטראקטיבי)
+     סעיף s1: מסע המכתב (רקע בהיר, אינטראקטיבי)
      ============================================================ -->
 <section id="s1">
 
 <style>
-/* ===== סעיף s1 · מסע המכתב (רקע בהיר) ===== */
+/* ===== סעיף s1 · מסע המכתב ===== */
 #s1 .pm-scene{
   position:relative; margin-top:16px; border-radius:26px; padding:22px 22px 24px; overflow:hidden;
-  background:linear-gradient(180deg,#D6EFFF 0%,#EAF6FF 38%,#FFF5D9 72%,#DDF5CF 100%);
-  border:2px solid #fff;
-  box-shadow:0 22px 55px rgba(59,130,246,.18), inset 0 0 0 1px rgba(15,23,42,.06);
+  background:linear-gradient(180deg,#fef7e7 0%,#fbf1dc 38%,#f6eadc 72%,#f3e3cc 100%);
+  border:2px solid var(--line);
+  box-shadow:0 22px 55px rgba(120,40,20,.12), inset 0 0 0 1px rgba(185,28,28,.05);
 }
 #s1 .pm-deco{position:absolute; inset:0; pointer-events:none; z-index:0;}
 #s1 .pm-sun{position:absolute; top:-46px; left:-40px; width:160px; height:160px; border-radius:50%;
-  background:radial-gradient(circle,#FFE066 0 38%,rgba(255,224,102,0) 70%); animation:pmPulse 5s ease-in-out infinite;}
+  background:radial-gradient(circle,rgba(252,211,77,0.4) 0 38%,rgba(252,211,77,0) 70%); animation:pmPulse 5s ease-in-out infinite;}
 #s1 .pm-sun::before{content:""; position:absolute; inset:-34px; border-radius:50%;
-  background:repeating-conic-gradient(from 0deg,rgba(255,196,40,.38) 0 7deg,transparent 7deg 22deg);
+  background:repeating-conic-gradient(from 0deg,rgba(180,83,9,.15) 0 7deg,transparent 7deg 22deg);
   -webkit-mask:radial-gradient(circle,transparent 28%,#000 34%,transparent 72%);
           mask:radial-gradient(circle,transparent 28%,#000 34%,transparent 72%);
   animation:pmSpin 40s linear infinite;}
-#s1 .pm-cloud{position:absolute; left:-90px; font-size:44px; opacity:.92; animation:pmDrift linear infinite; filter:drop-shadow(0 6px 6px rgba(59,130,246,.15));}
+#s1 .pm-cloud{position:absolute; left:-90px; font-size:44px; opacity:.85; animation:pmDrift linear infinite; filter:drop-shadow(0 6px 6px rgba(0,0,0,.08));}
 #s1 .pm-cloud.c1{top:14px; animation-duration:55s; animation-delay:-12s;}
-#s1 .pm-cloud.c2{top:70px; font-size:32px; animation-duration:80s; animation-delay:-40s; opacity:.7;}
-#s1 .pm-cloud.c3{top:34px; font-size:38px; animation-duration:68s; animation-delay:-60s; opacity:.8;}
+#s1 .pm-cloud.c2{top:70px; font-size:32px; animation-duration:80s; animation-delay:-40s; opacity:.6;}
+#s1 .pm-cloud.c3{top:34px; font-size:38px; animation-duration:68s; animation-delay:-60s; opacity:.7;}
 
 #s1 .pm-top{position:relative; z-index:3; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:22px;}
-#s1 .pm-chip{font-weight:800; font-size:14px; color:#1E3A8A; background:rgba(255,255,255,.85); border:1px solid rgba(59,130,246,.25); padding:7px 14px; border-radius:99px; backdrop-filter:blur(4px);}
-#s1 .pm-send{background:linear-gradient(135deg,#8B5CF6,#3B82F6); color:#fff; padding:13px 26px; border-radius:99px; font-size:16px;
-  box-shadow:0 10px 24px rgba(99,102,241,.38); animation:pmBtn 2.4s ease-in-out infinite;}
+#s1 .pm-chip{font-weight:800; font-size:14px; color:var(--red-text); background:rgba(255,255,255,.9); border:1px solid var(--red-edge); padding:7px 14px; border-radius:99px; backdrop-filter:blur(4px); box-shadow: 0 4px 12px rgba(120,40,20,0.05);}
+#s1 .pm-send{background:linear-gradient(135deg,#dc2626,#b91c1c); color:#fff; padding:13px 26px; border-radius:99px; font-size:16px; font-weight: 800;
+  box-shadow:0 10px 24px rgba(185,28,28,.3); animation:pmBtn 2.4s ease-in-out infinite; border: none; cursor: pointer;}
 #s1 .pm-send:disabled{opacity:.7; cursor:wait; animation:none;}
 
 /* תחנות */
 #s1 .pm-stages{position:relative; z-index:2; display:flex;}
-#s1 .pm-stage{flex:1; background:none; border:0; padding:0 6px; font-family:inherit; color:#0F172A; cursor:pointer;
+#s1 .pm-stage{flex:1; background:none; border:0; padding:0 6px; font-family:inherit; color:var(--ink); cursor:pointer;
   display:flex; flex-direction:column; align-items:center; text-align:center;}
 #s1 .pm-stage.start{cursor:default;}
 #s1 .pm-orb{position:relative; width:92px; height:92px; border-radius:50%; display:grid; place-items:center; font-size:44px;
-  background:radial-gradient(circle at 30% 25%,#fff,#F1F5F9); border:4px solid var(--c);
-  box-shadow:0 12px 26px rgba(15,23,42,.16); transition:transform .45s cubic-bezier(.3,1.6,.5,1), box-shadow .4s; z-index:1;}
+  background:radial-gradient(circle at 30% 25%,#fff,#f7ecd6); border:4px solid var(--c);
+  box-shadow:0 12px 26px rgba(120,40,20,.12); transition:transform .45s cubic-bezier(.3,1.6,.5,1), box-shadow .4s; z-index:1;}
 #s1 .pm-stage:not(.start):hover .pm-orb{transform:translateY(-4px) scale(1.06);}
-#s1 .pm-stage.active .pm-orb{transform:scale(1.14); box-shadow:0 0 0 7px color-mix(in srgb,var(--c) 18%,transparent),0 14px 30px rgba(15,23,42,.2);}
+#s1 .pm-stage.active .pm-orb{transform:scale(1.14); box-shadow:0 0 0 7px color-mix(in srgb,var(--c) 18%,transparent),0 14px 30px rgba(120,40,20,.18);}
 #s1 .pm-stage.active .pm-orb::after{content:""; position:absolute; inset:-9px; border-radius:50%; border:3px solid var(--c); animation:pmRing 1.5s ease-out infinite;}
 #s1 .pm-stage.done .pm-orb{background:radial-gradient(circle at 30% 25%,#fff,color-mix(in srgb,var(--c) 14%,#fff));}
 #s1 .pm-txt{display:flex; flex-direction:column; align-items:center; margin-top:14px;}
-#s1 .pm-name{font-weight:800; font-size:17px; line-height:1.2;}
-#s1 .pm-sub{font-size:13px; color:#475569; margin-top:2px;}
-#s1 .pm-pill{margin-top:7px; font-family:'Fira Code',monospace; font-size:11px; font-weight:600; direction:ltr; unicode-bidi:isolate;
-  padding:2px 10px; border-radius:99px; background:#fff; border:1.5px solid var(--c); color:var(--c);}
+#s1 .pm-name{font-weight:800; font-size:17px; line-height:1.2; color: var(--ink);}
+#s1 .pm-sub{font-size:13px; color:var(--muted); margin-top:2px; font-weight: 600;}
+#s1 .pm-pill{margin-top:7px; font-family:'Fira Code',monospace; font-size:11px; font-weight:700; direction:ltr; unicode-bidi:isolate;
+  padding:3px 10px; border-radius:99px; background:#fff; border:1.5px solid var(--c); color:var(--c);}
 #s1 .pm-pill.he{font-family:'Rubik',sans-serif; direction:rtl;}
 #s1 .pm-orb .b,#s1 .pm-badge{display:none;}
 #s1 .pm-badge{display:block; position:absolute; bottom:-8px; left:-10px; font-size:28px; transform:scale(0); transition:transform .5s cubic-bezier(.3,1.9,.5,1);}
@@ -416,54 +428,54 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 
 /* כביש */
 #s1 .pm-road{position:absolute; z-index:0; top:44px; right:12.5%; left:12.5%; height:5px; border-radius:5px;
-  background:repeating-linear-gradient(to left,rgba(217,119,6,.55) 0 14px,transparent 14px 26px);}
+  background:repeating-linear-gradient(to left,rgba(180,83,9,.35) 0 14px,transparent 14px 26px);}
 #s1 .pm-fill{position:absolute; z-index:0; top:44px; right:12.5%; width:0; height:5px; border-radius:5px;
-  background:linear-gradient(to left,#10B981,#8B5CF6,#3B82F6,#F59E0B);
+  background:linear-gradient(to left,#0b6b4a,#b91c1c,#0e7490,#b45309);
   transition:width 1.35s cubic-bezier(.65,0,.35,1),height 1.35s cubic-bezier(.65,0,.35,1);}
 
 /* הדוור */
 #s1 .pm-man{position:absolute; left:0; top:0; z-index:5; width:64px; height:64px; margin:-32px 0 0 -32px; pointer-events:none;
   transition:transform 1.35s cubic-bezier(.65,0,.35,1);}
-#s1 .pm-man-in{display:block; font-size:48px; line-height:64px; text-align:center; filter:drop-shadow(0 7px 4px rgba(15,23,42,.22)); animation:pmBob 2.2s ease-in-out infinite;}
+#s1 .pm-man-in{display:block; font-size:48px; line-height:64px; text-align:center; filter:drop-shadow(0 7px 4px rgba(0,0,0,.15)); animation:pmBob 2.2s ease-in-out infinite;}
 #s1 .pm-man.moving .pm-man-in{animation:pmRide .26s ease-in-out infinite;}
 #s1 .pm-mail{position:absolute; top:-12px; right:-4px; font-size:22px; animation:pmFloat 1.6s ease-in-out infinite;}
 #s1 .pm-spark{position:absolute; z-index:4; font-size:16px; pointer-events:none; animation:pmSpark .9s ease-out forwards;}
 
 /* חלק תחתון */
 #s1 .pm-bottom{position:relative; z-index:2; display:grid; grid-template-columns:1fr 1.2fr; gap:18px; margin-top:26px;}
-#s1 .pm-letter{padding:7px; border-radius:16px; background:repeating-linear-gradient(135deg,#EF4444 0 14px,#fff 14px 24px,#3B82F6 24px 38px,#fff 38px 48px);
-  box-shadow:0 14px 30px rgba(15,23,42,.14); transform:rotate(-1.2deg);}
-#s1 .pm-paper{position:relative; background:#FFFDF6; border-radius:10px; padding:16px;}
-#s1 .pm-env-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-weight:800; color:#0F172A;}
-#s1 .pm-stamp{border:3px solid #059669; color:#059669; border-radius:8px; padding:1px 10px; font-size:13px; font-weight:800; opacity:0; transform:rotate(-10deg) scale(0);
+#s1 .pm-letter{padding:8px; border-radius:16px; background:repeating-linear-gradient(135deg,#b91c1c 0 14px,#fff 14px 24px,#0e7490 24px 38px,#fff 38px 48px);
+  box-shadow:0 14px 30px rgba(120,40,20,.12); transform:rotate(-1.2deg);}
+#s1 .pm-paper{position:relative; background:#FFFAF0; border-radius:10px; padding:16px; border: 1px solid var(--line);}
+#s1 .pm-env-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-weight:800; color:var(--ink);}
+#s1 .pm-stamp{border:3px solid #0b6b4a; color:#0b6b4a; border-radius:8px; padding:1px 10px; font-size:13px; font-weight:800; opacity:0; transform:rotate(-10deg) scale(0);
   transition:transform .5s cubic-bezier(.3,1.9,.5,1),opacity .2s;}
 #s1 .delivered .pm-stamp{opacity:1; transform:rotate(-10deg) scale(1);}
-#s1 .pm-line{display:flex; align-items:center; gap:10px; padding:8px 10px; margin-bottom:8px; border-radius:10px; background:#F8FAFC; border:1px dashed #CBD5E1; transition:all .4s;}
+#s1 .pm-line{display:flex; align-items:center; gap:10px; padding:8px 10px; margin-bottom:8px; border-radius:10px; background:#fff; border:1px dashed var(--line); transition:all .4s;}
 #s1 .pm-line i{font-style:normal; font-size:20px;}
-#s1 .pm-line b{font-size:12px; color:#64748B; min-width:68px;}
-#s1 .pm-line span{font-weight:700; color:#0F172A; filter:blur(6px); opacity:.4; transition:all .55s;}
+#s1 .pm-line b{font-size:12px; color:var(--muted); min-width:68px;}
+#s1 .pm-line span{font-weight:700; color:var(--ink); filter:blur(6px); opacity:.4; transition:all .55s;}
 #s1 .pm-line.on{background:#fff; border:1px solid var(--lc);}
 #s1 .pm-line.on span{filter:none; opacity:1;}
 #s1 .pm-line.pop{animation:pmPop .55s;}
-#s1 .pm-ip{margin-top:12px; text-align:center; font-family:'Fira Code',monospace; font-size:20px; font-weight:600; color:#94A3B8; direction:ltr; unicode-bidi:isolate;}
+#s1 .pm-ip{margin-top:12px; text-align:center; font-family:'Fira Code',monospace; font-size:20px; font-weight:700; color:var(--muted); direction:ltr; unicode-bidi:isolate;}
 #s1 .pm-ip .net,#s1 .pm-ip .host{padding:3px 8px; border-radius:8px; transition:all .4s;}
-#s1 .pm-ip .net.on{background:#DBEAFE; color:#1D4ED8;}
-#s1 .pm-ip .host.on{background:#FEF3C7; color:#B45309;}
-#s1 .pm-ip-cap{margin:6px 0 0; font-size:12px; text-align:center; color:#64748B;}
+#s1 .pm-ip .net.on{background:var(--red-soft); color:var(--red-text);}
+#s1 .pm-ip .host.on{background:#fdf1dd; color:#b45309;}
+#s1 .pm-ip-cap{margin:6px 0 0; font-size:12px; text-align:center; color:var(--muted); font-weight: 600;}
 
-#s1 .pm-info{background:rgba(255,255,255,.92); border:1px solid rgba(15,23,42,.08); border-right:6px solid var(--c,#059669); border-radius:18px; padding:20px 22px;
-  box-shadow:0 14px 30px rgba(15,23,42,.1); display:flex; flex-direction:column; justify-content:center; transition:border-color .4s;}
+#s1 .pm-info{background:var(--paper); border:2px solid var(--line); border-right:6px solid var(--c,#0b6b4a); border-radius:18px; padding:20px 22px;
+  box-shadow:0 14px 30px rgba(120,40,20,.08); display:flex; flex-direction:column; justify-content:center; transition:border-color .4s;}
 #s1 .pm-info.swap{animation:pmPop .5s;}
-#s1 .pm-info-step{font-family:'Fira Code',monospace; font-size:12px; font-weight:600; color:var(--c,#059669); margin-bottom:4px;}
-#s1 .pm-info h3{font-size:22px; color:#0F172A; margin-bottom:8px;}
-#s1 .pm-info p{font-size:15px; color:#334155; margin-bottom:10px;}
+#s1 .pm-info-step{font-family:'Fira Code',monospace; font-size:12px; font-weight:700; color:var(--c,#0b6b4a); margin-bottom:4px;}
+#s1 .pm-info h3{font-size:22px; color:var(--ink); margin-bottom:8px; font-weight: 800;}
+#s1 .pm-info p{font-size:15px; color:var(--muted); margin-bottom:10px; font-weight: 500;}
 
 /* שאלה למחשבה */
-#s1 .pm-q{margin-top:22px; background:#fff; border:1px solid #E2E8F0; border-right:5px solid var(--gold); border-radius:18px; padding:22px; box-shadow:0 8px 24px rgba(15,23,42,.06);}
-#s1 .pm-q h3{color:#0F172A;}
-#s1 .pm-q p{color:#475569;}
-#s1 .pm-q .btn.secondary{background:#F8FAFC; color:#1E293B; border:2px solid #CBD5E1; text-align:right;}
-#s1 .pm-q .btn.secondary:hover{border-color:var(--cyber-purple); background:#F5F3FF; box-shadow:none;}
+#s1 .pm-q{margin-top:22px; background:var(--paper); border:2px solid var(--line); border-right:6px solid var(--gold); border-radius:18px; padding:22px; box-shadow:0 8px 24px rgba(120,40,20,.06);}
+#s1 .pm-q h3{color:var(--ink); font-weight: 800;}
+#s1 .pm-q p{color:var(--muted); font-weight: 500;}
+#s1 .pm-q .btn.secondary{background:var(--bg); color:var(--ink); border:2px solid var(--line); text-align:right;}
+#s1 .pm-q .btn.secondary:hover{border-color:var(--red); color:var(--red); background:var(--red-soft); box-shadow:none;}
 
 /* אנימציות */
 @keyframes pmSpin{to{transform:rotate(360deg);}}
@@ -486,8 +498,8 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
   #s1 .pm-orb{width:76px; height:76px; font-size:36px; flex-shrink:0;}
   #s1 .pm-txt{align-items:flex-start; margin-top:0;}
   #s1 .pm-road{top:38px; bottom:38px; right:36px; left:auto; width:5px; height:auto;
-    background:repeating-linear-gradient(to bottom,rgba(217,119,6,.55) 0 14px,transparent 14px 26px);}
-  #s1 .pm-fill{top:38px; right:36px; left:auto; width:5px; height:0; background:linear-gradient(to bottom,#10B981,#8B5CF6,#3B82F6,#F59E0B);}
+    background:repeating-linear-gradient(to bottom,rgba(180,83,9,.35) 0 14px,transparent 14px 26px);}
+  #s1 .pm-fill{top:38px; right:36px; left:auto; width:5px; height:0; background:linear-gradient(to bottom,#0b6b4a,#b91c1c,#0e7490,#b45309);}
   #s1 .pm-bottom{grid-template-columns:1fr;}
   #s1 .pm-send{width:100%;}
 }
@@ -498,7 +510,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 
 <div class="section-head" style="margin-bottom:6px;">
   <h2 class="section-title" style="margin-top:0; margin-bottom:4px;">מעבר חבילת תקשורת והדמיון לעבודת הדוור</h2>
-  <p style="margin:0; font-weight:500; color:#334155;">חשבו על שליחת מכתב בדואר. כדי שהדוור יידע לאן להביא את המכתב, הוא חייב כתובת מדויקת הבנויה בשלבים:</p>
+  <p style="margin:0; font-weight:600; color:var(--muted);">חשבו על שליחת מכתב בדואר. כדי שהדוור יידע לאן להביא את המכתב, הוא חייב כתובת מדויקת הבנויה בשלבים:</p>
 </div>
 
 <div class="pm-scene" id="pmScene">
@@ -518,7 +530,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
     <div class="pm-road"></div>
     <div class="pm-fill" id="pmFill"></div>
 
-    <div class="pm-stage start" style="--c:#059669;">
+    <div class="pm-stage start" style="--c:#0b6b4a;">
       <div class="pm-orb">🏤</div>
       <div class="pm-txt">
         <div class="pm-name">סניף הדואר</div>
@@ -527,7 +539,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
       </div>
     </div>
 
-    <button class="pm-stage" type="button" style="--c:#7C3AED;" aria-label="תחנה 1: הרשת היא המדינה">
+    <button class="pm-stage" type="button" style="--c:#b91c1c;" aria-label="תחנה 1: הרשת היא המדינה">
       <div class="pm-orb">🌍</div>
       <div class="pm-txt">
         <div class="pm-name">רשת</div>
@@ -536,7 +548,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
       </div>
     </button>
 
-    <button class="pm-stage" type="button" style="--c:#2563EB;" aria-label="תחנה 2: תת-רשת היא העיר והרחוב">
+    <button class="pm-stage" type="button" style="--c:#0e7490;" aria-label="תחנה 2: תת-רשת היא העיר והרחוב">
       <div class="pm-orb">🏘️</div>
       <div class="pm-txt">
         <div class="pm-name">תת-רשת</div>
@@ -545,7 +557,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
       </div>
     </button>
 
-    <button class="pm-stage" type="button" style="--c:#D97706;" aria-label="תחנה 3: מארח הוא מספר הבית">
+    <button class="pm-stage" type="button" style="--c:#b45309;" aria-label="תחנה 3: מארח הוא מספר הבית">
       <div class="pm-orb"><span class="a">🏠</span><span class="b">🏡</span><span class="pm-badge">📬</span></div>
       <div class="pm-txt">
         <div class="pm-name">מארח</div>
@@ -564,9 +576,9 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
     <div class="pm-letter">
       <div class="pm-paper">
         <div class="pm-env-top"><span>✉️ המכתב שלי</span><span class="pm-stamp">נמסר ✓</span></div>
-        <div class="pm-line" style="--lc:#7C3AED;"><i>🌍</i><b>מדינה</b><span>ישראל 🇮🇱</span></div>
-        <div class="pm-line" style="--lc:#2563EB;"><i>🏘️</i><b>עיר ורחוב</b><span>חיפה, רחוב הרצל</span></div>
-        <div class="pm-line" style="--lc:#D97706;"><i>🏠</i><b>מספר בית</b><span>50</span></div>
+        <div class="pm-line" style="--lc:#b91c1c;"><i>🌍</i><b>מדינה</b><span>ישראל 🇮🇱</span></div>
+        <div class="pm-line" style="--lc:#0e7490;"><i>🏘️</i><b>עיר ורחוב</b><span>חיפה, רחוב הרצל</span></div>
+        <div class="pm-line" style="--lc:#b45309;"><i>🏠</i><b>מספר בית</b><span>50</span></div>
         <div class="pm-ip"><span class="net" id="pmNet">192.168.1</span><span>.</span><span class="host" id="pmHost">50</span></div>
         <p class="pm-ip-cap">בעולם הרשתות: חלק הרשת מוביל עד הרחוב, וחלק המארח הוא הבית</p>
       </div>
@@ -583,7 +595,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
     <button class="btn secondary" onclick="answerScenario(1)">ייווצר קונפליקט כתובות והתקשורת של שניהם תיפגע או תיחסם</button>
     <button class="btn secondary" onclick="answerScenario(2)">הם יקבלו את אותן הודעות בדיוק כמו זוג תאומים ללא בעיה</button>
   </div>
-  <div id="scenario-feedback" style="margin-top:14px; font-size:14px; display:none;"></div>
+  <div id="scenario-feedback" style="margin-top:14px; font-size:14px; display:none; font-weight: 700;"></div>
 </div>
 
 <script>
@@ -595,16 +607,16 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
   const fill = document.getElementById('pmFill');
   const sendBtn = document.getElementById('pmSend');
   const infoEl = document.getElementById('pmInfo');
-  const nodes = Array.from(stagesEl.querySelectorAll('.pm-stage'));   // 0 = סניף דואר, 1..3 = תחנות
+  const nodes = Array.from(stagesEl.querySelectorAll('.pm-stage'));
   const lines = Array.from(scene.querySelectorAll('.pm-line'));
   const net = document.getElementById('pmNet');
   const host = document.getElementById('pmHost');
 
   const INFO = [
-    {c:'#059669', step:'מוכנים ליציאה', t:'המכתב מחכה בסניף הדואר', p:'לחצו על "שלח את המכתב" וצפו איך כתובת נבנית בשלבים. אפשר גם ללחוץ על כל תחנה בדרך ולקפוץ אליה.', pill:''},
-    {c:'#7C3AED', step:'שלב 1 מתוך 3', t:'הרשת היא המדינה', p:'קובעת באיזו מדינה המכתב נמצא בעולם. הדוור קודם כל מעביר את החבילה למדינה הנכונה. כך גם נתב: קודם בודק לאיזו רשת שייכת הכתובת.', pill:'Network'},
-    {c:'#2563EB', step:'שלב 2 מתוך 3', t:'תת-רשת היא העיר והרחוב', p:'מצמצמת את האזור לשכונה או לרחוב הספציפי שבו נמצא הנמען בתוך אותה המדינה.', pill:'Subnet'},
-    {c:'#D97706', step:'שלב 3 מתוך 3', t:'מארח הוא מספר הבית', p:'זהו המחשב או הטלפון הנייד הספציפי שמקבל את המכתב בתוך אותה כתובת רחוב. המכתב הגיע ליעד! 🎉', pill:'Host'}
+    {c:'#0b6b4a', step:'מוכנים ליציאה', t:'המכתב מחכה בסניף הדואר', p:'לחצו על "שלח את המכתב" וצפו איך כתובת נבנית בשלבים. אפשר גם ללחוץ על כל תחנה בדרך ולקפוץ אליה.', pill:''},
+    {c:'#b91c1c', step:'שלב 1 מתוך 3', t:'הרשת היא המדינה', p:'קובעת באיזו מדינה המכתב נמצא בעולם. הדוור קודם כל מעביר את החבילה למדינה הנכונה. כך גם נתב: קודם בודק לאיזו רשת שייכת הכתובת.', pill:'Network'},
+    {c:'#0e7490', step:'שלב 2 מתוך 3', t:'תת-רשת היא העיר והרחוב', p:'מצמצמת את האזור לשכונה או לרחוב הספציפי שבו נמצא הנמען בתוך אותה המדינה.', pill:'Subnet'},
+    {c:'#b45309', step:'שלב 3 מתוך 3', t:'מארח הוא מספר הבית', p:'זהו המחשב או הטלפון הנייד הספציפי שמקבל את המכתב בתוך אותה כתובת רחוב. המכתב הגיע ליעד! 🎉', pill:'Host'}
   ];
 
   let cur = 0, run = 0;
@@ -646,7 +658,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
     const o = nodes[3].querySelector('.pm-orb').getBoundingClientRect();
     const s = scene.getBoundingClientRect();
     const cx = o.left + o.width/2 - s.left, cy = o.top + o.height/2 - s.top;
-    const cols = ['#8B5CF6','#3B82F6','#F59E0B','#10B981','#EF4444','#EC4899'];
+    const cols = ['#b91c1c','#0e7490','#b45309','#0b6b4a','#dc2626','#6d28d9'];
     for(let i=0;i<32;i++){
       const p = document.createElement('i');
       p.className = 'pm-conf';
@@ -748,23 +760,23 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
   <h2 class="section-title">איך מפרידים בין הרחוב לבין הבית?</h2>
 </div>
 
-<p>כתובת <span class="en-inline">IPv4</span> מורכבת מ-32 סיביות (<span class="en-inline">Bits</span>) המחולקות ל-4 מספרים בין 0 ל-255 המופרדים בנקודה. מסכת הרשת (<span class="en-inline">Subnet Mask</span>) هي הבלופרינט שמורה למחשב איזה חלק מהכתובת שייך לרשת ואיזה חלק שייך למארח.</p>
+<p>כתובת <span class="en-inline">IPv4</span> מורכבת מ-32 סיביות (<span class="en-inline">Bits</span>) המחולקות ל-4 מספרים בין 0 ל-255 המופרדים בנקודה. מסכת הרשת (<span class="en-inline">Subnet Mask</span>) היא הבלופרינט שמורה למחשב איזה חלק מהכתובת שייך לרשת ואיזה חלק שייך למארח.</p>
 
 <div class="card" style="margin-bottom:20px;">
-  <h3 style="color:var(--gold);">מבנה חלוקה קלאסי מסוג <span class="en-inline">Class C</span>:</h3>
+  <h3 style="color:var(--red-text);">מבנה חלוקה קלאסי מסוג <span class="en-inline">Class C</span>:</h3>
   <div class="grid2" style="margin-top:15px;">
-    <div style="background:var(--panel2); padding:16px; border-radius:8px; text-align:center; border:1px solid var(--cyber-blue);">
-      <div style="color:var(--cyber-blue); font-weight:bold;" class="mono">192.168.1</div>
-      <div style="font-size:12px; color:#94A3B8; margin-top:4px;">חלק הרשת (<span class="en-inline">Network ID</span>) - מוגדר ע"י <span class="en-inline">255.255.255</span></div>
+    <div style="background:var(--bg); padding:16px; border-radius:12px; text-align:center; border:2px solid var(--line);">
+      <div style="color:var(--red-text); font-weight:bold;" class="mono">192.168.1</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:4px; font-weight: 600;">חלק הרשת (<span class="en-inline">Network ID</span>) - מוגדר ע"י <span class="en-inline">255.255.255</span></div>
     </div>
-    <div style="background:var(--panel2); padding:16px; border-radius:8px; text-align:center; border:1px solid var(--cyber-purple);">
-      <div style="color:var(--cyber-purple); font-weight:bold;" class="mono">50</div>
-      <div style="font-size:12px; color:#94A3B8; margin-top:4px;">חלק המארח (<span class="en-inline">Host ID</span>) - מוגדר ע"י <span class="en-inline">0</span> במסכה</div>
+    <div style="background:var(--bg); padding:16px; border-radius:12px; text-align:center; border:2px solid var(--line);">
+      <div style="color:var(--gold); font-weight:bold;" class="mono">50</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:4px; font-weight: 600;">חלק המארח (<span class="en-inline">Host ID</span>) - מוגדר ע"י <span class="en-inline">0</span> במסכה</div>
     </div>
   </div>
 
   <div style="margin-top:20px;">
-    <h4 style="color:#FFF;">טבלת מחלקות (<span class="en-inline">Classes</span>) ופרפיקסים (<span class="en-inline">CIDR</span>):</h4>
+    <h4 style="color:var(--ink); font-weight: 800;">טבלת מחלקות (<span class="en-inline">Classes</span>) ופרפיקסים (<span class="en-inline">CIDR</span>):</h4>
     <table class="styled-table">
       <thead>
         <tr>
@@ -795,7 +807,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
         </tr>
       </tbody>
     </table>
-    <p style="font-size:13px; color:#94A3B8;">נוסחת חישוב מספר המארחים ברשת: <span class="en-inline">2<sup>H</sup> - 2</span>. עבור 8 ביטים של מארח (<span class="en-inline">/24</span>): <span class="en-inline">2<sup>8</sup> - 2 = 254</span> כתובות זמינות.</p>
+    <p style="font-size:13px; color:var(--muted); font-weight: 600;">נוסחת חישוב מספר המארחים ברשת: <span class="en-inline">2<sup>H</sup> - 2</span>. עבור 8 ביטים של מארח (<span class="en-inline">/24</span>): <span class="en-inline">2<sup>8</sup> - 2 = 254</span> כתובות זמינות.</p>
   </div>
 </div>
 </section>
@@ -808,54 +820,54 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 </div>
 
 <div class="card concept-card" style="margin-bottom:20px;">
-  <h3 style="color:var(--gold);">שלב 1: בחרו מצב עבודה</h3>
+  <h3 style="color:var(--red-text);">שלב 1: בחרו מצב עבודה</h3>
   <p>אפשר להתחיל מתרחיש תקלה ולחקור אותו, או לבחור רשת תקינה ולשנות הגדרה כדי לראות מה קורה.</p>
   <div class="controls-row">
     <button class="btn danger" onclick="loadScenario('wrong-gw')">תרחיש א׳: שער שגוי</button>
     <button class="btn warning" onclick="loadScenario('wrong-ip')">תרחיש ב׳: כתובת ברשת הלא נכונה</button>
     <button class="btn" style="background:var(--acl-permit);" onclick="loadScenario('correct')">תרחיש ג׳: הגדרה תקינה</button>
   </div>
-  <div style="margin-top:14px;padding:12px;background:var(--panel2);border-radius:8px;color:#CBD5E1;font-size:14px;">
-    <b style="color:#FFF;">המשימה שלכם:</b> בדקו קודם תקשורת אל הנתב המקומי (<span class="en-inline">Gateway</span> של רשת A). לאחר מכן בדקו תקשורת אל <span class="en-inline">PC B</span> שברשת המרוחקת. אם הבדיקה נכשלת, קראו את ההסבר ותקנו את השדות של <span class="en-inline">PC A</span>.
+  <div style="margin-top:14px;padding:12px;background:var(--bg);border:2px solid var(--line);border-radius:10px;color:var(--ink);font-size:14px; font-weight: 600;">
+    <b style="color:var(--red-text);">המשימה שלכם:</b> בדקו קודם תקשורת אל הנתב המקומי (<span class="en-inline">Gateway</span> של רשת A). לאחר מכן בדקו תקשורת אל <span class="en-inline">PC B</span> שברשת המרוחקת. אם הבדיקה נכשלת, קראו את ההסבר ותקנו את השדות של <span class="en-inline">PC A</span>.
   </div>
 </div>
 
 <div class="diagram-wrap">
-  <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#CBD5E1;font-size:13px;margin-bottom:12px;">
-    <span><b style="color:#60A5FA;">רשת B · <span class="en-inline">10.0.0.0/8</span></b> — הרשת המרוחקת</span>
-    <span><b style="color:#C4B5FD;">רשת A · <span class="en-inline">192.168.1.0/24</span></b> — הרשת המקומית</span>
+  <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--ink);font-size:13px;margin-bottom:12px; font-weight: 700;">
+    <span><b style="color:var(--red-text);">רשת B · <span class="en-inline">10.0.0.0/8</span></b> — הרשת המרוחקת</span>
+    <span><b style="color:var(--cyber-blue);">רשת A · <span class="en-inline">192.168.1.0/24</span></b> — הרשת המקומית</span>
   </div>
   <svg id="networkDiagram" viewBox="0 0 1000 380" style="width:100%;display:block;min-width:620px;" role="img" aria-label="מחשב A מחובר לממשק השמאלי של נתב, וממשק הנתב הימני מחובר למחשב B">
-    <rect x="20" y="42" width="310" height="280" rx="14" fill="#3B82F6" fill-opacity=".07" stroke="#3B82F6" stroke-dasharray="7 6"/>
-    <rect x="670" y="42" width="310" height="280" rx="14" fill="#8B5CF6" fill-opacity=".07" stroke="#8B5CF6" stroke-dasharray="7 6"/>
-    <text x="175" y="70" text-anchor="middle" fill="#93C5FD" font-family="Rubik" font-size="17" font-weight="700">רשת A · מקומית</text>
-    <text x="825" y="70" text-anchor="middle" fill="#C4B5FD" font-family="Rubik" font-size="17" font-weight="700">רשת B · מרוחקת</text>
-    <line x1="260" y1="185" x2="425" y2="185" stroke="#64748B" stroke-width="4"/>
-    <line x1="575" y1="185" x2="740" y2="185" stroke="#64748B" stroke-width="4"/>
+    <rect x="20" y="42" width="310" height="280" rx="14" fill="#0e7490" fill-opacity=".06" stroke="#0e7490" stroke-dasharray="7 6"/>
+    <rect x="670" y="42" width="310" height="280" rx="14" fill="#b91c1c" fill-opacity=".06" stroke="#b91c1c" stroke-dasharray="7 6"/>
+    <text x="175" y="70" text-anchor="middle" fill="#0e7490" font-family="Rubik" font-size="17" font-weight="700">רשת A · מקומית</text>
+    <text x="825" y="70" text-anchor="middle" fill="#b91c1c" font-family="Rubik" font-size="17" font-weight="700">רשת B · מרוחקת</text>
+    <line x1="260" y1="185" x2="425" y2="185" stroke="#e6d9bf" stroke-width="4"/>
+    <line x1="575" y1="185" x2="740" y2="185" stroke="#e6d9bf" stroke-width="4"/>
     <g>
-      <rect x="65" y="130" width="195" height="112" rx="10" fill="#121824" stroke="#3B82F6" stroke-width="2"/>
-      <text x="162" y="157" text-anchor="middle" fill="#FFF" font-family="Rubik" font-size="18" font-weight="700">PC A</text>
-      <text id="visual-ip-a" x="162" y="184" text-anchor="middle" fill="#60A5FA" font-family="Fira Code" font-size="14" style="direction:ltr; unicode-bidi:isolate;">192.168.1.10</text>
-      <text x="162" y="211" text-anchor="middle" fill="#94A3B8" font-family="Rubik" font-size="12">מסכה: /24 (ברירת מעבדה)</text>
+      <rect x="65" y="130" width="195" height="112" rx="10" fill="#ffffff" stroke="#0e7490" stroke-width="2"/>
+      <text x="162" y="157" text-anchor="middle" fill="#20150f" font-family="Rubik" font-size="18" font-weight="700">PC A</text>
+      <text id="visual-ip-a" x="162" y="184" text-anchor="middle" fill="#0e7490" font-family="Fira Code" font-size="14" style="direction:ltr; unicode-bidi:isolate;">192.168.1.10</text>
+      <text x="162" y="211" text-anchor="middle" fill="#5a4a40" font-family="Rubik" font-size="12">מסכה: /24 (ברירת מעבדה)</text>
     </g>
     <g>
-      <circle cx="500" cy="185" r="66" fill="#1C2336" stroke="#F59E0B" stroke-width="3"/>
-      <text x="500" y="171" text-anchor="middle" fill="#FFF" font-family="Rubik" font-size="18" font-weight="700">נתב R1</text>
-      <text x="500" y="193" text-anchor="middle" fill="#FBBF24" font-family="Fira Code" font-size="12" style="direction:ltr; unicode-bidi:isolate;">Fa0/0</text>
-      <text x="500" y="211" text-anchor="middle" fill="#FBBF24" font-family="Fira Code" font-size="12" style="direction:ltr; unicode-bidi:isolate;">192.168.1.1/24</text>
-      <text x="500" y="270" text-anchor="middle" fill="#C4B5FD" font-family="Fira Code" font-size="12" style="direction:ltr; unicode-bidi:isolate;">Fa0/1: 10.0.0.1/8</text>
+      <circle cx="500" cy="185" r="66" fill="#fbf8ee" stroke="#b45309" stroke-width="3"/>
+      <text x="500" y="171" text-anchor="middle" fill="#20150f" font-family="Rubik" font-size="18" font-weight="700">נתב R1</text>
+      <text x="500" y="193" text-anchor="middle" fill="#b45309" font-family="Fira Code" font-size="12" style="direction:ltr; unicode-bidi:isolate;">Fa0/0</text>
+      <text x="500" y="211" text-anchor="middle" fill="#b45309" font-family="Fira Code" font-size="12" style="direction:ltr; unicode-bidi:isolate;">192.168.1.1/24</text>
+      <text x="500" y="270" text-anchor="middle" fill="#b91c1c" font-family="Fira Code" font-size="12" style="direction:ltr; unicode-bidi:isolate;">Fa0/1: 10.0.0.1/8</text>
     </g>
     <g>
-      <rect x="740" y="130" width="195" height="112" rx="10" fill="#121824" stroke="#8B5CF6" stroke-width="2"/>
-      <text x="837" y="157" text-anchor="middle" fill="#FFF" font-family="Rubik" font-size="18" font-weight="700">PC B</text>
-      <text x="837" y="184" text-anchor="middle" fill="#C4B5FD" font-family="Fira Code" font-size="14" style="direction:ltr; unicode-bidi:isolate;">10.0.0.20</text>
-      <text x="837" y="211" text-anchor="middle" fill="#94A3B8" font-family="Rubik" font-size="12">מסכה: /8</text>
+      <rect x="740" y="130" width="195" height="112" rx="10" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+      <text x="837" y="157" text-anchor="middle" fill="#20150f" font-family="Rubik" font-size="18" font-weight="700">PC B</text>
+      <text x="837" y="184" text-anchor="middle" fill="#b91c1c" font-family="Fira Code" font-size="14" style="direction:ltr; unicode-bidi:isolate;">10.0.0.20</text>
+      <text x="837" y="211" text-anchor="middle" fill="#5a4a40" font-family="Rubik" font-size="12">מסכה: /8</text>
     </g>
     <g id="simPacket" style="display:none;">
-      <circle cx="0" cy="0" r="13" fill="#10B981" stroke="#D1FAE5" stroke-width="3"/>
-      <text id="simPacketLabel" y="4" text-anchor="middle" fill="#052E16" font-family="Fira Code" font-size="9" font-weight="bold">ICMP</text>
+      <circle cx="0" cy="0" r="13" fill="#0b6b4a" stroke="#d8f3e6" stroke-width="3"/>
+      <text id="simPacketLabel" y="4" text-anchor="middle" fill="#fff" font-family="Fira Code" font-size="9" font-weight="bold">ICMP</text>
     </g>
-    <text x="500" y="355" text-anchor="middle" fill="#94A3B8" font-family="Rubik" font-size="13">הנתב מחבר בין שתי רשתות שונות; כל ממשק שלו שייך לרשת אחרת.</text>
+    <text x="500" y="355" text-anchor="middle" fill="var(--muted)" font-family="Rubik" font-size="13" font-weight="600">הנתב מחבר בין שתי רשתות שונות; כל ממשק שלו שייך לרשת אחרת.</text>
   </svg>
 
   <div class="grid2" style="margin-top:18px;">
@@ -863,15 +875,15 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
       <h3 style="color:var(--cyber-blue);font-size:17px;">שלב 2: הגדרות <span class="en-inline">PC A</span></h3>
       <p style="font-size:13px;">ערכו את הערכים ובדקו כיצד הם משפיעים על יכולת המחשב לשלוח חבילות.</p>
       <div>
-        <label for="sim-ip-a" style="font-size:12px;color:#CBD5E1;display:block;margin:8px 0 4px;">כתובת <span class="en-inline">IP</span> של <span class="en-inline">PC A</span></label>
-        <input type="text" id="sim-ip-a" value="192.168.1.10" oninput="updateVisuals()" dir="ltr" style="width:100%;padding:10px;background:var(--panel2);color:#FFF;border:1px solid var(--border);border-radius:6px;margin-bottom:8px;text-align:left;font-family:'Fira Code',monospace;">
-        <label for="sim-mask-a" style="font-size:12px;color:#CBD5E1;display:block;margin:8px 0 4px;">מסכת רשת</label>
-        <input type="text" id="sim-mask-a" value="255.255.255.0" oninput="updateVisuals()" dir="ltr" style="width:100%;padding:10px;background:var(--panel2);color:#FFF;border:1px solid var(--border);border-radius:6px;margin-bottom:8px;text-align:left;font-family:'Fira Code',monospace;">
-        <label for="sim-gw-a" style="font-size:12px;color:#CBD5E1;display:block;margin:8px 0 4px;">שער ברירת מחדל של <span class="en-inline">PC A</span></label>
-        <input type="text" id="sim-gw-a" value="192.168.1.1" oninput="updateVisuals()" dir="ltr" style="width:100%;padding:10px;background:var(--panel2);color:#FFF;border:1px solid var(--border);border-radius:6px;margin-bottom:8px;text-align:left;font-family:'Fira Code',monospace;">
+        <label for="sim-ip-a" style="font-size:12px;color:var(--ink);display:block;margin:8px 0 4px;font-weight:700;">כתובת <span class="en-inline">IP</span> של <span class="en-inline">PC A</span></label>
+        <input type="text" id="sim-ip-a" value="192.168.1.10" oninput="updateVisuals()" dir="ltr" style="width:100%;padding:10px;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:8px;margin-bottom:8px;text-align:left;font-family:'Fira Code',monospace;font-weight:700;">
+        <label for="sim-mask-a" style="font-size:12px;color:var(--ink);display:block;margin:8px 0 4px;font-weight:700;">מסכת רשת</label>
+        <input type="text" id="sim-mask-a" value="255.255.255.0" oninput="updateVisuals()" dir="ltr" style="width:100%;padding:10px;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:8px;margin-bottom:8px;text-align:left;font-family:'Fira Code',monospace;font-weight:700;">
+        <label for="sim-gw-a" style="font-size:12px;color:var(--ink);display:block;margin:8px 0 4px;font-weight:700;">שער ברירת מחדל של <span class="en-inline">PC A</span></label>
+        <input type="text" id="sim-gw-a" value="192.168.1.1" oninput="updateVisuals()" dir="ltr" style="width:100%;padding:10px;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:8px;margin-bottom:8px;text-align:left;font-family:'Fira Code',monospace;font-weight:700;">
       </div>
-      <div style="padding:10px;background:rgba(59,130,246,.10);border:1px solid rgba(59,130,246,.3);border-radius:8px;font-size:12px;color:#BFDBFE;margin-top:8px;">
-        <b>שימו לב:</b> השער של <span class="en-inline">PC A</span> הוא <span class="en-inline">192.168.1.1</span> — הכתובת של ממשק הנתב שמחובר פיזית לרשת A. הכתובת <span class="en-inline">10.0.0.1</span> שייכת לממשק השני של הנתב, ברשת B, ולכן אינה שער מקומי תקין עבור <span class="en-inline">PC A</span>.
+      <div style="padding:10px;background:var(--red-soft);border:1px solid var(--red-edge);border-radius:8px;font-size:12px;color:var(--red-text);margin-top:8px; font-weight:600;">
+        <b>שימו לב:</b> השער של <span class="en-inline">PC A</span> هو <span class="en-inline">192.168.1.1</span> — הכתובת של ממשק הנתב שמחובר פיזית לרשת A. הכתובת <span class="en-inline">10.0.0.1</span> שייכת לממשק השני של הנתב, ברשת B, ולכן אינה שער מקומי תקין עבור <span class="en-inline">PC A</span>.
       </div>
       <div class="controls-row">
         <button class="btn secondary" onclick="runDiagnosticPing('local')">בדיקה 1: <span class="en-inline">PC A</span> אל הנתב המקומי</button>
@@ -884,10 +896,10 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
         <span style="margin-left:8px;color:#CBD5E1;font-size:12px;" dir="ltr">NETWORK DIAGNOSTICS</span>
       </div>
       <div id="diag-console" class="term-output" dir="ltr" style="min-height:115px;">// בחרו תרחיש או ערכו את ההגדרות, ואז הפעילו בדיקה.</div>
-      <div id="diag-pedagogic-note" style="margin-top:10px;padding:12px;background:var(--panel2);border-radius:8px;font-size:13px;color:#FCD34D;display:none;text-align:right;" dir="rtl"></div>
-      <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px;text-align:right;" dir="rtl">
-        <div style="font-size:12px;color:#94A3B8;margin-bottom:8px;">מה צריך להיות נכון?</div>
-        <div id="sim-checklist" style="font-size:13px;color:#CBD5E1;line-height:1.9;">
+      <div id="diag-pedagogic-note" style="margin-top:10px;padding:12px;background:#251c18;border-radius:8px;font-size:13px;color:#fcd34d;display:none;text-align:right;border:1px solid #3d2f26;" dir="rtl"></div>
+      <div style="margin-top:14px;border-top:1px solid #3d2f26;padding-top:12px;text-align:right;" dir="rtl">
+        <div style="font-size:12px;color:#d0c0b3;margin-bottom:8px;font-weight:700;">מה צריך להיות נכון?</div>
+        <div id="sim-checklist" style="font-size:13px;color:#f8efe7;line-height:1.9;">
           <div>○ כתובת <span class="en-inline">PC A</span> שייכת לרשת A</div><div>○ מסכת הרשת תואמת לתרגיל</div><div>○ השער הוא ממשק הנתב ברשת A</div>
         </div>
       </div>
@@ -904,19 +916,19 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 
 <div class="grid2">
   <div class="card">
-    <h3 style="color:var(--gold);">📋 משימת הגשה: הגדרת תחנה חדשה לרשת A</h3>
-    <p style="font-size: 13px; color: #94A3B8; margin-bottom: 14px;">
+    <h3 style="color:var(--red-text);">📋 משימת הגשה: הגדרת תחנה חדשה לרשת A</h3>
+    <p style="font-size: 13px; color: var(--muted); margin-bottom: 14px; font-weight: 500;">
       הנכם מתבקשים להוסיף מחשב חדש (<b>PC C</b>) ל<b>רשת A</b> המקומית (<span class="en-inline">192.168.1.0/24</span>). הזינו כתובת <span class="en-inline">IP</span> חוקית ופנויה עבור המחשב, התאימו את מסכת הרשת, והסבירו מדוע מחשב זה חייב לעבור דרך ה-<span class="en-inline">Gateway</span> כדי לתקשר עם <span class="en-inline">PC B</span>.
     </p>
     <div style="margin-top:12px;">
-      <label style="font-size:12px; color:#94A3B8; display:block; margin-bottom:4px;">כתובת <span class="en-inline">IP</span> מוצעת ל-PC C (ברשת A):</label>
-      <input type="text" id="ai-user-ip" placeholder="לדוגמה: 192.168.1.50" dir="ltr" style="width:100%; padding:8px; background:var(--panel2); color:#FFF; border:1px solid var(--border); border-radius:6px; margin-bottom:10px; text-align:left; font-family:'Fira Code',monospace;">
+      <label style="font-size:12px; color:var(--ink); display:block; margin-bottom:4px; font-weight:700;">כתובת <span class="en-inline">IP</span> מוצעת ל-PC C (ברשת A):</label>
+      <input type="text" id="ai-user-ip" placeholder="לדוגמה: 192.168.1.50" dir="ltr" style="width:100%; padding:9px; background:var(--bg); color:var(--ink); border:2px solid var(--line); border-radius:8px; margin-bottom:10px; text-align:left; font-family:'Fira Code',monospace; font-weight:700;">
       
-      <label style="font-size:12px; color:#94A3B8; display:block; margin-bottom:4px;">מסכת רשת מתאימה:</label>
-      <input type="text" id="ai-user-mask" placeholder="255.255.255.0" dir="ltr" style="width:100%; padding:8px; background:var(--panel2); color:#FFF; border:1px solid var(--border); border-radius:6px; margin-bottom:10px; text-align:left; font-family:'Fira Code',monospace;">
+      <label style="font-size:12px; color:var(--ink); display:block; margin-bottom:4px; font-weight:700;">מסכת רשת מתאימה:</label>
+      <input type="text" id="ai-user-mask" placeholder="255.255.255.0" dir="ltr" style="width:100%; padding:9px; background:var(--bg); color:var(--ink); border:2px solid var(--line); border-radius:8px; margin-bottom:10px; text-align:left; font-family:'Fira Code',monospace; font-weight:700;">
       
-      <label style="font-size:12px; color:#94A3B8; display:block; margin-bottom:4px;">מדוע PC C חייב לשלוח חבילות ל-Gateway כדי להגיע לרשת B?</label>
-      <textarea id="ai-user-explanation" rows="3" placeholder="הסבר במילים שלך מדוע נדרש ה-Gateway לתקשורת מחוץ לרשת המקומית..." style="width:100%; padding:8px; background:var(--panel2); color:#FFF; border:1px solid var(--border); border-radius:6px; font-family:'Rubik'; font-size:13px;"></textarea>
+      <label style="font-size:12px; color:var(--ink); display:block; margin-bottom:4px; font-weight:700;">מדוע PC C חייב לשלוח חבילות ל-Gateway כדי להגיע לרשת B?</label>
+      <textarea id="ai-user-explanation" rows="3" placeholder="הסבר במילים שלך מדוע נדרש ה-Gateway לתקשורת מחוץ לרשת המקומית..." style="width:100%; padding:9px; background:var(--bg); color:var(--ink); border:2px solid var(--line); border-radius:8px; font-family:'Rubik'; font-size:13px; font-weight:500;"></textarea>
     </div>
     <button class="btn" style="margin-top:10px; width:100%;" onclick="sendWorkToValidator()">שלח לבדיקת מומחה <span class="en-inline">AI 🤖</span></button>
   </div>
@@ -924,11 +936,11 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
   <div class="terminal">
     <div class="term-topbar">
       <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-      <span style="margin-left:8px; color:var(--cyber-purple); font-weight:bold; font-size:12px;" dir="ltr">SAAR_CYBER_BOT v2.4</span>
+      <span style="margin-left:8px; color:#ff9b9b; font-weight:bold; font-size:12px;" dir="ltr">SAAR_CYBER_BOT v2.4</span>
     </div>
     <div id="chat-messages" style="height:240px; overflow-y:auto; font-size:12px;" dir="rtl">
-      <div style="color:var(--cyber-purple); direction:ltr; text-align:left; font-family:'Fira Code',monospace;">&gt;&gt; SYSTEM_READY</div>
-      <p style="margin-top:6px; color:#94A3B8;">שלום צוות הדיגיטל! הזינו את הגדרות המחשב החדש PC C והסבירו את תפקיד השער. אני אבצע ניתוח בזמן אמת להגשה שלכם!</p>
+      <div style="color:#ff9b9b; direction:ltr; text-align:left; font-family:'Fira Code',monospace;">&gt;&gt; SYSTEM_READY</div>
+      <p style="margin-top:6px; color:#d0c0b3;">שלום צוות הדיגיטל! הזינו את הגדרות המחשב החדש PC C והסבירו את תפקיד השער. אני אבצע ניתוח בזמן אמת להגשה שלכם!</p>
     </div>
   </div>
 </div>
@@ -941,7 +953,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 </div>
 
 <div id="scoreBox" class="score-box" style="display:none;">
-  ענית על כל השאלות! הציון שלך במבחן ההסמכה: <span id="userScore" style="color:var(--gold); font-size:28px;">0%</span>
+  ענית על כל השאלות! הציון שלך במבחן ההסמכה: <span id="userScore" style="color:var(--red-text); font-size:28px;">0%</span>
 </div>
 
 <div id="quizContainer"></div>
@@ -950,8 +962,8 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 <div class="teacher-zone" onclick="openTeacherModal()">
   <div style="display:flex; align-items:center; justify-content:space-between;">
     <div>
-      <h3 style="margin:0; color:var(--gold); font-size:18px;">חלונית למורה / מדריך תקשורת</h3>
-      <p style="margin:4px 0 0; font-size:13px; color:#CBD5E1;">לחץ כאן והזן סיסמה כדי לצפות בתשובות הנכונות ובהסברים המלאים למבחן.</p>
+      <h3 style="margin:0; color:var(--red-text); font-size:18px; font-weight:800;">חלונית למורה / מדריך תקשורת</h3>
+      <p style="margin:4px 0 0; font-size:13px; color:var(--muted); font-weight:600;">לחץ כאן והזן סיסמה כדי לצפות בתשובות הנכונות ובהסברים המלאים למבחן.</p>
     </div>
     <div style="font-size:24px;">🔑</div>
   </div>
@@ -960,7 +972,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 
 <div class="completion" id="completionBox">
   <h2>אלוף רשתות! השלמת את יחידת ה-<span class="en-inline">IP</span> בהצלחה!</h2>
-  <p>הבנת את מבנה הכתובות, הניתוב, תפקיד השער ומסכות המשנה ברשתות תקשורת.</p>
+  <p style="color:#0b6b4a; font-weight: 600;">הבנת את מבנה הכתובות, הניתוב, תפקיד השער ומסכות המשנה ברשתות תקשורת.</p>
 </div>
 
 <div class="footer-note">© 2026 לומדים כתובות <span class="en-inline">IP</span> עם סהר - מערכת סימולציה לימודית אינטראקטיבית</div>
@@ -968,7 +980,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 
 <!-- כפתור עזרה צף -->
 <div class="fixed bottom-6 left-6 z-50 no-print">
-    <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg shadow-cyan-500/20 transition-all duration-300 transform hover:scale-105 group border border-cyan-400/30">
+    <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-700 hover:to-amber-700 text-white font-bold py-2 px-4 rounded-full shadow-lg shadow-red-600/20 transition-all duration-300 transform hover:scale-105 group border border-red-400/30">
         <div class="w-8 h-8 rounded-full border border-white/40 overflow-hidden bg-slate-950 flex-shrink-0 shadow-inner">
             <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר בוט עזרה" class="w-full h-full object-cover">
         </div>
@@ -978,44 +990,44 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--border); c
 
 <!-- Modal למורה - הזנת סיסמה ותשובות -->
 <div id="teacherModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[200] hidden flex items-center justify-center p-4">
-  <div class="bg-slate-900 border border-purple-500 rounded-2xl p-6 max-w-2xl w-full text-right relative shadow-2xl overflow-y-auto max-h-[85vh]">
-    <button onclick="closeTeacherModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white p-1 rounded-lg">✕</button>
+  <div class="bg-amber-50 border-2 border-red-600 rounded-2xl p-6 max-w-2xl w-full text-right relative shadow-2xl overflow-y-auto max-h-[85vh]">
+    <button onclick="closeTeacherModal()" class="absolute top-4 left-4 text-slate-500 hover:text-red-600 p-1 rounded-lg font-bold text-lg">✕</button>
     
-    <h3 class="text-xl font-bold text-amber-400 mb-2">🔒 אזור מורה מאובטח</h3>
+    <h3 class="text-xl font-bold text-red-700 mb-2">🔒 אזור מורה מאובטח</h3>
     
     <div id="teacherAuthSec">
-      <p class="text-sm text-slate-300 mb-4">הזן סיסמת מורה כדי לחשוף את התשובות הנכונות:</p>
+      <p class="text-sm text-slate-700 mb-4 font-semibold">הזן סיסמת מורה כדי לחשוף את התשובות הנכונות:</p>
       <div class="flex gap-2 mb-4">
-        <input type="password" id="teacherPassInput" dir="ltr" class="bg-slate-800 border border-slate-700 text-white px-4 py-2 rounded-lg flex-1 mono outline-none focus:border-purple-500 text-left" placeholder="Enter password...">
-        <button onclick="checkTeacherPassword()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-2 rounded-lg transition-all">אישור</button>
+        <input type="password" id="teacherPassInput" dir="ltr" class="bg-white border border-amber-300 text-slate-900 px-4 py-2 rounded-lg flex-1 mono outline-none focus:border-red-600 text-left font-bold" placeholder="Enter password...">
+        <button onclick="checkTeacherPassword()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-2 rounded-lg transition-all shadow-md">אישור</button>
       </div>
-      <div id="teacherPassErr" class="text-red-400 text-xs hidden">❌ סיסמה שגויה! נסה שוב.</div>
+      <div id="teacherPassErr" class="text-red-600 text-xs font-bold hidden">❌ סיסמה שגויה! נסה שוב.</div>
     </div>
 
     <div id="teacherAnswersSec" class="hidden">
-      <div class="p-3 bg-emerald-950/50 border border-emerald-500/40 rounded-lg text-emerald-300 text-xs mb-4">
+      <div class="p-3 bg-emerald-100 border border-emerald-500/40 rounded-lg text-emerald-800 text-xs mb-4 font-bold">
         ✔ סיסמה אושרה! להלן מפתח התשובות הנכונות וההסברים המלאים למבחן:
       </div>
-      <div id="answersList" class="space-y-4 text-sm text-slate-200"></div>
+      <div id="answersList" class="space-y-4 text-sm text-slate-800"></div>
     </div>
   </div>
 </div>
 
 <!-- Modal עזרה -->
 <div id="helpModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4 transition-all duration-300">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-sm w-full text-center relative shadow-2xl shadow-cyan-500/5 transform scale-95 transition-transform duration-300" id="helpModalContent">
-        <button id="closeHelpModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-slate-800">
+    <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-6 max-w-sm w-full text-center relative shadow-2xl transform scale-95 transition-transform duration-300" id="helpModalContent">
+        <button id="closeHelpModalBtn" class="absolute top-4 right-4 text-slate-500 hover:text-red-600 transition-colors p-1 rounded-lg hover:bg-amber-100">
             <i data-lucide="x" class="w-5 h-5"></i>
         </button>
         
-        <div class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-cyan-400/50 p-1 bg-slate-950 shadow-lg shadow-cyan-500/20 overflow-hidden">
+        <div class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-red-500/50 p-1 bg-white shadow-lg overflow-hidden">
             <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="תמונת בוט עזרה" class="w-full h-full object-cover rounded-full">
         </div>
 
-        <h3 class="text-lg font-black text-white mb-2">צריך עזרה בשיעור?</h3>
-        <p class="text-sm text-slate-400 mb-6 leading-relaxed">הבוט המטורלל זמין כעת כדי לענות על שאלות, להסביר מושגים בכתובות <span class="en-inline">IP</span> ולסייע בפתרון המעבדה!</p>
+        <h3 class="text-lg font-black text-slate-900 mb-2">צריך עזרה בשיעור?</h3>
+        <p class="text-sm text-slate-600 mb-6 leading-relaxed font-medium">הבוט המטורלל זמין כעת כדי לענות על שאלות, להסביר מושגים בכתובות <span class="en-inline">IP</span> ולסייע בפתרון המעבדה!</p>
         
-        <a href="https://gemini.google.com/gem/167016ac4a4b?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-black py-3 px-4 rounded-xl transition-all duration-200 shadow-lg shadow-cyan-500/10">
+        <a href="https://gemini.google.com/gem/167016ac4a4b?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-black py-3 px-4 rounded-xl transition-all duration-200 shadow-lg shadow-red-600/20">
             <span>מעבר ל-Gem ⚡</span>
             <i data-lucide="external-link" class="w-4 h-4"></i>
         </a>
@@ -1028,26 +1040,12 @@ const stepIds = ["s1","s2","s3","s4","s5"];
 let progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
 
 function renderStepsBar(){
-  const bar = document.getElementById("stepsBar");
-  if(!bar) return;
-  bar.innerHTML = "";
-  stepIds.forEach(id=>{
-    const d = document.createElement("div");
-    d.className = "step" + (progress[id] ? " done" : "");
-    bar.appendChild(d);
-  });
-  const done = stepIds.filter(id=>progress[id]).length;
-  document.getElementById("progressPct").textContent = Math.round(done/stepIds.length*100) + "%";
-  if(done === stepIds.length){
-    document.getElementById("completionBox").classList.add("show");
-  }
+  // Removed progress bar element per instructions, keeping function safe
 }
 function markDone(id){
   progress[id] = true;
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  renderStepsBar();
 }
-renderStepsBar();
 
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
@@ -1062,10 +1060,10 @@ function answerScenario(choice) {
   const feedback = document.getElementById('scenario-feedback');
   feedback.style.display = 'block';
   if (choice === 1) {
-    feedback.style.color = '#10B981';
+    feedback.style.color = 'var(--acl-permit)';
     feedback.innerHTML = `🌟 <b>נכון מאוד!</b> ייווצר סכסוך כתובות (<span class="en-inline">IP Conflict</span>) שטיפולו יפגע בתקשורת של שני המחשבים.`;
   } else {
-    feedback.style.color = '#EF4444';
+    feedback.style.color = 'var(--acl-deny)';
     feedback.innerHTML = `❌ <b>לא נכון.</b> תיווצר שגיאת תקשורת חמורה ברשת!`;
   }
 }
@@ -1133,7 +1131,7 @@ function refreshSimChecklist() {
     [gwRight, 'השער הוא 192.168.1.1 — ממשק הנתב המקומי']
   ];
   document.getElementById('sim-checklist').innerHTML = items.map(([ok,label]) =>
-    `<div style="color:${ok?'#34D399':'#FCA5A5'}">${ok?'✓':'○'} ${label}</div>`
+    `<div style="color:${ok?'#0b6b4a':'#b91c1c'}; font-weight:700;">${ok?'✓':'○'} ${label}</div>`
   ).join('');
 }
 
@@ -1215,7 +1213,7 @@ function sendWorkToValidator() {
     return;
   }
 
-  chat.innerHTML += `<div style="color:#FFF; margin-top:8px; text-align:right;"><b>הגשת התלמיד:</b><br>IP: <span class="en-inline">${userIp}</span> | Mask: <span class="en-inline">${userMask}</span><br><b>הסבר:</b> ${explanation}</div>`;
+  chat.innerHTML += `<div style="color:#f8efe7; margin-top:8px; text-align:right;"><b>הגשת התלמיד:</b><br>IP: <span class="en-inline">${userIp}</span> | Mask: <span class="en-inline">${userMask}</span><br><b>הסבר:</b> ${explanation}</div>`;
 
   const isMaskValid = (userMask === "255.255.255.0" || userMask === "/24");
   const parsedIp = parseIPv4(userIp);
@@ -1228,14 +1226,14 @@ function sendWorkToValidator() {
 
   setTimeout(() => {
     if (isMaskValid && isIpInSubnet && explanation.length >= 10) {
-      chat.innerHTML += `<div style="color:var(--acl-permit); margin-top:8px; text-align:right;">🤖 <b>AI BOT ANALYZER:</b> כל הכבוד! ה-IP שקבעת (<span class="en-inline">${userIp}</span>) והמסכה מתאימים בול לרשת A. ההסבר שסיפקת מראה שזיהית נכון שחבילות ליעדים מרוחקים (רשת B) חייבות לעבור דרך ה-Gateway. המשימה הוצלחה בהצלחה!</div>`;
+      chat.innerHTML += `<div style="color:#6ee7b7; margin-top:8px; text-align:right;">🤖 <b>AI BOT ANALYZER:</b> כל הכבוד! ה-IP שקבעת (<span class="en-inline">${userIp}</span>) והמסכה מתאימים בול לרשת A. ההסבר שסיפקת מראה שזיהית נכון שחבילות ליעדים מרוחקים (רשת B) חייבות לעבור דרך ה-Gateway. המשימה הוצלחה בהצלחה!</div>`;
       markDone("s4");
     } else {
       let errorMsg = "🤖 <b>AI BOT ANALYZER:</b> נמצאו אי-דיוקים בהגשה:<br>";
       if (!isIpInSubnet) errorMsg += "• ה-IP אינו תקין/פנוי ברשת A. עליו להיות בטווח 192.168.1.2 עד 192.168.1.254 (למעט 192.168.1.10 השייך ל-PC A).<br>";
       if (!isMaskValid) errorMsg += "• המסכה אינה מתאימה ל-Class C לרשת A (נדרש 255.255.255.0).<br>";
       if (explanation.length < 10) errorMsg += "• ההסבר קצר מדי, הסבר בקצרה מדוע המחשב חייב את השער כדי לצאת מהרשת המקומית.<br>";
-      chat.innerHTML += `<div style="color:var(--acl-deny); margin-top:8px; text-align:right;">${errorMsg}</div>`;
+      chat.innerHTML += `<div style="color:#ff9b9b; margin-top:8px; text-align:right;">${errorMsg}</div>`;
     }
     chat.scrollTop = chat.scrollHeight;
   }, 600);
@@ -1385,11 +1383,11 @@ function renderTeacherAnswers() {
   list.innerHTML = "";
   quizData.forEach((q, i) => {
     const d = document.createElement("div");
-    d.className = "p-3 bg-slate-800/80 border border-slate-700 rounded-lg";
+    d.className = "p-3 bg-white border border-amber-300 rounded-lg shadow-sm";
     d.innerHTML = `
-      <div class="font-bold text-purple-300 mb-1">${q.q}</div>
-      <div class="text-emerald-400 font-semibold mb-1">✔ תשובה נכונה: ${q.opts[q.correct]}</div>
-      <div class="text-slate-400 text-xs">💡 הסבר: ${q.explain}</div>
+      <div class="font-bold text-red-700 mb-1">${q.q}</div>
+      <div class="text-emerald-700 font-bold mb-1">✔ תשובה נכונה: ${q.opts[q.correct]}</div>
+      <div class="text-slate-600 text-xs font-medium">💡 הסבר: ${q.explain}</div>
     `;
     list.appendChild(d);
   });
