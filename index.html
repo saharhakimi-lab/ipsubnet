@@ -6,369 +6,200 @@
 <title>לומדים כתובות IP עם סהר | סימולטור ניתוב ותת-רשתות</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-<!-- Tailwind CSS for modal styling -->
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@600;800&family=Heebo:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg: #fbf8ee;
-  --paper: #ffffff;
-  --ink: #20150f;
-  --soft: #3b2b22;
-  --muted: #5a4a40;
-  --line: #e6d9bf;
-  --red: #b91c1c;
-  --red-text: #a11a1a;
-  --red-soft: #fcebe7;
-  --red-edge: #e9b8ae;
-  --term: #0b5d73;
-  --term-soft: #e1f3f8;
-  --aside-bg: #f6eadc;
-  --aside-edge: #e2c9a8;
-  --aside-ink: #5b3a1a;
-
-  --panel: #ffffff;
-  --panel2: #f6eadc;
-  --panel3: #e6d9bf;
-  --border: #e6d9bf;
-  --border2: #d6c9af;
-  --text: #20150f;
-  
-  --acl-deny: #b91c1c;
-  --acl-deny-dim: rgba(185,28,28,0.12);
-  --acl-permit: #0b6b4a;
-  --acl-permit-dim: rgba(11,107,74,0.12);
-  --cyber-purple: #b91c1c;
-  --cyber-blue: #0e7490;
-  --gold: #b45309;
-  --radius: 18px;
+  --bg:#fbf8ee; --paper:#ffffff; --ink:#20150f; --muted:#5a4a40; --line:#e6d9bf;
+  --red:#b91c1c; --red-text:#a11a1a; --red-soft:#fcebe7; --red-edge:#e9b8ae;
+  --term:#0b5d73; --term-soft:#e1f3f8;
+  --ok:#0b6b4a; --ok-soft:#e0f5ec; --bad:#a11a1a; --bad-soft:#fcebe7;
+  --c-host:#0e7490; --c-media:#047857; --c-mid:#6d28d9; --c-proto:#b45309;
+  --shadow:0 10px 30px -12px rgba(120,40,20,0.18);
+  /* שמות משניים שבהם משתמש קוד השיעור */
+  --panel2:#f6eadc; --border:#e6d9bf; --text:#20150f;
+  --acl-deny:#b91c1c; --acl-permit:#0b6b4a; --cyber-blue:#0e7490; --gold:#b45309;
 }
 *{box-sizing:border-box;}
-body{
-  margin:0; background:var(--bg); color:var(--text);
-  font-family:'Rubik',sans-serif; line-height:1.7;
-  padding-bottom:140px;
-}
-.mono{font-family:'Fira Code',monospace; direction: ltr; unicode-bidi: isolate;}
-.wrap{max-width:1100px; margin:0 auto; padding:0 20px;}
-h1,h2,h3{font-weight:700; margin:0 0 8px;}
-p{margin:0 0 12px; color:var(--muted);}
+html{font-size:1.3rem;}
+@media (max-width:600px){html{font-size:1.2rem;}}
+body{margin:0; font-family:'Heebo','Assistant',sans-serif; font-weight:500; line-height:1.85; background:var(--bg); color:var(--ink);}
+.hidden{display:none !important;}
+:focus-visible{outline:3px solid #f59e0b; outline-offset:3px;}
+button{font-family:inherit; cursor:pointer;}
+.mono{font-family:'JetBrains Mono',monospace; direction:ltr; unicode-bidi:isolate;}
 
-.en-inline {
-  direction: ltr;
-  display: inline;
-  unicode-bidi: isolate;
-  font-family:'Fira Code',monospace;
-  font-size:0.9em;
-  padding: 1px 7px;
-  margin: 0 1px;
-  border: 1px solid var(--border);
-  background: var(--panel2);
-  color: var(--red-text);
-  border-radius: 5px;
-  line-height: 1.5;
+/* ===== מונחים באנגלית בתוך מסגרת ===== */
+.en-inline,.english-term-box{
+  display:inline-block; direction:ltr; unicode-bidi:isolate; white-space:nowrap;
+  font-family:'JetBrains Mono',monospace; font-size:0.8em; font-weight:700; line-height:1.5;
+  padding:0 0.45em; margin:0 0.15em; border-radius:7px;
+  border:1.5px solid var(--term); background:var(--term-soft); color:var(--term); vertical-align:baseline;
 }
 
-/* ============ HEADER ============ */
-header.hero{
-  padding: 14px 0 16px;
-  border-bottom: 2px solid var(--line);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: var(--paper);
-  box-shadow: 0 4px 20px rgba(120,40,20,0.06);
-}
+/* ===== כותרת עליונה ===== */
+.site-header{background:var(--paper); border-bottom:2px solid var(--line);}
+.header-inner{max-width:1100px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+.brand{display:flex; align-items:center; gap:14px;}
+.brand img{width:56px; height:56px; border-radius:50%; border:3px solid var(--red); object-fit:cover; background:#fff; flex-shrink:0;}
+.brand h1{margin:0; font-family:'Rubik',sans-serif; font-weight:800; font-size:1.5rem; line-height:1.25; color:var(--red-text);}
+.brand p{margin:0; font-size:0.85rem; line-height:1.4; color:var(--muted);}
+.header-actions{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.teacher-btn{display:inline-flex; align-items:center; min-height:48px; padding:0 22px; border-radius:12px; background:var(--red); color:#fff; font-weight:800; font-size:0.95rem; text-decoration:none;}
+.teacher-btn:hover{background:#991b1b;}
+.icon-btn{display:inline-flex; align-items:center; min-height:48px; padding:0 16px; border-radius:12px; border:2px solid var(--line); background:var(--paper); color:var(--ink); font-size:0.9rem; font-weight:700; text-decoration:none;}
+.icon-btn:hover{border-color:var(--red);}
 
-.header-inner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  padding: 0 20px;
-}
+/* ===== פסי נושאים ===== */
+.stats-bar{max-width:1100px; margin:18px auto 0; padding:0 20px; display:flex; gap:12px; flex-wrap:wrap;}
+.stat{background:var(--paper); border:2px solid var(--line); border-radius:12px; padding:4px 16px; font-size:0.9rem; line-height:1.6;}
+.stat b{font-weight:800; color:var(--red-text); font-family:'JetBrains Mono',monospace; direction:ltr; unicode-bidi:isolate; display:inline-block;}
 
-.header-main-group {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-@keyframes spinCrazy {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.title-avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  object-fit: cover;
-  animation: spinCrazy 15s linear infinite;
-  border: 2px solid var(--red);
-  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.15);
-  flex-shrink: 0;
-  background: #fff;
-}
-
-.header-text-content {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.title-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-h1.title{
-  font-size: 24px; 
-  margin: 0; 
-  color: var(--red-text); 
-  letter-spacing: -0.5px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  line-height: 1.2;
-  font-family: 'Rubik', sans-serif;
-  font-weight: 900;
-}
-h1.title span{color:var(--red-text); direction: ltr; display: inline-block; unicode-bidi: isolate;}
-
-.subtitle{font-size:13px; max-width:750px; margin:0; color:var(--muted); font-weight:600;}
-
-.header-actions-group {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.protocol-row {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.protocol-chip {
-  font-family: 'Fira Code', monospace;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--red-text);
-  background: var(--red-soft);
-  border: 1px solid var(--red-edge);
-  padding: 3px 8px;
-  border-radius: 6px;
-  letter-spacing: 0.3px;
-  direction: ltr;
-  unicode-bidi: isolate;
-}
-
-.navbar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav-btn {
-  font-family: 'Rubik', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 6px 14px;
-  border-radius: 10px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  border: 1.5px solid var(--line);
-  background: var(--paper);
-  color: var(--ink);
-  transition: transform 0.18s ease, border-color 0.18s ease;
-}
-
-.nav-btn:hover { transform: translateY(-1px); border-color: var(--red); color: var(--red); }
-.nav-btn.solid { background: linear-gradient(120deg, #dc2626, #b91c1c); border-color: transparent; color: #fff; }
-.nav-btn.solid:hover { color: #fff; }
-
-section{padding:50px 0; border-top:1px solid var(--line);}
+/* ===== אזור התוכן ===== */
+.wrap{max-width:1100px; margin:20px auto 0; padding:0 20px 40px;}
+section{background:var(--paper); border:2px solid var(--line); border-radius:22px; padding:clamp(22px,4vw,48px); box-shadow:var(--shadow); margin-bottom:20px;}
 .section-head{margin-bottom:16px;}
-.section-num{font-family:'Fira Code',monospace; color:var(--red-text); font-size:13px; margin-bottom:6px; font-weight:700; direction: ltr; display: inline-block; unicode-bidi: isolate;}
-.section-title{font-size:24px; color:var(--ink); font-family:'Rubik',sans-serif; font-weight:800;}
+.section-num{font-family:'Rubik',sans-serif; font-weight:800; font-size:0.95rem; color:var(--red-text); margin-bottom:4px;}
+h1,h2,h3{font-family:'Rubik',sans-serif; font-weight:800;}
+.section-title{margin:0 0 14px; font-size:clamp(1.7rem,4.4vw,2.3rem); line-height:1.3; color:var(--red-text);}
+section h3{margin:36px 0 12px; font-size:1.4rem; line-height:1.4;}
+section p{margin:0 0 14px; font-size:1.05rem; max-width:40em; color:var(--ink);}
+.section-head p,p.lead{font-size:1.2rem; font-weight:500;}
 
-.card{background:var(--paper); color:var(--ink); border:2px solid var(--line); border-radius:var(--radius); padding:24px; box-shadow: 0 10px 30px -12px rgba(120, 40, 20, 0.08);}
-.card p{color:var(--muted);}
-.grid2{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
-.grid3{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
-@media(max-width:720px){.grid2, .grid3{grid-template-columns:1fr;}}
+/* ===== כרטיסים ===== */
+.grid2{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+@media (max-width:820px){.grid2{grid-template-columns:1fr;}}
+.card{border:2px solid var(--line); border-top:8px solid var(--accent,var(--red)); border-radius:18px; padding:20px 22px 22px; background:var(--paper);}
+.card h3{margin:0 0 10px; font-size:1.3rem; color:var(--accent,var(--red)); line-height:1.5;}
+.card p{max-width:none;}
+.part{background:var(--bg); border:2px solid var(--line); border-radius:16px; padding:14px 16px; text-align:center; line-height:1.5;}
+.part .mono{display:block; font-size:1.3rem; font-weight:700;}
 
-.concept-card{border-right:5px solid var(--red); background:var(--paper);}
-.tag{display:inline-block; font-family:'Fira Code',monospace; font-size:11px; padding:3px 8px; border-radius:6px; margin:2px 4px 2px 0; direction: ltr; unicode-bidi: isolate;}
-.tag.deny{background:var(--acl-deny-dim); color:var(--acl-deny);}
-.tag.permit{background:var(--acl-permit-dim); color:var(--acl-permit);}
-.tag.purple{background:var(--red-soft); color:var(--red-text);}
-
-.accordion{border:2px solid var(--line); border-radius:var(--radius); overflow:hidden; margin-bottom:12px; background:var(--paper);}
-.acc-head{padding:16px 18px; background:var(--paper); color:var(--ink); cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-weight:700;}
-.acc-head:hover{background:var(--panel2);}
-.acc-body{max-height:0; overflow:hidden; transition:max-height .3s ease; background:var(--paper); color:var(--ink);}
-.acc-body-inner{padding:0 18px 18px;}
-.acc-body-inner p{color:var(--muted);}
-.accordion.open .acc-body{max-height:600px;}
-.acc-arrow{transition:transform .3s; color:var(--muted);}
-.accordion.open .acc-arrow{transform:rotate(180deg);}
-
-.diagram-wrap{background:#fff; border:2px solid var(--line); border-radius:var(--radius); padding:30px; overflow-x:auto; margin-top:20px; position:relative; box-shadow: 0 10px 30px -12px rgba(120, 40, 20, 0.08);}
-.node-box{cursor:pointer; transition:transform 0.2s, opacity 0.15s;}
-.node-box:hover{opacity:0.95; transform:scale(1.01); fill-opacity:0.9;}
+/* ===== כפתורים ===== */
 .controls-row{display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:20px;}
-button.btn{background:linear-gradient(120deg, #dc2626, #b91c1c); color:#FFFFFF; border:none; border-radius:10px; padding:12px 22px; font-family:'Rubik'; font-weight:700; font-size:14px; cursor:pointer; transition:transform .1s, opacity .15s, box-shadow .2s; box-shadow: 0 4px 12px rgba(185, 28, 28, 0.25);}
-button.btn:hover{opacity:0.95; transform: translateY(-1px);}
-button.btn:active{transform:scale(0.97);}
-button.btn.secondary{background:var(--paper); color:var(--ink); border:2px solid var(--line); box-shadow: none;}
-button.btn.secondary:hover{border-color:var(--red); color:var(--red); background:var(--red-soft);}
-button.btn.danger{background:var(--acl-deny); box-shadow: 0 4px 12px rgba(185,28,28,0.25);}
-button.btn.warning{background:var(--gold); color:#fff; box-shadow: 0 4px 12px rgba(180,83,9,0.25);}
+button.btn{min-height:56px; padding:0 26px; border-radius:14px; border:2px solid var(--red); background:var(--red); color:#fff; font-size:1rem; font-weight:800; line-height:1.3;}
+button.btn:hover{background:#991b1b; border-color:#991b1b;}
+button.btn.secondary{background:var(--paper); border-color:var(--line); color:var(--ink);}
+button.btn.secondary:hover{border-color:var(--red); background:var(--paper);}
+button.btn.danger{background:var(--red); border-color:var(--red);}
+button.btn.warning{background:var(--c-proto); border-color:var(--c-proto); color:#fff;}
+button.btn.warning:hover{background:#92400e; border-color:#92400e;}
+button.btn.ok{background:var(--ok); border-color:var(--ok); color:#fff;}
+button.btn.ok:hover{background:#095c3f; border-color:#095c3f;}
 
-.log-panel{background:var(--paper); border:2px solid var(--line); border-radius:10px; margin-top:16px; padding:16px; font-family:'Fira Code',monospace; font-size:13px; max-height:240px; overflow-y:auto; color:var(--ink); border-left:4px solid var(--red); direction: ltr; text-align: left;}
-.log-line{margin-bottom:8px; animation:fadeIn .3s ease;}
-.log-line .lbl{color:var(--red-text); font-weight:bold;}
+/* ===== שאלה מהירה ===== */
+.quick{background:var(--bg); border:2px solid var(--line); border-radius:18px; padding:20px; margin-top:22px;}
+.quick h3{margin:0 0 12px;}
+.quick .q{font-weight:800; font-size:1.15rem; margin-bottom:14px; max-width:none;}
+.choices{display:grid; gap:10px;}
+.choice{width:100%; min-height:60px; padding:12px 18px; text-align:right; border-radius:14px; border:2px solid var(--line); background:var(--paper); color:var(--ink); font-size:1.05rem; font-weight:700; line-height:1.5;}
+.choice:hover{border-color:var(--red);}
+.choice.right{border-color:var(--ok); background:var(--ok-soft);}
+.choice.wrong{border-color:var(--bad); background:var(--bad-soft);}
+.feedback{margin-top:14px; padding:14px 18px; border-radius:14px; font-size:1.05rem; font-weight:700; line-height:1.7;}
+.feedback.ok{background:var(--ok-soft); color:var(--ok); border:2px solid var(--ok);}
+.feedback.bad{background:var(--bad-soft); color:var(--bad); border:2px solid var(--bad);}
 
-.terminal{
-  background:#1e1b18; 
-  border:2px solid var(--line); 
-  border-radius:16px; 
-  padding:18px; 
-  font-family:'Fira Code',monospace; 
-  font-size:13px; 
-  box-shadow:0 10px 30px rgba(0,0,0,0.15);
-  direction: ltr;
-  text-align: left;
-  color: #f8efe7;
-}
-.term-topbar{display:flex; gap:6px; margin-bottom:12px; align-items:center; direction: ltr;}
+/* ===== טפסים ===== */
+.field{display:block; width:100%; min-height:52px; padding:10px 14px; margin-bottom:10px; background:var(--bg); color:var(--ink); border:2px solid var(--line); border-radius:12px; font-family:'JetBrains Mono',monospace; font-size:1rem; font-weight:700; text-align:left; direction:ltr;}
+textarea.field{font-family:'Heebo',sans-serif; font-weight:500; line-height:1.6; text-align:right; direction:rtl;}
+.field:focus{border-color:var(--red); outline:none;}
+.field-label{display:block; margin:10px 0 6px; font-size:0.95rem; font-weight:700; color:var(--ink);}
+
+/* ===== תרשים וטרמינל ===== */
+.diagram-wrap{background:#fff; border:2px solid var(--line); border-radius:16px; padding:clamp(16px,3vw,28px); overflow-x:auto; margin-top:20px;}
+.terminal{background:#1e1b18; border:2px solid var(--line); border-radius:16px; padding:18px; font-family:'JetBrains Mono',monospace; font-size:0.95rem; direction:ltr; text-align:left; color:#f8efe7;}
+.term-topbar{display:flex; gap:6px; margin-bottom:12px; align-items:center; direction:ltr;}
 .dot{width:10px; height:10px; border-radius:50%;}
 .dot.r{background:#EF4444;} .dot.y{background:#F59E0B;} .dot.g{background:#10B981;}
-.term-output{
-  white-space:pre-wrap; 
-  color:#d0c0b3; 
-  margin-bottom:10px; 
-  min-height:60px; 
-  line-height:1.7;
-  direction: ltr;
-  text-align: left;
-}
-.term-output .ok{color:#6ee7b7; font-weight:bold;}
-.term-output .bad{color:#ff9b9b; font-weight:bold;}
-.term-output .hint{color:#fcd34d; direction: rtl; display: block; text-align: right;}
+.term-output{white-space:pre-wrap; color:#d0c0b3; margin-bottom:10px; min-height:60px; line-height:1.7; direction:ltr; text-align:left;}
+.term-output .ok{color:#6ee7b7; font-weight:700;}
+.term-output .bad{color:#ff9b9b; font-weight:700;}
+.terminal .en-inline{background:#123640; color:#7fdcf0; border-color:#7fdcf0;}
 
-/* מערכת חידון */
-.quiz-q{background:var(--paper); color:var(--ink); border:2px solid var(--line); border-radius:var(--radius); padding:24px; margin-bottom:20px; box-shadow: 0 10px 30px -12px rgba(120, 40, 20, 0.08);}
-.quiz-q-num{font-family:'Fira Code',monospace; color:var(--red-text); font-size:12px; margin-bottom:6px; font-weight:700; direction: ltr; display: inline-block; unicode-bidi: isolate;}
-.quiz-opts{display:flex; flex-direction:column; gap:10px; margin-top:14px;}
-.quiz-opt{background:var(--bg); border:2px solid var(--line); border-radius:10px; padding:14px; cursor:pointer; text-align:right; font-size:14px; font-weight: 600; transition:all 0.15s; color: var(--ink);}
-.quiz-opt:hover{border-color:var(--red); background:var(--red-soft); color: var(--red-text);}
-.quiz-opt.correct{background:var(--ok-bg, #d8f3e6); border-color:var(--ok-edge, #0b6b4a); color:var(--ok-edge, #0b6b4a); font-weight:700;}
-.quiz-opt.wrong{background:var(--bad-bg, #fcdcd6); border-color:var(--bad-edge, #a11a1a); color:var(--bad-edge, #a11a1a); font-weight:700;}
+table.styled-table{width:100%; border-collapse:collapse; margin:15px 0; font-size:1rem; text-align:center; background:var(--paper); border-radius:12px; overflow:hidden; border:2px solid var(--line);}
+table.styled-table th{background:var(--bg); color:var(--red-text); padding:12px; border-bottom:2px solid var(--line); font-weight:800;}
+table.styled-table td{padding:10px; border-bottom:1px solid var(--line); color:var(--ink); font-weight:500;}
+@media (max-width:600px){table.styled-table{display:block; overflow-x:auto;} table.styled-table th,table.styled-table td{padding:8px 10px; white-space:nowrap;}}
+
+/* ===== מבחן ===== */
+.score-box{background:var(--ok-soft); border:2px solid var(--ok); color:var(--ok); border-radius:14px; padding:16px 20px; text-align:center; font-size:1.15rem; font-weight:800; margin-bottom:22px;}
+.quiz-q{background:var(--bg); border:2px solid var(--line); border-radius:18px; padding:20px; margin-bottom:18px;}
+.quiz-q-num{font-family:'Rubik',sans-serif; font-weight:800; font-size:0.9rem; color:var(--red-text); margin-bottom:4px;}
+.quiz-q b{font-weight:800; font-size:1.15rem; line-height:1.6;}
+.quiz-opts{display:grid; gap:10px; margin-top:14px;}
+.quiz-opt{display:flex; align-items:center; min-height:60px; padding:12px 18px; text-align:right; border-radius:14px; border:2px solid var(--line); background:var(--paper); color:var(--ink); font-size:1.05rem; font-weight:700; line-height:1.5; cursor:pointer;}
+.quiz-opt:hover{border-color:var(--red);}
+.quiz-opt.correct{border-color:var(--ok); background:var(--ok-soft);}
+.quiz-opt.wrong{border-color:var(--bad); background:var(--bad-soft);}
 .quiz-opt.disabled{pointer-events:none;}
-.quiz-explain{margin-top:12px; padding:14px; background:var(--panel2); border-radius:10px; font-size:13px; display:none; border-right:4px solid var(--gold); color:var(--ink); font-weight: 500;}
+.quiz-explain{display:none; margin-top:14px; padding:14px 18px; border-radius:14px; background:var(--term-soft); color:var(--term); border:2px solid var(--term); font-size:1.05rem; font-weight:700; line-height:1.7;}
 .quiz-explain.show{display:block;}
 
-.score-box {
-  background: linear-gradient(135deg, #fbf3e2, #f7ecd6);
-  border: 2px solid var(--red);
-  border-radius: var(--radius);
-  padding: 20px;
-  text-align: center;
-  color: var(--ink);
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 24px;
-  box-shadow: 0 10px 30px rgba(185,28,28,0.1);
-}
-
-/* אזור למורה */
-.teacher-zone {
-  background: linear-gradient(135deg, #fcebe7, #f6eadc);
-  border: 2px dashed var(--red);
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-top: 30px;
-  color: var(--ink);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.teacher-zone:hover {
-  border-color: var(--gold);
-  box-shadow: 0 0 15px rgba(180, 83, 9, 0.2);
-}
-
-.completion{text-align:center; padding:50px 20px; background:linear-gradient(135deg, #e0f5ec, #d8f3e6); color:#0b6b4a; border:2px solid #0b6b4a; border-radius:var(--radius); display:none; margin-top:30px; box-shadow:0 10px 30px rgba(11,107,74,0.15);}
+.teacher-zone{background:var(--bg); border:2px dashed var(--red); border-radius:18px; padding:20px; margin-top:26px; cursor:pointer;}
+.teacher-zone:hover{background:var(--red-soft);}
+.teacher-zone h3{margin:0 0 4px; font-size:1.3rem; color:var(--red-text);}
+.teacher-zone p{margin:0; font-size:1rem;}
+.completion{text-align:center; padding:40px 20px; background:var(--ok-soft); color:var(--ok); border:2px solid var(--ok); border-radius:22px; display:none; margin-top:20px;}
 .completion.show{display:block;}
+.footer-note{border-top:2px solid var(--line); padding:20px 0 110px; margin-top:20px; font-size:0.85rem; color:var(--muted); text-align:center;}
 
-.footer-note{text-align:center; color:var(--muted); font-size:12px; font-weight: 600; margin-top:60px;}
-table.styled-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 15px 0;
-  font-size: 14px;
-  text-align: center;
-  background: var(--paper);
-  border-radius: 12px;
-  overflow: hidden;
-  border: 2px solid var(--line);
-}
-table.styled-table th { background: var(--panel2); color: var(--red-text); padding: 12px; border-bottom: 2px solid var(--line); font-weight: 800; }
-table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); color: var(--text); font-weight: 500; }
+/* ===== חלון מורה: פונט שחור על רקע בהיר ===== */
+.overlay{position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.72); display:flex; align-items:center; justify-content:center; padding:14px;}
+.modal-card{position:relative; width:100%; max-width:820px; max-height:92vh; overflow-y:auto; background:#fff; color:#000; border-radius:22px; padding:clamp(18px,3vw,32px);}
+.modal-card,.modal-card *{color:#000;}
+.modal-card .en-inline{border:1.5px solid #000; background:#f0f0f0; color:#000;}
+.modal-close{position:absolute; top:14px; left:14px; width:48px; height:48px; border-radius:50%; border:2px solid #000; background:#fff; font-size:1.1rem; font-weight:800;}
+.modal-card h2{margin:0 0 12px; padding-left:60px; font-family:'Rubik',sans-serif; font-weight:800; font-size:1.6rem; line-height:1.35;}
+.modal-btn{min-height:56px; padding:0 28px; border-radius:14px; border:2px solid #000; background:#ffd400; font-size:1.05rem; font-weight:800;}
+.pass-row{display:flex; gap:12px; flex-wrap:wrap; align-items:center;}
+.pass-row .field{flex:1; min-width:200px; margin-bottom:0;}
+.review{margin-top:14px;}
+.review .item{border:2px solid #000; border-radius:14px; padding:12px 16px; margin-bottom:10px;}
+.review .item p{margin:0 0 6px; font-size:1.05rem; line-height:1.6; max-width:none;}
 
-::-webkit-scrollbar{width:8px; height:8px;}
-::-webkit-scrollbar-thumb{background:var(--border2); border-radius:4px;}
-@keyframes fadeIn { from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+/* ===== עוזר: הבוט המטורלל ===== */
+.bot{position:fixed; bottom:16px; left:16px; z-index:90;}
+.bot-fab{width:76px; height:76px; padding:0; border-radius:50%; border:3px solid var(--red); background:#fff; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3); animation:floatBot 4s ease-in-out infinite;}
+.bot-fab img{width:100%; height:100%; object-fit:cover; display:block;}
+.bot-card{width:min(300px,calc(100vw - 32px)); background:var(--paper); color:var(--ink); border:2px solid var(--line); border-radius:18px; box-shadow:0 14px 34px rgba(0,0,0,0.35); overflow:hidden;}
+.bot.collapsed .bot-card{display:none;}
+.bot:not(.collapsed) .bot-fab{display:none;}
+.bot-top{display:flex; align-items:center; justify-content:space-between; padding:8px 14px; background:var(--red); color:#fff; font-weight:800; font-size:0.85rem;}
+.bot-top button{width:40px; height:40px; border-radius:50%; border:none; background:rgba(255,255,255,0.2); color:#fff; font-size:1rem;}
+.bot-body{padding:14px; text-align:center;}
+.bot-body img{width:64px; height:64px; border-radius:50%; object-fit:cover; border:3px solid var(--red);}
+.bot-body p{margin:6px 0 12px; font-size:0.85rem; line-height:1.6; max-width:none;}
+.bot-link{display:block; padding:12px; border-radius:12px; background:var(--red); color:#fff; font-weight:800; font-size:0.9rem; text-decoration:none;}
+@keyframes floatBot{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+@media (prefers-reduced-motion:reduce){.bot-fab{animation:none;} *{transition:none !important;}}
 </style>
 </head>
 <body>
 
-<div class="wrap">
-
-<header class="hero">
+<header class="site-header">
   <div class="header-inner">
-    <!-- קבוצה ימנית: אוואטר, כותרת וסאבטייטל -->
-    <div class="header-main-group">
-      <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" class="title-avatar" alt="Crazy Avatar">
-      <div class="header-text-content">
-        <div class="title-row">
-          <h1 class="title">
-            <div>לומדים כתובות <span class="en-inline">IP</span> עם סהר</div>
-          </h1>
-        </div>
-        <p class="subtitle">כתובות <span class="en-inline">IP</span> ותת-רשתות: השכבה השלישית מתעוררת לחיים.</p>
+    <div class="brand">
+      <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר המורה">
+      <div>
+        <h1>לומדים כתובות <span class="en-inline">IP</span> עם סהר</h1>
+        <p>כתובות <span class="en-inline">IP</span> ותת-רשתות: השכבה השלישית מתעוררת לחיים.</p>
       </div>
     </div>
-
-    <!-- קבוצה שמאלית: פרוטוקולים וכפתורי ניווט בשורה אחת צפופה -->
-    <div class="header-actions-group">
-      <div class="protocol-row">
-        <span class="protocol-chip">IPv4</span>
-        <span class="protocol-chip">SUBNETTING</span>
-        <span class="protocol-chip">ROUTING</span>
-        <span class="protocol-chip">GATEWAY</span>
-      </div>
-      <nav class="navbar">
-        <a class="nav-btn" href="#s3">מעבדה</a>
-        <a class="nav-btn solid" href="https://gemini.google.com/gem/167016ac4a4b?usp=sharing" target="_blank" rel="noopener">Gemini AI</a>
-      </nav>
+    <div class="header-actions">
+      <a class="teacher-btn" href="https://gemini.google.com/gem/167016ac4a4b?usp=sharing" target="_blank" rel="noopener">Gemini AI</a>
+      <a class="icon-btn" href="#s3">מעבדה</a>
     </div>
   </div>
 </header>
+
+<div class="stats-bar">
+  <div class="stat"><b>IPv4</b></div>
+  <div class="stat"><b>SUBNETTING</b></div>
+  <div class="stat"><b>ROUTING</b></div>
+  <div class="stat"><b>GATEWAY</b></div>
+</div>
+
+<div class="wrap">
 
 <!-- ============================================================
      סעיף s1: מסע המכתב רקע בהיר, אינטראקטיבי
@@ -378,12 +209,10 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
 <style>
 /* ===== סעיף s1 · מסע המכתב ===== */
 #s1 .pm-scene{
-  position:relative; margin-top:16px; border-radius:26px; padding:22px 22px 24px; overflow:hidden;
-  background:linear-gradient(180deg,#fef7e7 0%,#fbf1dc 38%,#f6eadc 72%,#f3e3cc 100%);
-  border:2px solid var(--line);
-  box-shadow:0 22px 55px rgba(120,40,20,.12), inset 0 0 0 1px rgba(185,28,28,.05);
+  position:relative; margin-top:16px; border-radius:18px; padding:22px 22px 24px; overflow:hidden;
+  background:var(--bg); border:2px solid var(--line);
 }
-#s1 .pm-deco{position:absolute; inset:0; pointer-events:none; z-index:0;}
+#s1 .pm-deco{display:none;}
 #s1 .pm-sun{position:absolute; top:-46px; left:-40px; width:160px; height:160px; border-radius:50%;
   background:radial-gradient(circle,rgba(252,211,77,0.4) 0 38%,rgba(252,211,77,0) 70%); animation:pmPulse 5s ease-in-out infinite;}
 #s1 .pm-sun::before{content:""; position:absolute; inset:-34px; border-radius:50%;
@@ -397,9 +226,8 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
 #s1 .pm-cloud.c3{top:34px; font-size:38px; animation-duration:68s; animation-delay:-60s; opacity:.7;}
 
 #s1 .pm-top{position:relative; z-index:3; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:22px;}
-#s1 .pm-chip{font-weight:800; font-size:14px; color:var(--red-text); background:rgba(255,255,255,.9); border:1px solid var(--red-edge); padding:7px 14px; border-radius:99px; backdrop-filter:blur(4px); box-shadow: 0 4px 12px rgba(120,40,20,0.05);}
-#s1 .pm-send{background:linear-gradient(135deg,#dc2626,#b91c1c); color:#fff; padding:13px 26px; border-radius:99px; font-size:16px; font-weight: 800;
-  box-shadow:0 10px 24px rgba(185,28,28,.3); animation:pmBtn 2.4s ease-in-out infinite; border: none; cursor: pointer;}
+#s1 .pm-chip{font-weight:800; font-size:0.9rem; color:var(--red-text); background:var(--paper); border:2px solid var(--line); padding:4px 16px; border-radius:12px;}
+#s1 .pm-send{background:var(--red); color:#fff; min-height:56px; padding:0 26px; border-radius:14px; font-size:1.05rem; font-weight:800; border:2px solid var(--red); animation:pmBtn 2.4s ease-in-out infinite; cursor:pointer;}
 #s1 .pm-send:disabled{opacity:.7; cursor:wait; animation:none;}
 
 /* תחנות */
@@ -408,20 +236,20 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
   display:flex; flex-direction:column; align-items:center; text-align:center;}
 #s1 .pm-stage.start{cursor:default;}
 #s1 .pm-orb{position:relative; width:92px; height:92px; border-radius:50%; display:grid; place-items:center; font-size:44px;
-  background:radial-gradient(circle at 30% 25%,#fff,#f7ecd6); border:4px solid var(--c);
-  box-shadow:0 12px 26px rgba(120,40,20,.12); transition:transform .45s cubic-bezier(.3,1.6,.5,1), box-shadow .4s; z-index:1;}
+  background:var(--paper); border:4px solid var(--c);
+  box-shadow:var(--shadow); transition:transform .45s cubic-bezier(.3,1.6,.5,1), box-shadow .4s; z-index:1;}
 #s1 .pm-stage:not(.start):hover .pm-orb{transform:translateY(-4px) scale(1.06);}
 #s1 .pm-stage.active .pm-orb{transform:scale(1.14); box-shadow:0 0 0 7px color-mix(in srgb,var(--c) 18%,transparent),0 14px 30px rgba(120,40,20,.18);}
 #s1 .pm-stage.active .pm-orb::after{content:""; position:absolute; inset:-9px; border-radius:50%; border:3px solid var(--c); animation:pmRing 1.5s ease-out infinite;}
 #s1 .pm-stage.done .pm-orb{background:radial-gradient(circle at 30% 25%,#fff,color-mix(in srgb,var(--c) 14%,#fff));}
 #s1 .pm-txt{display:flex; flex-direction:column; align-items:center; margin-top:14px;}
-#s1 .pm-name{font-weight:800; font-size:17px; line-height:1.2; color: var(--ink);}
-#s1 .pm-sub{font-size:13px; color:var(--muted); margin-top:2px; font-weight: 600;}
-#s1 .pm-pill{margin-top:7px; font-family:'Fira Code',monospace; font-size:11px; font-weight:700; direction:ltr; unicode-bidi:isolate;
+#s1 .pm-name{font-weight:800; font-size:1.15rem; line-height:1.2; color: var(--ink);}
+#s1 .pm-sub{font-size:0.95rem; color:var(--muted); margin-top:2px; font-weight: 600;}
+#s1 .pm-pill{margin-top:7px; font-family:'JetBrains Mono',monospace; font-size:0.85rem; font-weight:700; direction:ltr; unicode-bidi:isolate;
   padding:3px 10px; border-radius:99px; background:#fff; border:1.5px solid var(--c); color:var(--c);}
 #s1 .pm-pill.he{font-family:'Rubik',sans-serif; direction:rtl;}
 #s1 .pm-orb .b,#s1 .pm-badge{display:none;}
-#s1 .pm-badge{display:block; position:absolute; bottom:-8px; left:-10px; font-size:28px; transform:scale(0); transition:transform .5s cubic-bezier(.3,1.9,.5,1);}
+#s1 .pm-badge{display:block; position:absolute; bottom:-8px; left:-10px; font-size:1.6rem; transform:scale(0); transition:transform .5s cubic-bezier(.3,1.9,.5,1);}
 #s1 .delivered .pm-badge{transform:scale(1);}
 #s1 .delivered .pm-orb .a{display:none;}
 #s1 .delivered .pm-orb .b{display:inline;}
@@ -438,8 +266,8 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
   transition:transform 1.35s cubic-bezier(.65,0,.35,1);}
 #s1 .pm-man-in{display:block; font-size:48px; line-height:64px; text-align:center; filter:drop-shadow(0 7px 4px rgba(0,0,0,.15)); animation:pmBob 2.2s ease-in-out infinite;}
 #s1 .pm-man.moving .pm-man-in{animation:pmRide .26s ease-in-out infinite;}
-#s1 .pm-mail{position:absolute; top:-12px; right:-4px; font-size:22px; animation:pmFloat 1.6s ease-in-out infinite;}
-#s1 .pm-spark{position:absolute; z-index:4; font-size:16px; pointer-events:none; animation:pmSpark .9s ease-out forwards;}
+#s1 .pm-mail{position:absolute; top:-12px; right:-4px; font-size:1.4rem; animation:pmFloat 1.6s ease-in-out infinite;}
+#s1 .pm-spark{position:absolute; z-index:4; font-size:1.1rem; pointer-events:none; animation:pmSpark .9s ease-out forwards;}
 
 /* חלק תחתון */
 #s1 .pm-bottom{position:relative; z-index:2; display:grid; grid-template-columns:1fr 1.2fr; gap:18px; margin-top:26px;}
@@ -447,28 +275,28 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
   box-shadow:0 14px 30px rgba(120,40,20,.12); transform:rotate(-1.2deg);}
 #s1 .pm-paper{position:relative; background:#FFFAF0; border-radius:10px; padding:16px; border: 1px solid var(--line);}
 #s1 .pm-env-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-weight:800; color:var(--ink);}
-#s1 .pm-stamp{border:3px solid #0b6b4a; color:#0b6b4a; border-radius:8px; padding:1px 10px; font-size:13px; font-weight:800; opacity:0; transform:rotate(-10deg) scale(0);
+#s1 .pm-stamp{border:3px solid #0b6b4a; color:#0b6b4a; border-radius:8px; padding:1px 10px; font-size:0.95rem; font-weight:800; opacity:0; transform:rotate(-10deg) scale(0);
   transition:transform .5s cubic-bezier(.3,1.9,.5,1),opacity .2s;}
 #s1 .delivered .pm-stamp{opacity:1; transform:rotate(-10deg) scale(1);}
 #s1 .pm-line{display:flex; align-items:center; gap:10px; padding:8px 10px; margin-bottom:8px; border-radius:10px; background:#fff; border:1px dashed var(--line); transition:all .4s;}
-#s1 .pm-line i{font-style:normal; font-size:20px;}
-#s1 .pm-line b{font-size:12px; color:var(--muted); min-width:68px;}
+#s1 .pm-line i{font-style:normal; font-size:1.3rem;}
+#s1 .pm-line b{font-size:0.9rem; color:var(--muted); min-width:5.5rem;}
 #s1 .pm-line span{font-weight:700; color:var(--ink); filter:blur(6px); opacity:.4; transition:all .55s;}
 #s1 .pm-line.on{background:#fff; border:1px solid var(--lc);}
 #s1 .pm-line.on span{filter:none; opacity:1;}
 #s1 .pm-line.pop{animation:pmPop .55s;}
-#s1 .pm-ip{margin-top:12px; text-align:center; font-family:'Fira Code',monospace; font-size:20px; font-weight:700; color:var(--muted); direction:ltr; unicode-bidi:isolate;}
+#s1 .pm-ip{margin-top:12px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:1.3rem; font-weight:700; color:var(--muted); direction:ltr; unicode-bidi:isolate;}
 #s1 .pm-ip .net,#s1 .pm-ip .host{padding:3px 8px; border-radius:8px; transition:all .4s;}
 #s1 .pm-ip .net.on{background:var(--red-soft); color:var(--red-text);}
 #s1 .pm-ip .host.on{background:#fdf1dd; color:#b45309;}
-#s1 .pm-ip-cap{margin:6px 0 0; font-size:12px; text-align:center; color:var(--muted); font-weight: 600;}
+#s1 .pm-ip-cap{margin:6px 0 0; font-size:0.9rem; text-align:center; color:var(--muted); font-weight: 600;}
 
 #s1 .pm-info{background:var(--paper); border:2px solid var(--line); border-right:6px solid var(--c,#0b6b4a); border-radius:18px; padding:20px 22px;
   box-shadow:0 14px 30px rgba(120,40,20,.08); display:flex; flex-direction:column; justify-content:center; transition:border-color .4s;}
 #s1 .pm-info.swap{animation:pmPop .5s;}
-#s1 .pm-info-step{font-family:'Fira Code',monospace; font-size:12px; font-weight:700; color:var(--c,#0b6b4a); margin-bottom:4px;}
-#s1 .pm-info h3{font-size:22px; color:var(--ink); margin-bottom:8px; font-weight: 800;}
-#s1 .pm-info p{font-size:15px; color:var(--muted); margin-bottom:10px; font-weight: 500;}
+#s1 .pm-info-step{font-family:'JetBrains Mono',monospace; font-size:0.9rem; font-weight:700; color:var(--c,#0b6b4a); margin-bottom:4px;}
+#s1 .pm-info h3{font-size:1.4rem; color:var(--ink); margin-bottom:8px; font-weight: 800;}
+#s1 .pm-info p{font-size:1.05rem; color:var(--muted); margin-bottom:10px; font-weight: 500;}
 
 /* שאלה למחשבה */
 #s1 .pm-q{margin-top:22px; background:var(--paper); border:2px solid var(--line); border-right:6px solid var(--gold); border-radius:18px; padding:22px; box-shadow:0 8px 24px rgba(120,40,20,.06);}
@@ -508,9 +336,9 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
 }
 </style>
 
-<div class="section-head" style="margin-bottom:6px;">
-  <h2 class="section-title" style="margin-top:0; margin-bottom:4px;">מעבר חבילת תקשורת והדמיון לעבודת הדוור</h2>
-  <p style="margin:0; font-weight:600; color:var(--muted);">חשבו על שליחת מכתב בדואר. כדי שהדוור יידע לאן להביא את המכתב, הוא חייב כתובת מדויקת הבנויה בשלבים:</p>
+<div class="section-head">
+  <h2 class="section-title">מעבר חבילת תקשורת והדמיון לעבודת הדוור</h2>
+  <p>חשבו על שליחת מכתב בדואר. כדי שהדוור יידע לאן להביא את המכתב, הוא חייב כתובת מדויקת הבנויה בשלבים:</p>
 </div>
 
 <div class="pm-scene" id="pmScene">
@@ -588,14 +416,14 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
   </div>
 </div>
 
-<div class="pm-q">
-  <h3>❓ שאלה למחשבה: התנגשות כתובות <span class="en-inline">IP Conflict</span></h3>
-  <p>מה קורה אם לשני מחשבים שונים באותו רחוב, ברשת מקומית, תהיה אותה כתובת <span class="en-inline">IP</span> בדיוק?</p>
-  <div class="controls-row">
-    <button class="btn secondary" onclick="answerScenario(1)">ייווצר קונפליקט כתובות והתקשורת של שניהם תיפגע או תיחסם</button>
-    <button class="btn secondary" onclick="answerScenario(2)">הם יקבלו את אותן הודעות בדיוק כמו זוג תאומים ללא בעיה</button>
+<div class="quick">
+  <h3>שאלה למחשבה: התנגשות כתובות <span class="en-inline">IP Conflict</span></h3>
+  <p class="q">מה קורה אם לשני מחשבים שונים באותו רחוב, ברשת מקומית, תהיה אותה כתובת <span class="en-inline">IP</span> בדיוק?</p>
+  <div class="choices" id="scenario-choices">
+    <button class="choice" onclick="answerScenario(1)">ייווצר קונפליקט כתובות והתקשורת של שניהם תיפגע או תיחסם</button>
+    <button class="choice" onclick="answerScenario(2)">הם יקבלו את אותן הודעות בדיוק כמו זוג תאומים ללא בעיה</button>
   </div>
-  <div id="scenario-feedback" style="margin-top:14px; font-size:14px; display:none; font-weight: 700;"></div>
+  <div id="scenario-feedback" class="feedback hidden" role="status"></div>
 </div>
 
 <script>
@@ -760,23 +588,23 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
   <h2 class="section-title">איך מפרידים בין הרחוב לבין הבית?</h2>
 </div>
 
-<p>כתובת <span class="en-inline">IPv4</span> מורכבת מ-32 סיביות <span class="en-inline">Bits</span> המחולקות ל-4 מספרים בין 0 ל-255 המופרדים בנקודה. מסכת הרשת <span class="en-inline">Subnet Mask</span> היא הבלופרינט שמורה למחשב איזה חלק מהכתובת שייך לרשת ואיזה חלק שייך למארח.</p>
+<p class="lead">כתובת <span class="en-inline">IPv4</span> מורכבת מ-32 סיביות <span class="en-inline">Bits</span> המחולקות ל-4 מספרים בין 0 ל-255 המופרדים בנקודה. מסכת הרשת <span class="en-inline">Subnet Mask</span> היא הבלופרינט שמורה למחשב איזה חלק מהכתובת שייך לרשת ואיזה חלק שייך למארח.</p>
 
-<div class="card" style="margin-bottom:20px;">
-  <h3 style="color:var(--red-text);">מבנה חלוקה קלאסי מסוג <span class="en-inline">Class C</span>:</h3>
+<div class="card" style="margin-bottom:20px; --accent:var(--c-host);">
+  <h3>מבנה חלוקה קלאסי מסוג <span class="en-inline">Class C</span>:</h3>
   <div class="grid2" style="margin-top:15px;">
-    <div style="background:var(--bg); padding:16px; border-radius:12px; text-align:center; border:2px solid var(--line);">
+    <div class="part">
       <div style="color:var(--red-text); font-weight:bold;" class="mono">192.168.1</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; font-weight: 600;">חלק הרשת <span class="en-inline">Network ID</span> - מוגדר ע"י <span class="en-inline">255.255.255</span></div>
+      <div style="font-size:0.9rem; color:var(--muted); margin-top:4px; font-weight: 600;">חלק הרשת <span class="en-inline">Network ID</span> - מוגדר ע"י <span class="en-inline">255.255.255</span></div>
     </div>
-    <div style="background:var(--bg); padding:16px; border-radius:12px; text-align:center; border:2px solid var(--line);">
+    <div class="part">
       <div style="color:var(--gold); font-weight:bold;" class="mono">50</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; font-weight: 600;">חלק המארח <span class="en-inline">Host ID</span> - מוגדר ע"י <span class="en-inline">0</span> במסכה</div>
+      <div style="font-size:0.9rem; color:var(--muted); margin-top:4px; font-weight: 600;">חלק המארח <span class="en-inline">Host ID</span> - מוגדר ע"י <span class="en-inline">0</span> במסכה</div>
     </div>
   </div>
 
   <div style="margin-top:20px;">
-    <h4 style="color:var(--ink); font-weight: 800;">טבלת מחלקות <span class="en-inline">Classes</span> ופרפיקסים <span class="en-inline">CIDR</span>:</h4>
+    <h3 style="margin:0 0 10px;">טבלת מחלקות <span class="en-inline">Classes</span> ופרפיקסים <span class="en-inline">CIDR</span>:</h3>
     <table class="styled-table">
       <thead>
         <tr>
@@ -807,7 +635,7 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
         </tr>
       </tbody>
     </table>
-    <p style="font-size:13px; color:var(--muted); font-weight: 600;">נוסחת חישוב מספר המארחים ברשת: <span class="en-inline">2<sup>H</sup> - 2</span>. עבור 8 ביטים של מארח <span class="en-inline">/24</span>: <span class="en-inline">2<sup>8</sup> - 2 = 254</span> כתובות זמינות.</p>
+    <p style="font-size:0.95rem; color:var(--muted); font-weight: 600;">נוסחת חישוב מספר המארחים ברשת: <span class="en-inline">2<sup>H</sup> - 2</span>. עבור 8 ביטים של מארח <span class="en-inline">/24</span>: <span class="en-inline">2<sup>8</sup> - 2 = 254</span> כתובות זמינות.</p>
   </div>
 </div>
 </section>
@@ -820,69 +648,69 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
 </div>
 
 <div class="card concept-card" style="margin-bottom:20px;">
-  <h3 style="color:var(--red-text);">שלב 1: בחרו מצב עבודה</h3>
+  <h3>שלב 1: בחרו מצב עבודה</h3>
   <p>אפשר להתחיל מתרחיש תקלה ולחקור אותו, או לבחור רשת תקינה ולשנות הגדרה כדי לראות מה קורה.</p>
   <div class="controls-row">
     <button class="btn danger" onclick="loadScenario('wrong-gw')">תרחיש א׳: שער שגוי</button>
     <button class="btn warning" onclick="loadScenario('wrong-ip')">תרחיש ב׳: כתובת ברשת הלא נכונה</button>
-    <button class="btn" style="background:var(--acl-permit);" onclick="loadScenario('correct')">תרחיש ג׳: הגדרה תקינה</button>
+    <button class="btn ok" onclick="loadScenario('correct')">תרחיש ג׳: הגדרה תקינה</button>
   </div>
-  <div style="margin-top:14px;padding:12px;background:var(--bg);border:2px solid var(--line);border-radius:10px;color:var(--ink);font-size:14px; font-weight: 600;">
+  <div style="margin-top:14px;padding:12px;background:var(--bg);border:2px solid var(--line);border-radius:10px;color:var(--ink);font-size:1rem; font-weight: 600;">
     <b style="color:var(--red-text);">המשימה שלכם:</b> בדקו קודם תקשורת אל הנתב המקומי <span class="en-inline">Gateway</span> של רשת A. לאחר מכן בדקו תקשורת אל <span class="en-inline">PC B</span> שברשת המרוחקת. אם הבדיקה נכשלת, קראו את ההסבר ותקנו את השדות של <span class="en-inline">PC A</span>.
   </div>
 </div>
 
 <div class="diagram-wrap">
-  <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--ink);font-size:13px;margin-bottom:12px; font-weight: 700;">
+  <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--ink);font-size:0.95rem;margin-bottom:12px; font-weight: 700;">
     <span><b style="color:var(--red-text);">רשת B · <span class="en-inline">10.0.0.0/8</span></b> — הרשת המרוחקת</span>
     <span><b style="color:var(--cyber-blue);">רשת A · <span class="en-inline">192.168.1.0/24</span></b> — הרשת המקומית</span>
   </div>
   <svg id="networkDiagram" viewBox="0 0 1000 380" style="width:100%;display:block;min-width:620px;" role="img" aria-label="מחשב A מחובר לממשק השמאלי של נתב, וממשק הנתב הימני מחובר למחשב B">
     <rect x="20" y="42" width="310" height="280" rx="14" fill="#0e7490" fill-opacity=".06" stroke="#0e7490" stroke-dasharray="7 6"/>
     <rect x="670" y="42" width="310" height="280" rx="14" fill="#b91c1c" fill-opacity=".06" stroke="#b91c1c" stroke-dasharray="7 6"/>
-    <text x="175" y="70" text-anchor="middle" fill="#0e7490" font-family="Rubik" font-size="17" font-weight="700">רשת A מקומית</text>
-    <text x="825" y="70" text-anchor="middle" fill="#b91c1c" font-family="Rubik" font-size="17" font-weight="700">רשת B מרוחקת</text>
+    <text x="175" y="70" text-anchor="middle" fill="#0e7490" font-family="Rubik" font-size="22" font-weight="700">רשת A מקומית</text>
+    <text x="825" y="70" text-anchor="middle" fill="#b91c1c" font-family="Rubik" font-size="22" font-weight="700">רשת B מרוחקת</text>
     <line x1="260" y1="185" x2="425" y2="185" stroke="#e6d9bf" stroke-width="4"/>
     <line x1="575" y1="185" x2="740" y2="185" stroke="#e6d9bf" stroke-width="4"/>
     <g>
       <rect x="65" y="130" width="195" height="112" rx="10" fill="#ffffff" stroke="#0e7490" stroke-width="2"/>
-      <text x="162" y="157" text-anchor="middle" fill="#20150f" font-family="Rubik" font-size="18" font-weight="700">PC A</text>
-      <text id="visual-ip-a" x="162" y="184" text-anchor="middle" fill="#0e7490" font-family="Fira Code" font-size="14" style="direction:ltr; unicode-bidi:isolate;">192.168.1.10</text>
-      <text x="162" y="211" text-anchor="middle" fill="#5a4a40" font-family="Rubik" font-size="12">מסכה: /24 ברירת מעבדה</text>
+      <text x="162" y="157" text-anchor="middle" fill="#20150f" font-family="Rubik" font-size="22" font-weight="700">PC A</text>
+      <text id="visual-ip-a" x="162" y="186" text-anchor="middle" fill="#0e7490" font-family="JetBrains Mono" font-size="19" style="direction:ltr; unicode-bidi:isolate;">192.168.1.10</text>
+      <text x="162" y="214" text-anchor="middle" fill="#5a4a40" font-family="Rubik" font-size="16">מסכה: /24 ברירת מעבדה</text>
     </g>
     <g>
-      <circle cx="500" cy="185" r="66" fill="#fbf8ee" stroke="#b45309" stroke-width="3"/>
-      <text x="500" y="171" text-anchor="middle" fill="#20150f" font-family="Rubik" font-size="18" font-weight="700">נתב R1</text>
-      <text x="500" y="193" text-anchor="middle" fill="#b45309" font-family="Fira Code" font-size="12" style="direction:ltr; unicode-bidi:isolate;">Fa0/0</text>
-      <text x="500" y="211" text-anchor="middle" fill="#b45309" font-family="Fira Code" font-size="12" style="direction:ltr; unicode-bidi:isolate;">192.168.1.1/24</text>
-      <text x="500" y="270" text-anchor="middle" fill="#b91c1c" font-family="Fira Code" font-size="12" style="direction:ltr; unicode-bidi:isolate;">Fa0/1: 10.0.0.1/8</text>
+      <circle cx="500" cy="185" r="74" fill="#fbf8ee" stroke="#b45309" stroke-width="3"/>
+      <text x="500" y="171" text-anchor="middle" fill="#20150f" font-family="Rubik" font-size="23" font-weight="700">נתב R1</text>
+      <text x="500" y="196" text-anchor="middle" fill="#b45309" font-family="JetBrains Mono" font-size="17" style="direction:ltr; unicode-bidi:isolate;">Fa0/0</text>
+      <text x="500" y="218" text-anchor="middle" fill="#b45309" font-family="JetBrains Mono" font-size="15" style="direction:ltr; unicode-bidi:isolate;">192.168.1.1/24</text>
+      <text x="500" y="282" text-anchor="middle" fill="#b91c1c" font-family="JetBrains Mono" font-size="17" style="direction:ltr; unicode-bidi:isolate;">Fa0/1: 10.0.0.1/8</text>
     </g>
     <g>
       <rect x="740" y="130" width="195" height="112" rx="10" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
-      <text x="837" y="157" text-anchor="middle" fill="#20150f" font-family="Rubik" font-size="18" font-weight="700">PC B</text>
-      <text x="837" y="184" text-anchor="middle" fill="#b91c1c" font-family="Fira Code" font-size="14" style="direction:ltr; unicode-bidi:isolate;">10.0.0.20</text>
-      <text x="837" y="211" text-anchor="middle" fill="#5a4a40" font-family="Rubik" font-size="12">מסכה: /8</text>
+      <text x="837" y="157" text-anchor="middle" fill="#20150f" font-family="Rubik" font-size="22" font-weight="700">PC B</text>
+      <text x="837" y="186" text-anchor="middle" fill="#b91c1c" font-family="JetBrains Mono" font-size="19" style="direction:ltr; unicode-bidi:isolate;">10.0.0.20</text>
+      <text x="837" y="214" text-anchor="middle" fill="#5a4a40" font-family="Rubik" font-size="16">מסכה: /8</text>
     </g>
     <g id="simPacket" style="display:none;">
       <circle cx="0" cy="0" r="13" fill="#0b6b4a" stroke="#d8f3e6" stroke-width="3"/>
-      <text id="simPacketLabel" y="4" text-anchor="middle" fill="#fff" font-family="Fira Code" font-size="9" font-weight="bold">ICMP</text>
+      <text id="simPacketLabel" y="4" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="10" font-weight="bold">ICMP</text>
     </g>
-    <text x="500" y="355" text-anchor="middle" fill="var(--muted)" font-family="Rubik" font-size="13" font-weight="600">הנתב מחבר בין שתי רשתות שונות; כל ממשק שלו שייך לרשת אחרת.</text>
+    <text x="500" y="356" text-anchor="middle" fill="#5a4a40" font-family="Rubik" font-size="17" font-weight="600">הנתב מחבר בין שתי רשתות שונות; כל ממשק שלו שייך לרשת אחרת.</text>
   </svg>
 
   <div class="grid2" style="margin-top:18px;">
-    <div class="card">
-      <h3 style="color:var(--cyber-blue);font-size:17px;">שלב 2: הגדרות <span class="en-inline">PC A</span></h3>
-      <p style="font-size:13px;">ערכו את הערכים ובדקו כיצד הם משפיעים על יכולת המחשב לשלוח חבילות.</p>
+    <div class="card" style="--accent:var(--c-host);">
+      <h3>שלב 2: הגדרות <span class="en-inline">PC A</span></h3>
+      <p style="font-size:0.95rem;">ערכו את הערכים ובדקו כיצד הם משפיעים על יכולת המחשב לשלוח חבילות.</p>
       <div>
-        <label for="sim-ip-a" style="font-size:12px;color:var(--ink);display:block;margin:8px 0 4px;font-weight:700;">כתובת <span class="en-inline">IP</span> של <span class="en-inline">PC A</span></label>
-        <input type="text" id="sim-ip-a" value="192.168.1.10" oninput="updateVisuals()" dir="ltr" style="width:100%;padding:10px;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:8px;margin-bottom:8px;text-align:left;font-family:'Fira Code',monospace;font-weight:700;">
-        <label for="sim-mask-a" style="font-size:12px;color:var(--ink);display:block;margin:8px 0 4px;font-weight:700;">מסכת רשת</label>
-        <input type="text" id="sim-mask-a" value="255.255.255.0" oninput="updateVisuals()" dir="ltr" style="width:100%;padding:10px;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:8px;margin-bottom:8px;text-align:left;font-family:'Fira Code',monospace;font-weight:700;">
-        <label for="sim-gw-a" style="font-size:12px;color:var(--ink);display:block;margin:8px 0 4px;font-weight:700;">שער ברירת מחדל של <span class="en-inline">PC A</span></label>
-        <input type="text" id="sim-gw-a" value="192.168.1.1" oninput="updateVisuals()" dir="ltr" style="width:100%;padding:10px;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:8px;margin-bottom:8px;text-align:left;font-family:'Fira Code',monospace;font-weight:700;">
+        <label for="sim-ip-a" class="field-label">כתובת <span class="en-inline">IP</span> של <span class="en-inline">PC A</span></label>
+        <input type="text" id="sim-ip-a" value="192.168.1.10" oninput="updateVisuals()" dir="ltr" class="field">
+        <label for="sim-mask-a" class="field-label">מסכת רשת</label>
+        <input type="text" id="sim-mask-a" value="255.255.255.0" oninput="updateVisuals()" dir="ltr" class="field">
+        <label for="sim-gw-a" class="field-label">שער ברירת מחדל של <span class="en-inline">PC A</span></label>
+        <input type="text" id="sim-gw-a" value="192.168.1.1" oninput="updateVisuals()" dir="ltr" class="field">
       </div>
-      <div style="padding:10px;background:var(--red-soft);border:1px solid var(--red-edge);border-radius:8px;font-size:12px;color:var(--red-text);margin-top:8px; font-weight:600;">
+      <div style="padding:10px;background:var(--red-soft);border:1px solid var(--red-edge);border-radius:8px;font-size:0.9rem;color:var(--red-text);margin-top:8px; font-weight:600;">
         <b>שימו לב:</b> השער של <span class="en-inline">PC A</span> הוא <span class="en-inline">192.168.1.1</span> — הכתובת של ממשק הנתב שמחובר פיזית לרשת A. הכתובת <span class="en-inline">10.0.0.1</span> שייכת לממשק השני של הנתב, ברשת B, ולכן אינה שער מקומי תקין עבור <span class="en-inline">PC A</span>.
       </div>
       <div class="controls-row">
@@ -893,13 +721,13 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
     <div class="terminal">
       <div class="term-topbar">
         <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-        <span style="margin-left:8px;color:#CBD5E1;font-size:12px;" dir="ltr">NETWORK DIAGNOSTICS</span>
+        <span style="margin-left:8px;color:#CBD5E1;font-size:0.9rem;" dir="ltr">NETWORK DIAGNOSTICS</span>
       </div>
       <div id="diag-console" class="term-output" dir="ltr" style="min-height:115px;">// בחרו תרחיש או ערכו את ההגדרות, ואז הפעילו בדיקה.</div>
-      <div id="diag-pedagogic-note" style="margin-top:10px;padding:12px;background:#251c18;border-radius:8px;font-size:13px;color:#fcd34d;display:none;text-align:right;border:1px solid #3d2f26;" dir="rtl"></div>
+      <div id="diag-pedagogic-note" style="margin-top:10px;padding:12px;background:#251c18;border-radius:8px;font-size:0.95rem;color:#fcd34d;display:none;text-align:right;border:1px solid #3d2f26;" dir="rtl"></div>
       <div style="margin-top:14px;border-top:1px solid #3d2f26;padding-top:12px;text-align:right;" dir="rtl">
-        <div style="font-size:12px;color:#d0c0b3;margin-bottom:8px;font-weight:700;">מה צריך להיות נכון?</div>
-        <div id="sim-checklist" style="font-size:13px;color:#f8efe7;line-height:1.9;">
+        <div style="font-size:0.9rem;color:#d0c0b3;margin-bottom:8px;font-weight:700;">מה צריך להיות נכון?</div>
+        <div id="sim-checklist" style="font-size:0.95rem;color:#f8efe7;line-height:1.9;">
           <div>○ כתובת <span class="en-inline">PC A</span> שייכת לרשת A</div><div>○ מסכת הרשת תואמת לתרגיל</div><div>○ השער הוא ממשק הנתב ברשת A</div>
         </div>
       </div>
@@ -916,19 +744,19 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
 
 <div class="grid2">
   <div class="card">
-    <h3 style="color:var(--red-text);">📋 משימת הגשה: הגדרת תחנה חדשה לרשת A</h3>
-    <p style="font-size: 13px; color: var(--muted); margin-bottom: 14px; font-weight: 500;">
+    <h3>משימת הגשה: הגדרת תחנה חדשה לרשת A</h3>
+    <p style="margin-bottom:14px;">
       הנכם מתבקשים להוסיף מחשב חדש <b>PC C</b> ל<b>רשת A</b> המקומית <span class="en-inline">192.168.1.0/24</span>. הזינו כתובת <span class="en-inline">IP</span> חוקית ופנויה עבור המחשב, התאימו את מסכת הרשת, והסבירו מדוע מחשב זה חייב לעבור דרך ה-<span class="en-inline">Gateway</span> כדי לתקשר עם <span class="en-inline">PC B</span>.
     </p>
     <div style="margin-top:12px;">
-      <label style="font-size:12px; color:var(--ink); display:block; margin-bottom:4px; font-weight:700;">כתובת <span class="en-inline">IP</span> מוצעת ל-PC C ברשת A:</label>
-      <input type="text" id="ai-user-ip" placeholder="לדוגמה: 192.168.1.50" dir="ltr" style="width:100%; padding:9px; background:var(--bg); color:var(--ink); border:2px solid var(--line); border-radius:8px; margin-bottom:10px; text-align:left; font-family:'Fira Code',monospace; font-weight:700;">
+      <label class="field-label">כתובת <span class="en-inline">IP</span> מוצעת ל-PC C ברשת A:</label>
+      <input type="text" id="ai-user-ip" placeholder="לדוגמה: 192.168.1.50" dir="ltr" class="field">
       
-      <label style="font-size:12px; color:var(--ink); display:block; margin-bottom:4px; font-weight:700;">מסכת רשת מתאימה:</label>
-      <input type="text" id="ai-user-mask" placeholder="255.255.255.0" dir="ltr" style="width:100%; padding:9px; background:var(--bg); color:var(--ink); border:2px solid var(--line); border-radius:8px; margin-bottom:10px; text-align:left; font-family:'Fira Code',monospace; font-weight:700;">
+      <label class="field-label">מסכת רשת מתאימה:</label>
+      <input type="text" id="ai-user-mask" placeholder="255.255.255.0" dir="ltr" class="field">
       
-      <label style="font-size:12px; color:var(--ink); display:block; margin-bottom:4px; font-weight:700;">מדוע PC C חייב לשלוח חבילות ל-Gateway כדי להגיע לרשת B?</label>
-      <textarea id="ai-user-explanation" rows="3" placeholder="הסבר במילים שלך מדוע נדרש ה-Gateway לתקשורת מחוץ לרשת המקומית..." style="width:100%; padding:9px; background:var(--bg); color:var(--ink); border:2px solid var(--line); border-radius:8px; font-family:'Rubik'; font-size:13px; font-weight:500;"></textarea>
+      <label class="field-label">מדוע PC C חייב לשלוח חבילות ל-Gateway כדי להגיע לרשת B?</label>
+      <textarea id="ai-user-explanation" rows="3" placeholder="הסבר במילים שלך מדוע נדרש ה-Gateway לתקשורת מחוץ לרשת המקומית..." class="field"></textarea>
     </div>
     <button class="btn" style="margin-top:10px; width:100%;" onclick="sendWorkToValidator()">שלח לבדיקת מומחה <span class="en-inline">AI 🤖</span></button>
   </div>
@@ -936,10 +764,10 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
   <div class="terminal">
     <div class="term-topbar">
       <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-      <span style="margin-left:8px; color:#ff9b9b; font-weight:bold; font-size:12px;" dir="ltr">SAAR_CYBER_BOT v2.4</span>
+      <span style="margin-left:8px; color:#ff9b9b; font-weight:bold; font-size:0.9rem;" dir="ltr">SAAR_CYBER_BOT v2.4</span>
     </div>
-    <div id="chat-messages" style="height:240px; overflow-y:auto; font-size:12px;" dir="rtl">
-      <div style="color:#ff9b9b; direction:ltr; text-align:left; font-family:'Fira Code',monospace;">&gt;&gt; SYSTEM_READY</div>
+    <div id="chat-messages" style="height:240px; overflow-y:auto; font-size:0.9rem;" dir="rtl">
+      <div style="color:#ff9b9b; direction:ltr; text-align:left; font-family:'JetBrains Mono',monospace;">&gt;&gt; SYSTEM_READY</div>
       <p style="margin-top:6px; color:#d0c0b3;">שלום צוות הדיגיטל! הזינו את הגדרות המחשב החדש PC C והסבירו את תפקיד השער. אני אבצע ניתוח בזמן אמת להגשה שלכם!</p>
     </div>
   </div>
@@ -953,20 +781,15 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
 </div>
 
 <div id="scoreBox" class="score-box" style="display:none;">
-  ענית על כל השאלות! הציון שלך במבחן ההסמכה: <span id="userScore" style="color:var(--red-text); font-size:28px;">0%</span>
+  ענית על כל השאלות! הציון שלך במבחן ההסמכה: <span id="userScore" style="font-size:1.5rem;">0%</span>
 </div>
 
 <div id="quizContainer"></div>
 
 <!-- חלונית מיוחדת למורה -->
 <div class="teacher-zone" onclick="openTeacherModal()">
-  <div style="display:flex; align-items:center; justify-content:space-between;">
-    <div>
-      <h3 style="margin:0; color:var(--red-text); font-size:18px; font-weight:800;">חלונית למורה / מדריך תקשורת</h3>
-      <p style="margin:4px 0 0; font-size:13px; color:var(--muted); font-weight:600;">לחץ כאן והזן סיסמה כדי לצפות בתשובות הנכונות ובהסברים המלאים למבחן.</p>
-    </div>
-    <div style="font-size:24px;">🔑</div>
-  </div>
+  <h3>חלונית למורה / מדריך תקשורת</h3>
+  <p>לחץ כאן והזן סיסמה כדי לצפות בתשובות הנכונות ובהסברים המלאים למבחן.</p>
 </div>
 </section>
 
@@ -978,60 +801,44 @@ table.styled-table td { padding: 10px; border-bottom: 1px solid var(--line); col
 <div class="footer-note">© 2026 לומדים כתובות <span class="en-inline">IP</span> עם סהר - מערכת סימולציה לימודית אינטראקטיבית</div>
 </div>
 
-<!-- כפתור עזרה צף -->
-<div class="fixed bottom-6 left-6 z-50 no-print">
-    <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-700 hover:to-amber-700 text-white font-bold py-2 px-4 rounded-full shadow-lg shadow-red-600/20 transition-all duration-300 transform hover:scale-105 group border border-red-400/30">
-        <div class="w-8 h-8 rounded-full border border-white/40 overflow-hidden bg-slate-950 flex-shrink-0 shadow-inner">
-            <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר בוט עזרה" class="w-full h-full object-cover">
-        </div>
-        <span>הבוט המטורלל ⚡</span>
-    </button>
-</div>
+<!-- חלון המורה -->
+<div id="teacherModal" class="overlay hidden" role="dialog" aria-modal="true" aria-label="אזור מורה">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeTeacherModal()" aria-label="סגור חלון">✕</button>
+    <h2>אזור מורה מאובטח</h2>
 
-<!-- Modal למורה - הזנת סיסמה ותשובות -->
-<div id="teacherModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[200] hidden flex items-center justify-center p-4">
-  <div class="bg-amber-50 border-2 border-red-600 rounded-2xl p-6 max-w-2xl w-full text-right relative shadow-2xl overflow-y-auto max-h-[85vh]">
-    <button onclick="closeTeacherModal()" class="absolute top-4 left-4 text-slate-500 hover:text-red-600 p-1 rounded-lg font-bold text-lg">✕</button>
-    
-    <h3 class="text-xl font-bold text-red-700 mb-2">🔒 אזור מורה מאובטח</h3>
-    
     <div id="teacherAuthSec">
-      <p class="text-sm text-slate-700 mb-4 font-semibold">הזן סיסמת מורה כדי לחשוף את התשובות הנכונות:</p>
-      <div class="flex gap-2 mb-4">
-        <input type="password" id="teacherPassInput" dir="ltr" class="bg-white border border-amber-300 text-slate-900 px-4 py-2 rounded-lg flex-1 mono outline-none focus:border-red-600 text-left font-bold" placeholder="Enter password...">
-        <button onclick="checkTeacherPassword()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-2 rounded-lg transition-all shadow-md">אישור</button>
+      <p>הזן סיסמת מורה כדי לחשוף את התשובות הנכונות:</p>
+      <div class="pass-row">
+        <input type="password" id="teacherPassInput" class="field" dir="ltr" placeholder="Enter password...">
+        <button class="modal-btn" onclick="checkTeacherPassword()">אישור</button>
       </div>
-      <div id="teacherPassErr" class="text-red-600 text-xs font-bold hidden">❌ סיסמה שגויה! נסה שוב.</div>
+      <div id="teacherPassErr" class="feedback bad hidden">סיסמה שגויה. נסה שוב.</div>
     </div>
 
     <div id="teacherAnswersSec" class="hidden">
-      <div class="p-3 bg-emerald-100 border border-emerald-500/40 rounded-lg text-emerald-800 text-xs mb-4 font-bold">
-        ✔ סיסמה אושרה! להלן מפתח התשובות הנכונות וההסברים המלאים למבחן:
-      </div>
-      <div id="answersList" class="space-y-4 text-sm text-slate-800"></div>
+      <div class="feedback ok">סיסמה אושרה. להלן מפתח התשובות הנכונות וההסברים המלאים למבחן:</div>
+      <div id="answersList" class="review"></div>
     </div>
   </div>
 </div>
 
-<!-- Modal עזרה -->
-<div id="helpModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4 transition-all duration-300">
-    <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-6 max-w-sm w-full text-center relative shadow-2xl transform scale-95 transition-transform duration-300" id="helpModalContent">
-        <button id="closeHelpModalBtn" class="absolute top-4 right-4 text-slate-500 hover:text-red-600 transition-colors p-1 rounded-lg hover:bg-amber-100">
-            <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-        
-        <div class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-red-500/50 p-1 bg-white shadow-lg overflow-hidden">
-            <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="תמונת בוט עזרה" class="w-full h-full object-cover rounded-full">
-        </div>
-
-        <h3 class="text-lg font-black text-slate-900 mb-2">צריך עזרה בשיעור?</h3>
-        <p class="text-sm text-slate-600 mb-6 leading-relaxed font-medium">הבוט המטורלל זמין כעת כדי לענות על שאלות, להסביר מושגים בכתובות <span class="en-inline">IP</span> ולסייע בפתרון המעבדה!</p>
-        
-        <a href="https://gemini.google.com/gem/167016ac4a4b?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-black py-3 px-4 rounded-xl transition-all duration-200 shadow-lg shadow-red-600/20">
-            <span>מעבר ל-Gem ⚡</span>
-            <i data-lucide="external-link" class="w-4 h-4"></i>
-        </a>
+<!-- עוזר: הבוט המטורלל -->
+<div class="bot collapsed" id="botWidget">
+  <button class="bot-fab" onclick="setBot(true)" aria-label="פתח את הבוט המטורלל">
+    <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="הבוט המטורלל">
+  </button>
+  <div class="bot-card">
+    <div class="bot-top">
+      <span>הבוט המטורלל מחובר</span>
+      <button onclick="setBot(false)" aria-label="סגור">✕</button>
     </div>
+    <div class="bot-body">
+      <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="הבוט המטורלל">
+      <p><b>צריך עזרה בשיעור?</b><br>הבוט המטורלל זמין כעת כדי לענות על שאלות, להסביר מושגים בכתובות <span class="en-inline">IP</span> ולסייע בפתרון המעבדה!</p>
+      <a class="bot-link" href="https://gemini.google.com/gem/167016ac4a4b?usp=sharing" target="_blank" rel="noopener">מעבר ל-Gem</a>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1058,13 +865,17 @@ stepIds.forEach(id=>{ const el = document.getElementById(id); if(el) io.observe(
 
 function answerScenario(choice) {
   const feedback = document.getElementById('scenario-feedback');
-  feedback.style.display = 'block';
+  const btns = document.querySelectorAll('#scenario-choices .choice');
+  btns.forEach(b => b.classList.remove('right', 'wrong'));
+  feedback.classList.remove('hidden', 'ok', 'bad');
   if (choice === 1) {
-    feedback.style.color = 'var(--acl-permit)';
-    feedback.innerHTML = `🌟 <b>נכון מאוד!</b> ייווצר סכסוך כתובות <span class="en-inline">IP Conflict</span> שטיפולו יפגע בתקשורת של שני המחשבים.`;
+    btns[0].classList.add('right');
+    feedback.classList.add('ok');
+    feedback.innerHTML = `<b>נכון מאוד.</b> ייווצר סכסוך כתובות <span class="en-inline">IP Conflict</span> שטיפולו יפגע בתקשורת של שני המחשבים.`;
   } else {
-    feedback.style.color = 'var(--acl-deny)';
-    feedback.innerHTML = `❌ <b>לא נכון.</b> תיווצר שגיאת תקשורת חמורה ברשת!`;
+    btns[1].classList.add('wrong');
+    feedback.classList.add('bad');
+    feedback.innerHTML = `<b>לא נכון.</b> תיווצר שגיאת תקשורת חמורה ברשת!`;
   }
 }
 
@@ -1131,7 +942,7 @@ function refreshSimChecklist() {
     [gwRight, 'השער הוא 192.168.1.1 — ממשק הנתב המקומי']
   ];
   document.getElementById('sim-checklist').innerHTML = items.map(([ok,label]) =>
-    `<div style="color:${ok?'#0b6b4a':'#b91c1c'}; font-weight:700;">${ok?'✓':'○'} ${label}</div>`
+    `<div style="color:${ok?'#6ee7b7':'#ff9b9b'}; font-weight:700;">${ok?'✓':'○'} ${label}</div>`
   ).join('');
 }
 
@@ -1383,44 +1194,52 @@ function renderTeacherAnswers() {
   list.innerHTML = "";
   quizData.forEach((q, i) => {
     const d = document.createElement("div");
-    d.className = "p-3 bg-white border border-amber-300 rounded-lg shadow-sm";
+    d.className = "item";
     d.innerHTML = `
-      <div class="font-bold text-red-700 mb-1">${q.q}</div>
-      <div class="text-emerald-700 font-bold mb-1">✔ תשובה נכונה: ${q.opts[q.correct]}</div>
-      <div class="text-slate-600 text-xs font-medium">💡 הסבר: ${q.explain}</div>
+      <p><b>${q.q}</b></p>
+      <p>תשובה נכונה: ${q.opts[q.correct]}</p>
+      <p>הסבר: ${q.explain}</p>
     `;
     list.appendChild(d);
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
+/* ===== עוזר ===== */
+function setBot(open) {
+  document.getElementById('botWidget').classList.toggle('collapsed', !open);
+}
+
+/* ===== מסגור מונחים באנגלית בתוך מסגרת, כמו בשיעור הקודם ===== */
+const EN_RUN = /[A-Za-z][A-Za-z0-9]*(?:[ \-][A-Za-z0-9]+)*/g;
+const EN_SKIP = 'script, style, textarea, input, button, svg, .en-inline, .english-term-box, .terminal, .pm-pill, .section-num, .stat, .teacher-btn, .icon-btn, .bot-top, .bot-link';
+
+function frameStaticText(root) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (!/[A-Za-z]/.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+      const p = node.parentElement;
+      if (!p || p.closest(EN_SKIP)) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
     }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(function (node) {
+    const safe = node.nodeValue.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    const holder = document.createElement('span');
+    holder.innerHTML = safe.replace(EN_RUN, function (m) { return '<span class="en-inline">' + m + '</span>'; });
+    const frag = document.createDocumentFragment();
+    while (holder.firstChild) frag.appendChild(holder.firstChild);
+    node.parentNode.replaceChild(frag, node);
+  });
+}
 
-    const modal = document.getElementById('helpModal');
-    const modalContent = document.getElementById('helpModalContent');
-    const openBtn = document.getElementById('openHelpModalBtn');
-    const closeBtn = document.getElementById('closeHelpModalBtn');
+document.addEventListener('DOMContentLoaded', function () {
+  frameStaticText(document.body);
+});
 
-    if(openBtn && modal && modalContent && closeBtn) {
-        openBtn.addEventListener('click', () => {
-            modal.classList.remove('hidden');
-            setTimeout(() => modalContent.classList.remove('scale-95'), 10);
-        });
-
-        closeBtn.addEventListener('click', () => {
-            modalContent.classList.add('scale-95');
-            setTimeout(() => modal.classList.add('hidden'), 150);
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modalContent.classList.add('scale-95');
-                setTimeout(() => modal.classList.add('hidden'), 150);
-            }
-        });
-    }
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') closeTeacherModal();
 });
 
 renderQuiz();
